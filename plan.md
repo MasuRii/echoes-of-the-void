@@ -550,19 +550,19 @@
   - [x] Enemy combination challenges (Pulse Orbs + Shadow Crawlers)
 
 ### 5.7 Level 5: The Last Echo (Finale)
-- [ ] Create `scenes/levels/level_05_last_echo.tscn`
-- [ ] Design goals:
-  - [ ] Final challenge - mastery test
-  - [ ] All enemy types present
-  - [ ] Complex platform combinations
-  - [ ] Final Echo Crystal (requires all skills)
-  - [ ] Climactic ending sequence
-  - [ ] 12-15 Light Shards
-- [ ] Layout tasks:
-  - [ ] Grand scale environment
-  - [ ] Callback sections to earlier levels
-  - [ ] Optional "true ending" path for 100% completion
-  - [ ] Memorable finale area
+- [x] Create `scenes/levels/level_05_last_echo.tscn`
+- [x] Design goals:
+  - [x] Final challenge - mastery test
+  - [x] All enemy types present (4 Shadow Crawlers, 3 Mirror Guards, 6 Pulse Orbs)
+  - [x] Complex platform combinations (10 Crumbling, 8 Moving, 9 Phase platforms)
+  - [x] Final Echo Crystal (requires all skills) - 3 total crystals at increasing difficulty
+  - [x] Climactic ending sequence (grand finale area at top)
+  - [x] 12-15 Light Shards (15 total)
+- [x] Layout tasks:
+  - [x] Grand scale environment (5120x2400 play area)
+  - [x] Callback sections to earlier levels (wall jump sections, timing challenges)
+  - [x] Optional "true ending" path for 100% completion (Crystal 3 at difficult height)
+  - [x] Memorable finale area (bright exit glow, final vertical climb)
 
 ---
 
