@@ -724,12 +724,12 @@
   - [x] Save settings on change
 
 ### 8.4 HUD
-- [ ] Create `scenes/ui/hud.tscn`:
-  - [ ] Shard counter (icon + "X / Y")
-  - [ ] Crystal indicators (3 slots, filled when collected)
+- [x] Create `scenes/ui/hud.tscn`:
+  - [x] Shard counter (icon + "X / Y")
+  - [x] Crystal indicators (3 slots, filled when collected)
   - [ ] (Optional) Timer for speedrunning
-  - [ ] Positioned in corners, minimal intrusion
-  - [ ] Fade in/out on activity
+  - [x] Positioned in corners, minimal intrusion
+  - [x] Fade in/out on activity
 
 ### 8.5 Level Complete Screen
 - [ ] Create `scenes/ui/level_complete.tscn`:

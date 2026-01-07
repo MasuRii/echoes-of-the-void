@@ -43,6 +43,9 @@ var _shards_collected: int = 0
 var _crystals_collected: Array[String] = []
 var _level_completed: bool = false
 
+# HUD reference
+var _hud: CanvasLayer = null
+
 # Cached node references
 @onready var player_spawn: Marker2D = $PlayerSpawn
 @onready var level_exit: Area2D = $LevelExit
@@ -57,6 +60,7 @@ func _ready() -> void:
 	_connect_events()
 	_setup_level()
 	_spawn_player()
+	_spawn_hud()
 	_configure_camera()
 	_count_collectibles()
 	_initialize_game_state()
@@ -101,6 +105,13 @@ func _spawn_player() -> void:
 	var events := _get_events()
 	if events and events.has_signal("player_spawned"):
 		events.player_spawned.emit(player)
+
+
+func _spawn_hud() -> void:
+	"""Spawn the HUD for displaying collectibles."""
+	var hud_scene: PackedScene = preload("res://scenes/ui/hud.tscn")
+	_hud = hud_scene.instantiate()
+	add_child(_hud)
 
 
 func _configure_camera() -> void:
