@@ -9,6 +9,7 @@ extends Node2D
 # Preload procedural generation systems
 const PlatformGeneratorClass := preload("res://scripts/systems/platform_generator.gd")
 const LevelLayoutsClass := preload("res://scripts/data/level_layouts.gd")
+const LightingManagerClass := preload("res://scripts/systems/lighting_manager.gd")
 
 # Signals
 signal level_started
@@ -59,6 +60,9 @@ var _hud: CanvasLayer = null
 # Container for generated geometry
 var _generated_geometry: Node2D = null
 
+# Lighting system references
+var _lighting_data: Dictionary = {}
+
 # Cached node references
 @onready var player_spawn: Marker2D = $PlayerSpawn
 @onready var level_exit: Area2D = $LevelExit
@@ -77,6 +81,7 @@ func _ready() -> void:
 	_restore_checkpoint_state()  # Restore saved checkpoint after player spawned
 	_spawn_hud()
 	_configure_camera()
+	_setup_lighting()  # Setup lighting after player spawn
 	_count_collectibles()
 	_initialize_game_state()
 	
@@ -325,6 +330,24 @@ func _configure_camera() -> void:
 		camera.limit_right = camera_limit_right
 		camera.limit_top = camera_limit_top
 		camera.limit_bottom = camera_limit_bottom
+
+
+func _setup_lighting() -> void:
+	"""Setup level lighting using the LightingManager system."""
+	# Calculate level bounds from camera limits
+	var level_bounds := Rect2(
+		Vector2(camera_limit_left, camera_limit_top),
+		Vector2(camera_limit_right - camera_limit_left, camera_limit_bottom - camera_limit_top)
+	)
+	
+	# Setup lighting with LightingManager
+	_lighting_data = LightingManagerClass.setup_level_lighting(
+		self,
+		player,
+		hazards,
+		level_layout_key,
+		level_bounds
+	)
 
 
 func _count_collectibles() -> void:

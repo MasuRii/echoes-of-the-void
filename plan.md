@@ -1222,12 +1222,12 @@ Instead of manually painting tiles, we will:
 - [x] Add fallback: If particle scene not found, create basic version
 
 #### 11.4 Lighting System Setup
-- [ ] Create `scripts/systems/lighting_manager.gd`:
-  - [ ] Auto-add player glow if missing
-  - [ ] Create ambient level lighting based on level bounds
-  - [ ] Add danger zone lighting near hazards
-- [ ] Integrate with level_base.gd on level load
-- [ ] Add CanvasModulate adjustment per level (darker for later levels)
+- [x] Create `scripts/systems/lighting_manager.gd`:
+  - [x] Auto-add player glow if missing
+  - [x] Create ambient level lighting based on level bounds
+  - [x] Add danger zone lighting near hazards
+- [x] Integrate with level_base.gd on level load
+- [x] Add CanvasModulate adjustment per level (darker for later levels)
 
 ---
 
