@@ -1179,13 +1179,13 @@ Instead of manually painting tiles, we will:
 - [x] Add collection sound fallback (if audio missing)
 
 #### 10.5 Save/Load System Implementation
-- [ ] Verify SaveManager.save_game() writes correctly
-- [ ] Verify SaveManager.load_game() reads correctly
-- [ ] Add save file migration (for future updates)
-- [ ] Create `scripts/debug/save_debugger.gd`:
-  - [ ] Print save file contents on F2
-  - [ ] Allow save file reset on Shift+F2
-- [ ] Test full save/load cycle programmatically
+- [x] Verify SaveManager.save_game() writes correctly
+- [x] Verify SaveManager.load_game() reads correctly
+- [x] Add save file migration (for future updates)
+- [x] Create `scripts/debug/save_debugger.gd`:
+  - [x] Print save file contents on F2
+  - [x] Allow save file reset on Shift+F2
+- [x] Test full save/load cycle programmatically
 
 ---
 

@@ -6,8 +6,12 @@ extends Node
 # Save file path
 const SAVE_PATH: String = "user://echoes_save.json"
 
+# Save file version for migration support
+const CURRENT_SAVE_VERSION: int = 1
+
 # Default save data structure
 var _default_save_data: Dictionary = {
+	"save_version": CURRENT_SAVE_VERSION,
 	"collected_crystals": {},  # level_name: Array[String] of crystal_ids
 	"best_shards": {},         # level_name: int (best shard count)
 	"unlocked_levels": ["res://scenes/levels/level_01_awakening.tscn"],
@@ -67,6 +71,9 @@ func load_game() -> void:
 		return
 	
 	save_data = json.data
+	
+	# Run migration if save version differs
+	_migrate_save_data()
 	
 	# Merge any missing default keys (for forwards compatibility)
 	_merge_defaults()
@@ -271,3 +278,31 @@ func _merge_defaults() -> void:
 			for sub_key in _default_save_data[key].keys():
 				if not save_data[key].has(sub_key):
 					save_data[key][sub_key] = _default_save_data[key][sub_key]
+
+
+func _migrate_save_data() -> void:
+	"""Migrate save data from older versions to current version.
+	Each migration step handles one version upgrade."""
+	var saved_version: int = save_data.get("save_version", 0)
+	
+	if saved_version == CURRENT_SAVE_VERSION:
+		return  # Already up to date
+	
+	# Migration from version 0 (pre-versioning) to version 1
+	if saved_version < 1:
+		# Version 1 adds: save_version field, active_checkpoints structure
+		if not save_data.has("active_checkpoints"):
+			save_data["active_checkpoints"] = {}
+		save_data["save_version"] = 1
+		print("SaveManager: Migrated save from version 0 to 1")
+	
+	# Future migrations go here:
+	# if saved_version < 2:
+	#     # Migration logic for version 2
+	#     save_data["save_version"] = 2
+	#     print("SaveManager: Migrated save from version 1 to 2")
+	
+	# Save the migrated data
+	if saved_version != CURRENT_SAVE_VERSION:
+		save_game()
+		print("SaveManager: Save file migration complete (v%d -> v%d)" % [saved_version, CURRENT_SAVE_VERSION])
