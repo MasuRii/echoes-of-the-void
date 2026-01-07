@@ -483,12 +483,12 @@
   - [x] Method: `_on_level_exit_entered() -> void`
 
 ### 5.2 TileSet Creation
-- [ ] Create `assets/tilesets/void_tileset.tres`:
-  - [ ] Ground tiles (solid white platforms)
-  - [ ] Wall tiles (vertical surfaces for wall jump)
-  - [ ] Decorative tiles (broken, cracked variations)
-  - [ ] Set up physics layers on collidable tiles
-  - [ ] One-way tiles (platform tops)
+- [x] Create `assets/tilesets/void_tileset.tres`:
+  - [x] Ground tiles (solid white platforms)
+  - [x] Wall tiles (vertical surfaces for wall jump)
+  - [x] Decorative tiles (broken, cracked variations)
+  - [x] Set up physics layers on collidable tiles
+  - [x] One-way tiles (platform tops)
 
 ### 5.3 Level 1: Awakening (Tutorial)
 - [ ] Create `scenes/levels/level_01_awakening.tscn`

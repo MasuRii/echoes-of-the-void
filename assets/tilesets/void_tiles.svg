@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128">
+  <!-- Void Tileset for Echoes of the Void -->
+  <!-- 8x4 grid of 32x32 tiles -->
+  
+  <!-- Row 1: Ground tiles (solid white platforms) -->
+  <!-- Tile 0,0: Solid block -->
+  <rect x="0" y="0" width="32" height="32" fill="#FFFFFF"/>
+  
+  <!-- Tile 1,0: Left edge -->
+  <rect x="32" y="0" width="32" height="32" fill="#FFFFFF"/>
+  <rect x="32" y="0" width="4" height="32" fill="#CCCCCC"/>
+  
+  <!-- Tile 2,0: Right edge -->
+  <rect x="64" y="0" width="32" height="32" fill="#FFFFFF"/>
+  <rect x="92" y="0" width="4" height="32" fill="#CCCCCC"/>
+  
+  <!-- Tile 3,0: Top surface -->
+  <rect x="96" y="0" width="32" height="32" fill="#FFFFFF"/>
+  <rect x="96" y="0" width="32" height="4" fill="#DDDDDD"/>
+  
+  <!-- Tile 4,0: Bottom surface -->
+  <rect x="128" y="0" width="32" height="32" fill="#FFFFFF"/>
+  <rect x="128" y="28" width="32" height="4" fill="#AAAAAA"/>
+  
+  <!-- Tile 5,0: Corner top-left -->
+  <rect x="160" y="0" width="32" height="32" fill="#FFFFFF"/>
+  <rect x="160" y="0" width="4" height="32" fill="#CCCCCC"/>
+  <rect x="160" y="0" width="32" height="4" fill="#DDDDDD"/>
+  
+  <!-- Tile 6,0: Corner top-right -->
+  <rect x="192" y="0" width="32" height="32" fill="#FFFFFF"/>
+  <rect x="220" y="0" width="4" height="32" fill="#CCCCCC"/>
+  <rect x="192" y="0" width="32" height="4" fill="#DDDDDD"/>
+  
+  <!-- Tile 7,0: Platform top (one-way) -->
+  <rect x="224" y="0" width="32" height="8" fill="#FFFFFF"/>
+  <rect x="224" y="8" width="32" height="24" fill="none"/>
+  
+  <!-- Row 2: Wall tiles (vertical surfaces for wall jump) -->
+  <!-- Tile 0,1: Wall left facing -->
+  <rect x="0" y="32" width="32" height="32" fill="#FFFFFF"/>
+  <rect x="0" y="32" width="6" height="32" fill="#BBBBBB"/>
+  
+  <!-- Tile 1,1: Wall right facing -->
+  <rect x="32" y="32" width="32" height="32" fill="#FFFFFF"/>
+  <rect x="58" y="32" width="6" height="32" fill="#BBBBBB"/>
+  
+  <!-- Tile 2,1: Thin wall left -->
+  <rect x="64" y="32" width="16" height="32" fill="#FFFFFF"/>
+  
+  <!-- Tile 3,1: Thin wall right -->
+  <rect x="112" y="32" width="16" height="32" fill="#FFFFFF"/>
+  
+  <!-- Tile 4,1: Column/pillar -->
+  <rect x="136" y="32" width="16" height="32" fill="#FFFFFF"/>
+  
+  <!-- Tile 5,1: Cracked variation 1 -->
+  <rect x="160" y="32" width="32" height="32" fill="#FFFFFF"/>
+  <line x1="165" y1="40" x2="175" y2="55" stroke="#AAAAAA" stroke-width="1"/>
+  <line x1="180" y1="45" x2="185" y2="60" stroke="#AAAAAA" stroke-width="1"/>
+  
+  <!-- Tile 6,1: Cracked variation 2 -->
+  <rect x="192" y="32" width="32" height="32" fill="#FFFFFF"/>
+  <line x1="200" y1="35" x2="210" y2="50" stroke="#AAAAAA" stroke-width="1"/>
+  <line x1="205" y1="55" x2="218" y2="60" stroke="#AAAAAA" stroke-width="1"/>
+  
+  <!-- Tile 7,1: Broken/chipped -->
+  <path d="M224,32 L256,32 L256,64 L224,64 L224,50 L228,48 L226,42 L224,32" fill="#FFFFFF"/>
+  
+  <!-- Row 3: Decorative tiles (broken, cracked variations) -->
+  <!-- Tile 0,2: Debris small -->
+  <rect x="4" y="72" width="8" height="8" fill="#FFFFFF" transform="rotate(15, 8, 76)"/>
+  <rect x="16" y="80" width="6" height="6" fill="#FFFFFF" transform="rotate(-10, 19, 83)"/>
+  <rect x="24" y="68" width="4" height="4" fill="#FFFFFF"/>
+  
+  <!-- Tile 1,2: Debris medium -->
+  <rect x="36" y="68" width="12" height="8" fill="#FFFFFF" transform="rotate(5, 42, 72)"/>
+  <rect x="50" y="76" width="10" height="10" fill="#FFFFFF" transform="rotate(-8, 55, 81)"/>
+  
+  <!-- Tile 2,2: Floating fragment -->
+  <rect x="72" y="72" width="16" height="12" fill="#FFFFFF"/>
+  
+  <!-- Tile 3,2: Void particle (small glow) -->
+  <circle cx="112" cy="80" r="6" fill="#00FFFF" opacity="0.8"/>
+  <circle cx="112" cy="80" r="3" fill="#FFFFFF"/>
+  
+  <!-- Tile 4,2: Void particle (large glow) -->
+  <circle cx="144" cy="80" r="10" fill="#00FFFF" opacity="0.6"/>
+  <circle cx="144" cy="80" r="5" fill="#FFFFFF"/>
+  
+  <!-- Tile 5,2: Edge highlight -->
+  <rect x="160" y="64" width="32" height="32" fill="none"/>
+  <rect x="160" y="64" width="32" height="2" fill="#00FFFF" opacity="0.5"/>
+  
+  <!-- Tile 6,2: Gradient fade -->
+  <defs>
+    <linearGradient id="fadeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  <rect x="192" y="64" width="32" height="32" fill="url(#fadeGrad)"/>
+  
+  <!-- Tile 7,2: Empty/transparent -->
+  <!-- intentionally empty -->
+  
+  <!-- Row 4: One-way tiles (platform tops) -->
+  <!-- Tile 0,3: One-way platform thin -->
+  <rect x="0" y="96" width="32" height="4" fill="#FFFFFF"/>
+  
+  <!-- Tile 1,3: One-way platform with edge left -->
+  <rect x="32" y="96" width="32" height="4" fill="#FFFFFF"/>
+  <rect x="32" y="96" width="4" height="8" fill="#FFFFFF"/>
+  
+  <!-- Tile 2,3: One-way platform with edge right -->
+  <rect x="64" y="96" width="32" height="4" fill="#FFFFFF"/>
+  <rect x="92" y="96" width="4" height="8" fill="#FFFFFF"/>
+  
+  <!-- Tile 3,3: One-way platform middle -->
+  <rect x="96" y="96" width="32" height="6" fill="#FFFFFF"/>
+  
+  <!-- Tile 4,3: Slope left (45 degrees) -->
+  <polygon points="128,128 160,96 160,128" fill="#FFFFFF"/>
+  
+  <!-- Tile 5,3: Slope right (45 degrees) -->
+  <polygon points="160,128 192,128 160,96" fill="#FFFFFF"/>
+  
+  <!-- Tile 6,3: Half block bottom -->
+  <rect x="192" y="112" width="32" height="16" fill="#FFFFFF"/>
+  
+  <!-- Tile 7,3: Half block top -->
+  <rect x="224" y="96" width="32" height="16" fill="#FFFFFF"/>
+</svg>
