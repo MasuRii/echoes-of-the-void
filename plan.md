@@ -383,10 +383,10 @@
   - [x] Set `sync_to_physics = true` for smooth player riding
 
 ### 4.4 One-Way Platform
-- [ ] Create `scenes/platforms/one_way_platform.tscn`
-- [ ] StaticBody2D with one-way collision enabled
-- [ ] Visual: Semi-transparent or dashed appearance
-- [ ] Player passes through from below, lands from above
+- [x] Create `scenes/platforms/one_way_platform.tscn`
+- [x] StaticBody2D with one-way collision enabled
+- [x] Visual: Semi-transparent or dashed appearance
+- [x] Player passes through from below, lands from above
 
 ### 4.5 Disappearing/Reappearing Platform
 - [ ] Create `scenes/platforms/phase_platform.tscn`

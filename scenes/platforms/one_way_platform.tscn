@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://coneway_platform1"]
+
+[ext_resource type="Script" path="res://scenes/platforms/one_way_platform.gd" id="1_oneway"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(64, 8)
+
+[node name="OneWayPlatform" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_oneway")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.7, 0.9, 1, 0.6)
+scale = Vector2(4, 0.5)
+texture = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+one_way_collision = true
+one_way_collision_margin = 4.0
