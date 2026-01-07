@@ -7,12 +7,14 @@ extends Node2D
 const FADE_DURATION: float = 0.3
 const INITIAL_ALPHA: float = 0.5
 const INITIAL_LIGHT_ENERGY: float = 0.4
+const SCALE_END_MULTIPLIER: float = 0.7  # Shrink to 70% of original size
 
 # Color progression: bright cyan-white → deep blue as trail ages
 const COLOR_START: Color = Color(0.7, 1.0, 1.0, 1.0)  # Bright cyan-white
 const COLOR_END: Color = Color(0.0, 0.4, 0.8, 1.0)    # Deep blue
 
 var _elapsed_time: float = 0.0
+var _initial_scale: Vector2 = Vector2.ONE
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var ghost_glow: PointLight2D = $GhostGlow
@@ -21,6 +23,8 @@ var _elapsed_time: float = 0.0
 func _ready() -> void:
 	# Set initial modulation with starting color and alpha
 	modulate = Color(COLOR_START.r, COLOR_START.g, COLOR_START.b, INITIAL_ALPHA)
+	# Store initial scale for shrink animation
+	_initial_scale = scale
 
 
 func _process(delta: float) -> void:
@@ -35,6 +39,10 @@ func _process(delta: float) -> void:
 	
 	# Update modulation with both color progression and alpha fade
 	modulate = Color(current_color.r, current_color.g, current_color.b, current_alpha)
+	
+	# Shrink scale over time for visual progression
+	var target_scale: Vector2 = _initial_scale * SCALE_END_MULTIPLIER
+	scale = _initial_scale.lerp(target_scale, progress)
 	
 	# Fade the glow light energy along with the sprite
 	if ghost_glow:

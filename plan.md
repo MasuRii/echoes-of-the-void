@@ -599,7 +599,7 @@
   - [x] Add subtle glow via CanvasModulate or shader
   - [x] Trail color progression (bright → dim)
   - [ ] Smooth spawn interpolation
-  - [ ] Size variation (slight shrink over time)
+  - [x] Size variation (slight shrink over time)
 
 ### 6.4 Screen Effects
 - [ ] Create `scenes/effects/screen_effects.tscn`:
