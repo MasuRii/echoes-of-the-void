@@ -596,7 +596,7 @@
 
 ### 6.3 Echo Trail Enhancement
 - [ ] Improve echo ghost visuals:
-  - [ ] Add subtle glow via CanvasModulate or shader
+  - [x] Add subtle glow via CanvasModulate or shader
   - [ ] Trail color progression (bright → dim)
   - [ ] Smooth spawn interpolation
   - [ ] Size variation (slight shrink over time)

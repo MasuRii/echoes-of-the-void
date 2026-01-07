@@ -7,10 +7,12 @@ extends Node2D
 const FADE_DURATION: float = 0.3
 const INITIAL_ALPHA: float = 0.5
 const CYAN_TINT: Color = Color("#00FFFF")
+const INITIAL_LIGHT_ENERGY: float = 0.4
 
 var _elapsed_time: float = 0.0
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var ghost_glow: PointLight2D = $GhostGlow
 
 
 func _ready() -> void:
@@ -27,6 +29,10 @@ func _process(delta: float) -> void:
 	
 	# Update modulation
 	modulate.a = current_alpha
+	
+	# Fade the glow light energy along with the sprite
+	if ghost_glow:
+		ghost_glow.energy = lerpf(INITIAL_LIGHT_ENERGY, 0.0, progress)
 	
 	# Self-destruct when fade is complete
 	if _elapsed_time >= FADE_DURATION:

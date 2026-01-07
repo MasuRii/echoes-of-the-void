@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7opmkr4djx2v"]
+[gd_scene load_steps=4 format=3 uid="uid://c7opmkr4djx2v"]
 
 [ext_resource type="Script" path="res://scenes/effects/echo_ghost.gd" id="1_echo_ghost"]
+
+[sub_resource type="Gradient" id="Gradient_echo"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_echo"]
+gradient = SubResource("Gradient_echo")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="EchoGhost" type="Node2D"]
 script = ExtResource("1_echo_ghost")
@@ -8,3 +19,10 @@ script = ExtResource("1_echo_ghost")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
 scale = Vector2(0.5, 1)
+
+[node name="GhostGlow" type="PointLight2D" parent="."]
+position = Vector2(0, -16)
+color = Color(0, 1, 1, 1)
+energy = 0.4
+texture = SubResource("GradientTexture2D_echo")
+texture_scale = 0.6
