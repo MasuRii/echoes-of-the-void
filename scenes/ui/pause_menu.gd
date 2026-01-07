@@ -74,9 +74,14 @@ func _on_restart_pressed() -> void:
 func _on_settings_pressed() -> void:
 	"""Open the settings menu."""
 	_play_confirm_sound()
-	# TODO: Implement settings menu transition
-	# For now, this is a placeholder
-	push_warning("PauseMenu: Settings menu not yet implemented")
+	
+	# Load and display the settings menu
+	var settings_scene: PackedScene = load("res://scenes/ui/settings_menu.tscn")
+	if settings_scene:
+		var settings_menu: Control = settings_scene.instantiate()
+		add_child(settings_menu)
+	else:
+		push_error("PauseMenu: Failed to load settings_menu.tscn")
 
 
 func _on_main_menu_pressed() -> void:

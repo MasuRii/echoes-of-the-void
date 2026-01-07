@@ -708,20 +708,20 @@
   - [x] `process_mode = PROCESS_MODE_WHEN_PAUSED`
 
 ### 8.3 Settings Menu
-- [ ] Create `scenes/ui/settings_menu.tscn`:
-  - [ ] Audio:
-    - [ ] Master Volume slider (0-100%)
-    - [ ] Music Volume slider
-    - [ ] SFX Volume slider
-  - [ ] Video:
-    - [ ] Fullscreen toggle
-    - [ ] VSync toggle
-    - [ ] Screen Shake toggle
-  - [ ] Controls:
-    - [ ] Display current bindings
+- [x] Create `scenes/ui/settings_menu.tscn`:
+  - [x] Audio:
+    - [x] Master Volume slider (0-100%)
+    - [x] Music Volume slider
+    - [x] SFX Volume slider
+  - [x] Video:
+    - [x] Fullscreen toggle
+    - [x] VSync toggle
+    - [x] Screen Shake toggle
+  - [x] Controls:
+    - [x] Display current bindings
     - [ ] (Optional: Rebinding)
-  - [ ] "Back" button
-  - [ ] Save settings on change
+  - [x] "Back" button
+  - [x] Save settings on change
 
 ### 8.4 HUD
 - [ ] Create `scenes/ui/hud.tscn`:
