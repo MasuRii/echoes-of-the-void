@@ -349,23 +349,23 @@
   - [x] Configure `collision_layer` and `collision_mask` for platform layer
 
 ### 4.2 Crumbling Platform
-- [ ] Create `scenes/platforms/crumbling_platform.tscn`
-- [ ] Node structure:
-  - [ ] StaticBody2D (root)
-  - [ ] Sprite2D (fractured appearance)
-  - [ ] CollisionShape2D
-  - [ ] Area2D (player detection)
-  - [ ] Timer (crumble delay)
-  - [ ] Timer (respawn timer)
-  - [ ] AnimationPlayer (shake, crumble, respawn)
+- [x] Create `scenes/platforms/crumbling_platform.tscn`
+- [x] Node structure:
+  - [x] StaticBody2D (root)
+  - [x] Sprite2D (fractured appearance)
+  - [x] CollisionShape2D
+  - [x] Area2D (player detection)
+  - [x] Timer (crumble delay)
+  - [x] Timer (respawn timer)
+  - [x] AnimationPlayer (shake, crumble, respawn)
 
-- [ ] Create `scenes/platforms/crumbling_platform.gd`:
-  - [ ] On player contact → start shake animation
-  - [ ] After `crumble_delay` (0.5s) → disable collision, play crumble
-  - [ ] Particles: pieces falling
-  - [ ] After `respawn_time` (3.0s) → rebuild with fade-in
-  - [ ] Export: `crumble_delay: float = 0.5`
-  - [ ] Export: `respawn_time: float = 3.0`
+- [x] Create `scenes/platforms/crumbling_platform.gd`:
+  - [x] On player contact → start shake animation
+  - [x] After `crumble_delay` (0.5s) → disable collision, play crumble
+  - [x] Particles: pieces falling
+  - [x] After `respawn_time` (3.0s) → rebuild with fade-in
+  - [x] Export: `crumble_delay: float = 0.5`
+  - [x] Export: `respawn_time: float = 3.0`
 
 ### 4.3 Moving Platform
 - [ ] Create `scenes/platforms/moving_platform.tscn`

@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccrumbling_platform1"]
+
+[ext_resource type="Script" path="res://scenes/platforms/crumbling_platform.gd" id="1_crumbling"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(64, 16)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_crumble"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(32, 4, 0)
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 400, 0)
+scale_min = 2.0
+scale_max = 6.0
+color = Color(1, 1, 1, 1)
+
+[node name="CrumblingPlatform" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_crumbling")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.8, 0.8, 0.9, 1)
+scale = Vector2(4, 1)
+texture = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+monitoring = true
+
+[node name="DetectorShape" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="CrumbleTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CrumbleParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_crumble")
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
