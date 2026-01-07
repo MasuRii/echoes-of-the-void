@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cbvl4w72xrqpu"]
+[gd_scene load_steps=17 format=3 uid="uid://cbvl4w72xrqpu"]
 
 [ext_resource type="Script" uid="uid://b2mmg5w87qmg3" path="res://scenes/player/player.gd" id="1_player"]
 [ext_resource type="Script" uid="uid://bq8r7oy7a6vhq" path="res://scripts/classes/state_machine.gd" id="2_statemachine"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scenes/player/states/fall_state.gd" id="8_fall"]
 [ext_resource type="Script" path="res://scenes/player/states/wall_slide_state.gd" id="9_wall_slide"]
 [ext_resource type="Script" path="res://scenes/player/states/death_state.gd" id="10_death"]
+[ext_resource type="Script" path="res://scripts/components/screen_shake.gd" id="11_screen_shake"]
 
 [sub_resource type="Animation" id="Animation_idle"]
 resource_name = "idle"
@@ -311,3 +312,11 @@ shadow_enabled = true
 shadow_filter = 1
 shadow_filter_smooth = 1.0
 texture_scale = 0.5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -16)
+position_smoothing_enabled = true
+position_smoothing_speed = 5.0
+
+[node name="ScreenShake" type="Node" parent="Camera2D"]
+script = ExtResource("11_screen_shake")

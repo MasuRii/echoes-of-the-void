@@ -16,3 +16,6 @@ signal checkpoint_reached(position: Vector2)
 
 # Game state events
 signal game_paused(is_paused: bool)
+
+# Screen shake events - used by objects to request camera shake
+signal screen_shake_requested(intensity: float, duration: float)

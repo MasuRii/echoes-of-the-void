@@ -100,6 +100,11 @@ func _crumble() -> void:
 	if animation_player.has_animation("crumble"):
 		animation_player.play("crumble")
 	
+	# Request light screen shake via Events signal bus
+	var events := get_node_or_null("/root/Events")
+	if events:
+		events.screen_shake_requested.emit(3.0, 0.1)
+	
 	# Disable collision and hide sprite
 	deactivate(true)
 	crumbled.emit()

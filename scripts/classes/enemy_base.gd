@@ -112,6 +112,11 @@ func _on_died() -> void:
 	# Emit death signal
 	enemy_died.emit()
 	
+	# Request very light screen shake via Events signal bus
+	var events := get_node_or_null("/root/Events")
+	if events:
+		events.screen_shake_requested.emit(2.0, 0.08)
+	
 	# Play death effect
 	_spawn_death_particles()
 	

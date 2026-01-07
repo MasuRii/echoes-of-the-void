@@ -43,6 +43,8 @@ var _last_echo_spawn_position: Vector2 = Vector2.ZERO  # For smooth spawn interp
 @onready var wall_detector_right: RayCast2D = $WallDetectorRight
 @onready var hurtbox: Area2D = $HurtboxComponent
 @onready var health_component: Node = $HealthComponent
+@onready var camera: Camera2D = $Camera2D
+@onready var screen_shake: Node = $Camera2D/ScreenShake
 
 
 func _ready() -> void:
@@ -63,6 +65,9 @@ func _ready() -> void:
 	
 	# Connect health component died signal to trigger death state
 	health_component.died.connect(_on_health_component_died)
+	
+	# Connect to global screen shake events for decoupled shake requests
+	Events.screen_shake_requested.connect(_on_screen_shake_requested)
 
 
 func _physics_process(delta: float) -> void:
@@ -260,6 +265,9 @@ func respawn() -> void:
 
 ## Called when the player dies - transitions to death state.
 func die() -> void:
+	# Trigger medium screen shake on death
+	if screen_shake and screen_shake.has_method("shake_medium"):
+		screen_shake.shake_medium()
 	state_machine.transition_to("death")
 
 
@@ -326,3 +334,9 @@ func _on_echo_trail_timer_timeout() -> void:
 		else:
 			# Use smooth interpolation for continuous trail spawning
 			spawn_echo_ghost(true)
+
+
+## Callback for global screen shake requests from Events signal bus.
+func _on_screen_shake_requested(intensity: float, duration: float) -> void:
+	if screen_shake and screen_shake.has_method("shake"):
+		screen_shake.shake(intensity, duration)

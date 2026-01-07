@@ -4,16 +4,28 @@ extends "res://scripts/classes/state.gd"
 ## Player fall state - falling through the air.
 ## Transitions to: Idle/Run (on floor), WallSlide (touching wall + input toward wall), Jump (double jump)
 
+# Track fall velocity for landing shake
+var _fall_velocity: float = 0.0
+
 
 func enter() -> void:
 	# Reset sprite rotation in case coming from double jump spin
 	actor.sprite.rotation = 0.0
 	actor.animation_player.play("fall")
+	_fall_velocity = 0.0
 
 
 func physics_update(_delta: float) -> void:
+	# Track current fall velocity for landing shake
+	if actor.velocity.y > _fall_velocity:
+		_fall_velocity = actor.velocity.y
+	
 	# Check if we landed
 	if actor.is_on_floor():
+		# Trigger landing shake based on fall velocity
+		if actor.screen_shake and actor.screen_shake.has_method("shake_landing"):
+			actor.screen_shake.shake_landing(_fall_velocity)
+		
 		# Check for buffered jump
 		if actor.has_buffered_jump():
 			actor.jump()

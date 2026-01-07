@@ -653,15 +653,15 @@
   - [ ] `game_complete.ogg` - Ending theme
 
 ### 7.3 Screen Shake
-- [ ] Create `scripts/components/screen_shake.gd`:
-  - [ ] Attach to Camera2D
-  - [ ] Method: `shake(intensity: float, duration: float) -> void`
-  - [ ] Use random offset decay over duration
-  - [ ] Triggers:
-    - [ ] Player death (medium shake)
-    - [ ] Landing from height (light shake)
-    - [ ] Platform crumble (light shake)
-    - [ ] Enemy death (very light)
+- [x] Create `scripts/components/screen_shake.gd`:
+  - [x] Attach to Camera2D
+  - [x] Method: `shake(intensity: float, duration: float) -> void`
+  - [x] Use random offset decay over duration
+  - [x] Triggers:
+    - [x] Player death (medium shake)
+    - [x] Landing from height (light shake)
+    - [x] Platform crumble (light shake)
+    - [x] Enemy death (very light)
 
 ### 7.4 Hitstop/Freeze Frames
 - [ ] Create hitstop utility in GameManager:
