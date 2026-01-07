@@ -14,6 +14,22 @@ config/name="Echoes of the Void"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="enemy"
+2d_physics/layer_3="platform"
+2d_physics/layer_4="hazard"
+2d_physics/layer_5="collectible"
+
 [rendering]
 
 renderer/rendering_method="forward_plus"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

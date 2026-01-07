@@ -41,15 +41,15 @@
 ## Phase 1: Foundation (Days 1-2)
 
 ### 1.1 Project Setup
-- [ ] Create new Godot 4.5.1 project named "echoes-of-the-void"
-- [ ] Configure project settings:
-  - [ ] Set window size to 1920x1080 (16:9 base resolution)
-  - [ ] Set stretch mode to `canvas_items`, aspect `expand`
-  - [ ] Configure 2D physics layers: `player`, `enemy`, `platform`, `hazard`, `collectible`
-  - [ ] Set default clear color to pure black `#000000`
+- [x] Create new Godot 4.5.1 project named "echoes-of-the-void"
+- [x] Configure project settings:
+  - [x] Set window size to 1920x1080 (16:9 base resolution)
+  - [x] Set stretch mode to `canvas_items`, aspect `expand`
+  - [x] Configure 2D physics layers: `player`, `enemy`, `platform`, `hazard`, `collectible`
+  - [x] Set default clear color to pure black `#000000`
 - [ ] Create folder structure (see File Structure section below)
-- [ ] Set up `.gitignore` for Godot project
-- [ ] Create initial `project.godot` configuration
+- [x] Set up `.gitignore` for Godot project
+- [x] Create initial `project.godot` configuration
 
 ### 1.2 Input Configuration
 - [ ] Define input actions in Project Settings → Input Map:
