@@ -139,19 +139,19 @@
 ## Phase 2: Player Controller (Days 3-5)
 
 ### 2.1 Player Scene Setup
-- [ ] Create `scenes/player/player.tscn` as CharacterBody2D
-- [ ] Add child nodes:
-  - [ ] `Sprite2D` - Player visual (white silhouette)
-  - [ ] `CollisionShape2D` - Capsule shape (16x32 pixels recommended)
-  - [ ] `AnimationPlayer` - For sprite animations
-  - [ ] `StateMachine` (Node) - FSM container
-  - [ ] `CoyoteTimer` (Timer) - One-shot, 0.1s
-  - [ ] `JumpBufferTimer` (Timer) - One-shot, 0.15s
-  - [ ] `WallJumpCooldown` (Timer) - One-shot, 0.2s
-  - [ ] `EchoTrailTimer` (Timer) - Repeating, 0.05s for trail spawning
-  - [ ] `WallDetectorLeft` (RayCast2D) - Check wall on left
-  - [ ] `WallDetectorRight` (RayCast2D) - Check wall on right
-  - [ ] `HurtboxComponent` (Area2D) - Player damage receiver
+- [x] Create `scenes/player/player.tscn` as CharacterBody2D
+- [x] Add child nodes:
+  - [x] `Sprite2D` - Player visual (white silhouette)
+  - [x] `CollisionShape2D` - Capsule shape (16x32 pixels recommended)
+  - [x] `AnimationPlayer` - For sprite animations
+  - [x] `StateMachine` (Node) - FSM container
+  - [x] `CoyoteTimer` (Timer) - One-shot, 0.1s
+  - [x] `JumpBufferTimer` (Timer) - One-shot, 0.15s
+  - [x] `WallJumpCooldown` (Timer) - One-shot, 0.2s
+  - [x] `EchoTrailTimer` (Timer) - Repeating, 0.05s for trail spawning
+  - [x] `WallDetectorLeft` (RayCast2D) - Check wall on left
+  - [x] `WallDetectorRight` (RayCast2D) - Check wall on right
+  - [x] `HurtboxComponent` (Area2D) - Player damage receiver
 
 ### 2.2 Player Core Script
 - [ ] Create `scenes/player/player.gd` extending CharacterBody2D
