@@ -569,10 +569,10 @@
 ## Phase 6: Visual Polish (Days 11-13)
 
 ### 6.1 Particle Systems
-- [ ] Create `scenes/effects/particles/` folder with:
-  - [ ] `death_particles.tscn` - White dispersion burst on player death
-  - [ ] `respawn_particles.tscn` - Coalesce effect on respawn
-  - [ ] `footstep_dust.tscn` - Subtle dust when running
+- [x] Create `scenes/effects/particles/` folder with:
+  - [x] `death_particles.tscn` - White dispersion burst on player death
+  - [x] `respawn_particles.tscn` - Coalesce effect on respawn
+  - [x] `footstep_dust.tscn` - Subtle dust when running
   - [ ] `jump_dust.tscn` - Burst on jump
   - [ ] `land_dust.tscn` - Impact on landing
   - [ ] `wall_slide_sparks.tscn` - Friction effect on wall
