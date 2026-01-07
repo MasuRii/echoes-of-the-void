@@ -82,3 +82,4 @@ AudioManager="*res://scripts/autoloads/audio_manager.gd"
 
 renderer/rendering_method="forward_plus"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+2d/shadow_atlas/size=2048

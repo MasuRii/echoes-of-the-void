@@ -37,4 +37,7 @@ collision_mask = 1
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.4, 0.4, 0.5, 1)
+
 [connection signal="body_entered" from="LevelExit" to="." method="_on_level_exit_body_entered"]

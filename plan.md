@@ -583,9 +583,9 @@
   - [x] `ambient_void.tscn` - Floating particles in background
 
 ### 6.2 Lighting System
-- [ ] Configure project for 2D lighting:
-  - [ ] Enable `Rendering > 2D > Shadow Atlas > Size` if needed
-  - [ ] Set up canvas modulate for base darkness
+- [x] Configure project for 2D lighting:
+  - [x] Enable `Rendering > 2D > Shadow Atlas > Size` if needed
+  - [x] Set up canvas modulate for base darkness
 
 - [ ] Create light sources:
   - [ ] Player subtle glow (PointLight2D, white, low energy)
