@@ -192,6 +192,9 @@ func double_jump() -> void:
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		can_double_jump = false
 		
+		# Play double jump spin animation
+		animation_player.play("double_jump")
+		
 		# Spawn burst of 3 echo ghosts on double jump activation
 		spawn_echo_burst(3)
 		

@@ -6,6 +6,8 @@ extends "res://scripts/classes/state.gd"
 
 
 func enter() -> void:
+	# Reset sprite rotation in case coming from double jump spin
+	actor.sprite.rotation = 0.0
 	actor.animation_player.play("fall")
 
 

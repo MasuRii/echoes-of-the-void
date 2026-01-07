@@ -8,6 +8,8 @@ extends "res://scripts/classes/state.gd"
 func enter() -> void:
 	# Reset velocity when entering idle
 	actor.velocity.x = 0.0
+	# Reset sprite rotation in case coming from double jump spin
+	actor.sprite.rotation = 0.0
 	# Play idle breathing animation
 	actor.animation_player.play("idle")
 

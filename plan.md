@@ -615,7 +615,7 @@
   - [x] Jump anticipation and apex
   - [x] Fall (arms up? dramatic pose)
   - [x] Wall slide (pressed against wall)
-  - [ ] Double jump spin
+  - [x] Double jump spin
 
 - [ ] Enemy animations:
   - [ ] Shadow Crawler walk cycle
