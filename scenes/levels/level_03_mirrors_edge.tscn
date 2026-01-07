@@ -1,0 +1,144 @@
+[gd_scene load_steps=10 format=3 uid="uid://level03mirrorsedge"]
+
+[ext_resource type="Script" uid="uid://dxg5qt2n3uxby" path="res://scenes/levels/level_base.gd" id="1_level_base"]
+[ext_resource type="TileSet" uid="uid://bm4ktv8l4dxqt" path="res://assets/tilesets/void_tileset.tres" id="2_tileset"]
+[ext_resource type="PackedScene" uid="uid://clightshardcoll" path="res://scenes/collectibles/light_shard.tscn" id="3_lightshard"]
+[ext_resource type="PackedScene" uid="uid://cechocrystalcol" path="res://scenes/collectibles/echo_crystal.tscn" id="4_echocrystal"]
+[ext_resource type="PackedScene" uid="uid://ccheckpointobj" path="res://scenes/objects/checkpoint.tscn" id="5_checkpoint"]
+[ext_resource type="PackedScene" uid="uid://dmirrorguardenmy" path="res://scenes/enemies/mirror_guard/mirror_guard.tscn" id="6_mirror_guard"]
+[ext_resource type="PackedScene" uid="uid://cmoving_platform1" path="res://scenes/platforms/moving_platform.tscn" id="7_moving_platform"]
+[ext_resource type="PackedScene" uid="uid://cphase_platform1" path="res://scenes/platforms/phase_platform.tscn" id="8_phase_platform"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(64, 96)
+
+[node name="Level03MirrorsEdge" type="Node2D"]
+script = ExtResource("1_level_base")
+level_name = "Mirror's Edge"
+next_level = "res://scenes/levels/level_04_collapse.tscn"
+total_shards = 8
+crystal_count = 2
+use_camera_limits = true
+camera_limit_left = 0
+camera_limit_right = 3840
+camera_limit_top = -800
+camera_limit_bottom = 800
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_tileset")
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(96, 320)
+
+[node name="LevelExit" type="Area2D" parent="."]
+position = Vector2(3712, -480)
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelExit"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="ExitGlow" type="PointLight2D" parent="LevelExit"]
+color = Color(0, 1, 1, 1)
+energy = 1.5
+texture_scale = 1.5
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="LightShard1" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(288, 304)
+
+[node name="LightShard2" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(576, 192)
+
+[node name="LightShard3" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(960, 64)
+
+[node name="LightShard4" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(1472, -64)
+
+[node name="LightShard5" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(1920, -192)
+
+[node name="LightShard6" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(2496, -288)
+
+[node name="LightShard7" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(3008, -384)
+
+[node name="LightShard8" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(3456, -480)
+
+[node name="EchoCrystal1" parent="Collectibles" instance=ExtResource("4_echocrystal")]
+position = Vector2(1216, -320)
+crystal_id = "level_03_crystal_1"
+
+[node name="EchoCrystal2" parent="Collectibles" instance=ExtResource("4_echocrystal")]
+position = Vector2(2880, -576)
+crystal_id = "level_03_crystal_2"
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="MirrorGuard1" parent="Enemies" instance=ExtResource("6_mirror_guard")]
+position = Vector2(1024, 64)
+
+[node name="MirrorGuard2" parent="Enemies" instance=ExtResource("6_mirror_guard")]
+position = Vector2(2240, -256)
+mirror_mode = false
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="MovingPlatform1" parent="Platforms" instance=ExtResource("7_moving_platform")]
+position = Vector2(704, 160)
+path_points = Array[Vector2]([Vector2(0, 0), Vector2(0, -160)])
+speed = 80.0
+
+[node name="MovingPlatform2" parent="Platforms" instance=ExtResource("7_moving_platform")]
+position = Vector2(1728, -64)
+path_points = Array[Vector2]([Vector2(0, 0), Vector2(200, 0)])
+speed = 100.0
+
+[node name="MovingPlatform3" parent="Platforms" instance=ExtResource("7_moving_platform")]
+position = Vector2(3264, -416)
+path_points = Array[Vector2]([Vector2(0, 0), Vector2(0, -128)])
+speed = 60.0
+
+[node name="PhasePlatform1" parent="Platforms" instance=ExtResource("8_phase_platform")]
+position = Vector2(1344, 0)
+visible_duration = 2.5
+invisible_duration = 1.5
+
+[node name="PhasePlatform2" parent="Platforms" instance=ExtResource("8_phase_platform")]
+position = Vector2(2112, -160)
+visible_duration = 2.0
+invisible_duration = 2.0
+phase_offset = 1.0
+
+[node name="PhasePlatform3" parent="Platforms" instance=ExtResource("8_phase_platform")]
+position = Vector2(2624, -320)
+visible_duration = 2.0
+invisible_duration = 1.5
+phase_offset = 0.5
+
+[node name="PhasePlatform4" parent="Platforms" instance=ExtResource("8_phase_platform")]
+position = Vector2(2752, -384)
+visible_duration = 2.0
+invisible_duration = 1.5
+phase_offset = 1.5
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint1" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(896, 96)
+
+[node name="Checkpoint2" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(1984, -160)
+
+[node name="Checkpoint3" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(3136, -448)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[connection signal="body_entered" from="LevelExit" to="." method="_on_level_exit_body_entered"]

@@ -520,19 +520,19 @@
   - [x] Enemy patrol patterns to navigate
 
 ### 5.5 Level 3: Mirror's Edge
-- [ ] Create `scenes/levels/level_03_mirrors_edge.tscn`
-- [ ] Design goals:
-  - [ ] Introduce double jump
-  - [ ] Mirror Guard enemy (1-2)
-  - [ ] Moving platforms
-  - [ ] Disappearing platforms
-  - [ ] 7-10 Light Shards
-  - [ ] Two Echo Crystals
-- [ ] Layout tasks:
-  - [ ] Wide gaps requiring double jump
-  - [ ] Mirror Guard puzzle sections
-  - [ ] Timed platform sequences
-  - [ ] Precision landing challenges
+- [x] Create `scenes/levels/level_03_mirrors_edge.tscn`
+- [x] Design goals:
+  - [x] Introduce double jump
+  - [x] Mirror Guard enemy (1-2)
+  - [x] Moving platforms
+  - [x] Disappearing platforms
+  - [x] 7-10 Light Shards
+  - [x] Two Echo Crystals
+- [x] Layout tasks:
+  - [x] Wide gaps requiring double jump
+  - [x] Mirror Guard puzzle sections
+  - [x] Timed platform sequences
+  - [x] Precision landing challenges
 
 ### 5.6 Level 4: Collapse
 - [ ] Create `scenes/levels/level_04_collapse.tscn`
