@@ -1245,10 +1245,10 @@ Instead of manually painting tiles, we will:
 - [x] Test damage dealing via HitboxComponent
 
 #### 12.2 Mirror Guard Fixes
-- [ ] Verify mirror_guard.gd player tracking
-- [ ] Fix mirroring calculation
-- [ ] Add jump delay timer
-- [ ] Test in level 3 context
+- [x] Verify mirror_guard.gd player tracking
+- [x] Fix mirroring calculation
+- [x] Add jump delay timer
+- [x] Test in level 3 context (fixed UID mismatch in level_03_mirrors_edge.tscn)
 
 #### 12.3 Pulse Orb Fixes
 - [ ] Verify sine wave calculation in pulse_orb.gd

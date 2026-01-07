@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://clightshardcoll" path="res://scenes/collectibles/light_shard.tscn" id="3_lightshard"]
 [ext_resource type="PackedScene" uid="uid://cechocrystalcol" path="res://scenes/collectibles/echo_crystal.tscn" id="4_echocrystal"]
 [ext_resource type="PackedScene" uid="uid://ccheckpointobj" path="res://scenes/objects/checkpoint.tscn" id="5_checkpoint"]
-[ext_resource type="PackedScene" uid="uid://dmirrorguardenmy" path="res://scenes/enemies/mirror_guard/mirror_guard.tscn" id="6_mirror_guard"]
+[ext_resource type="PackedScene" uid="uid://dmirrorguard01" path="res://scenes/enemies/mirror_guard/mirror_guard.tscn" id="6_mirror_guard"]
 [ext_resource type="PackedScene" uid="uid://cmoving_platform1" path="res://scenes/platforms/moving_platform.tscn" id="7_moving_platform"]
 [ext_resource type="PackedScene" uid="uid://cphase_platform1" path="res://scenes/platforms/phase_platform.tscn" id="8_phase_platform"]
 
