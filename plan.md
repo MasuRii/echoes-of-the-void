@@ -619,7 +619,7 @@
 
 - [ ] Enemy animations:
   - [x] Shadow Crawler walk cycle
-  - [ ] Mirror Guard idle stance
+  - [x] Mirror Guard idle stance
   - [ ] Pulse Orb pulsing glow
 
 ---

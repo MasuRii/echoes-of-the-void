@@ -52,6 +52,10 @@ func _ready() -> void:
 		var shape := detection_area.get_node_or_null("DetectionShape") as CollisionShape2D
 		if shape != null and shape.shape is CircleShape2D:
 			(shape.shape as CircleShape2D).radius = detection_radius
+	
+	# Play idle animation on start
+	if animation_player != null:
+		animation_player.play("idle")
 
 
 func _physics_process(delta: float) -> void:
@@ -147,6 +151,9 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 		_is_mirroring = true
 		_last_player_on_floor = _player_ref.is_on_floor()
 		started_mirroring.emit()
+		# Play mirror (active) animation when tracking player
+		if animation_player != null:
+			animation_player.play("mirror")
 
 
 ## Called when a body exits the detection area.
@@ -156,6 +163,9 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 		_is_mirroring = false
 		_pending_jump = false
 		stopped_mirroring.emit()
+		# Return to idle stance when player leaves
+		if animation_player != null:
+			animation_player.play("idle")
 
 
 ## Override for player detection (called by base class).
