@@ -577,7 +577,7 @@
   - [x] `land_dust.tscn` - Impact on landing
   - [x] `wall_slide_sparks.tscn` - Friction effect on wall
   - [x] `shard_collect.tscn` - Sparkle burst
-  - [ ] `crystal_collect.tscn` - Grand particle celebration
+  - [x] `crystal_collect.tscn` - Grand particle celebration
   - [ ] `enemy_death.tscn` - Shadow dispersion
   - [ ] `platform_crumble.tscn` - Falling debris
   - [ ] `ambient_void.tscn` - Floating particles in background
