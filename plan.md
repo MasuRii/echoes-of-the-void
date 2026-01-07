@@ -98,7 +98,7 @@
   - [x] Method: `set_sfx_volume(value: float) -> void`
   - [x] Preload common SFX at startup
 
-- [ ] Register all autoloads in Project Settings → Autoload
+- [x] Register all autoloads in Project Settings → Autoload
 
 ### 1.4 Base Classes
 - [ ] Create `scripts/classes/state.gd` - FSM state base class
