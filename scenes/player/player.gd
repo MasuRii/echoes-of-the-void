@@ -4,6 +4,9 @@ extends CharacterBody2D
 ## Player character controller for Echoes of the Void.
 ## Handles movement, jumping, wall mechanics, and echo trail effects.
 
+# Preloaded scenes
+const ECHO_GHOST_SCENE: PackedScene = preload("res://scenes/effects/echo_ghost.tscn")
+
 # Movement constants
 const SPEED: float = 300.0
 const JUMP_VELOCITY: float = -450.0
@@ -24,6 +27,7 @@ var last_checkpoint: Vector2 = Vector2.ZERO
 var _was_on_floor: bool = false
 var _input_locked: bool = false
 var _input_lock_timer: float = 0.0
+var _echo_trail_active: bool = false
 
 # Node references
 @onready var sprite: Sprite2D = $Sprite2D
@@ -45,6 +49,9 @@ func _ready() -> void:
 	
 	# Add player to group for easy access
 	add_to_group("player")
+	
+	# Connect echo trail timer for continuous spawning during special moves
+	echo_trail_timer.timeout.connect(_on_echo_trail_timer_timeout)
 
 
 func _physics_process(delta: float) -> void:
@@ -173,7 +180,13 @@ func double_jump() -> void:
 	if can_double_jump:
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		can_double_jump = false
-		# TODO: Spawn echo effect burst
+		
+		# Spawn burst of 3 echo ghosts on double jump activation
+		spawn_echo_burst(3)
+		
+		# Start echo trail timer for continuous spawning
+		_echo_trail_active = true
+		echo_trail_timer.start()
 
 
 ## Performs a wall jump.
@@ -199,7 +212,8 @@ func wall_jump() -> void:
 	is_wall_sliding = false
 	wall_jump_cooldown.start()
 	
-	# TODO: Spawn echo effect
+	# Spawn echo ghost on wall jump activation
+	spawn_echo_ghost()
 
 
 ## Buffers a jump input for execution on landing.
@@ -220,6 +234,8 @@ func respawn() -> void:
 	can_double_jump = true
 	is_wall_sliding = false
 	_input_locked = false
+	_echo_trail_active = false
+	echo_trail_timer.stop()
 	Events.player_respawned.emit()
 
 
@@ -230,3 +246,37 @@ func die() -> void:
 	# For now, respawn after brief delay
 	await get_tree().create_timer(0.5).timeout
 	respawn()
+
+
+## Spawns a single echo ghost at the player's current position.
+func spawn_echo_ghost() -> void:
+	var echo: Node2D = ECHO_GHOST_SCENE.instantiate()
+	get_tree().current_scene.add_child(echo)
+	echo.initialize(sprite, global_position, sprite.flip_h)
+
+
+## Spawns a burst of echo ghosts (for double jump activation).
+func spawn_echo_burst(count: int) -> void:
+	for i in range(count):
+		# Slightly offset each ghost in time by spawning with small delay
+		var echo: Node2D = ECHO_GHOST_SCENE.instantiate()
+		get_tree().current_scene.add_child(echo)
+		# Offset position slightly for visual spread
+		var offset := Vector2(randf_range(-5.0, 5.0), randf_range(-5.0, 5.0))
+		echo.initialize(sprite, global_position + offset, sprite.flip_h)
+
+
+## Stops the continuous echo trail spawning.
+func stop_echo_trail() -> void:
+	_echo_trail_active = false
+	echo_trail_timer.stop()
+
+
+## Timer callback for continuous echo trail spawning during double jump.
+func _on_echo_trail_timer_timeout() -> void:
+	if _echo_trail_active:
+		# Stop trail when landing or no longer rising rapidly
+		if is_on_floor() or velocity.y > 200.0:
+			stop_echo_trail()
+		else:
+			spawn_echo_ghost()

@@ -241,10 +241,10 @@
   - [x] Alpha fade from 0.5 to 0 over 0.3 seconds
   - [x] `queue_free()` after fade complete
 
-- [ ] Spawn echo ghosts:
-  - [ ] Every 0.05s while double jump is active
-  - [ ] On wall jump activation
-  - [ ] On double jump activation (burst of 3)
+- [x] Spawn echo ghosts:
+  - [x] Every 0.05s while double jump is active
+  - [x] On wall jump activation
+  - [x] On double jump activation (burst of 3)
 
 ### 2.6 Player Death & Respawn
 - [ ] On `died` signal from HealthComponent:
