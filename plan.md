@@ -744,10 +744,10 @@
     - [x] "Level Select" → Back to select
 
 ### 8.6 Level Select
-- [ ] Create `scenes/ui/level_select.tscn`:
-  - [ ] Grid or list of levels
-  - [ ] Show completion status (crystals, shards)
-  - [ ] Lock/unlock based on progression
+- [x] Create `scenes/ui/level_select.tscn`:
+  - [x] Grid or list of levels
+  - [x] Show completion status (crystals, shards)
+  - [x] Lock/unlock based on progression
   - [ ] Preview image per level (optional)
 
 ### 8.7 Game Complete Screen

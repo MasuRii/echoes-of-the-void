@@ -90,9 +90,14 @@ func _on_continue_pressed() -> void:
 func _on_level_select_pressed() -> void:
 	"""Open the level select screen."""
 	_play_confirm_sound()
-	# TODO: Implement level select screen transition
-	# For now, this is a placeholder
-	push_warning("MainMenu: Level Select not yet implemented")
+	
+	# Load and display the level select screen
+	var level_select_scene: PackedScene = load("res://scenes/ui/level_select.tscn")
+	if level_select_scene:
+		var level_select: Control = level_select_scene.instantiate()
+		add_child(level_select)
+	else:
+		push_error("MainMenu: Failed to load level_select.tscn")
 
 
 func _on_settings_pressed() -> void:
