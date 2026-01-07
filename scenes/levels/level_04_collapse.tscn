@@ -1,0 +1,246 @@
+[gd_scene load_steps=13 format=3 uid="uid://level04collapse"]
+
+[ext_resource type="Script" uid="uid://dxg5qt2n3uxby" path="res://scenes/levels/level_base.gd" id="1_level_base"]
+[ext_resource type="TileSet" uid="uid://bm4ktv8l4dxqt" path="res://assets/tilesets/void_tileset.tres" id="2_tileset"]
+[ext_resource type="PackedScene" uid="uid://clightshardcoll" path="res://scenes/collectibles/light_shard.tscn" id="3_lightshard"]
+[ext_resource type="PackedScene" uid="uid://cechocrystalcol" path="res://scenes/collectibles/echo_crystal.tscn" id="4_echocrystal"]
+[ext_resource type="PackedScene" uid="uid://ccheckpointobj" path="res://scenes/objects/checkpoint.tscn" id="5_checkpoint"]
+[ext_resource type="PackedScene" uid="uid://dpulseorb001" path="res://scenes/enemies/pulse_orb/pulse_orb.tscn" id="6_pulse_orb"]
+[ext_resource type="PackedScene" uid="uid://claser_beam_hazard" path="res://scenes/hazards/laser_beam.tscn" id="7_laser_beam"]
+[ext_resource type="PackedScene" uid="uid://ccrumbling_platform1" path="res://scenes/platforms/crumbling_platform.tscn" id="8_crumbling_platform"]
+[ext_resource type="PackedScene" uid="uid://cmoving_platform1" path="res://scenes/platforms/moving_platform.tscn" id="9_moving_platform"]
+[ext_resource type="PackedScene" uid="uid://cphase_platform1" path="res://scenes/platforms/phase_platform.tscn" id="10_phase_platform"]
+[ext_resource type="PackedScene" uid="uid://dshadowcrawler01" path="res://scenes/enemies/shadow_crawler/shadow_crawler.tscn" id="11_shadow_crawler"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(64, 96)
+
+[node name="Level04Collapse" type="Node2D"]
+script = ExtResource("1_level_base")
+level_name = "Collapse"
+next_level = "res://scenes/levels/level_05_last_echo.tscn"
+total_shards = 12
+crystal_count = 2
+use_camera_limits = true
+camera_limit_left = 0
+camera_limit_right = 4480
+camera_limit_top = -1200
+camera_limit_bottom = 800
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_tileset")
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(96, 320)
+
+[node name="LevelExit" type="Area2D" parent="."]
+position = Vector2(4352, -896)
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelExit"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="ExitGlow" type="PointLight2D" parent="LevelExit"]
+color = Color(0, 1, 1, 1)
+energy = 1.5
+texture_scale = 1.5
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="LightShard1" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(256, 288)
+
+[node name="LightShard2" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(544, 160)
+
+[node name="LightShard3" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(832, 64)
+
+[node name="LightShard4" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(1280, -64)
+
+[node name="LightShard5" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(1664, -192)
+
+[node name="LightShard6" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(2048, -288)
+
+[node name="LightShard7" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(2496, -416)
+
+[node name="LightShard8" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(2944, -544)
+
+[node name="LightShard9" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(3328, -640)
+
+[node name="LightShard10" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(3712, -768)
+
+[node name="LightShard11" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(4032, -832)
+
+[node name="LightShard12" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(1088, -320)
+
+[node name="EchoCrystal1" parent="Collectibles" instance=ExtResource("4_echocrystal")]
+position = Vector2(1920, -544)
+crystal_id = "level_04_crystal_1"
+
+[node name="EchoCrystal2" parent="Collectibles" instance=ExtResource("4_echocrystal")]
+position = Vector2(3584, -1024)
+crystal_id = "level_04_crystal_2"
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="PulseOrb1" parent="Enemies" instance=ExtResource("6_pulse_orb")]
+position = Vector2(640, 128)
+amplitude = 80.0
+frequency = 1.5
+
+[node name="PulseOrb2" parent="Enemies" instance=ExtResource("6_pulse_orb")]
+position = Vector2(1440, -128)
+amplitude = 120.0
+frequency = 2.0
+vertical_mode = true
+
+[node name="PulseOrb3" parent="Enemies" instance=ExtResource("6_pulse_orb")]
+position = Vector2(2304, -352)
+amplitude = 100.0
+frequency = 1.8
+
+[node name="PulseOrb4" parent="Enemies" instance=ExtResource("6_pulse_orb")]
+position = Vector2(3136, -576)
+amplitude = 90.0
+frequency = 2.2
+vertical_mode = true
+
+[node name="ShadowCrawler1" parent="Enemies" instance=ExtResource("11_shadow_crawler")]
+position = Vector2(1024, 64)
+
+[node name="ShadowCrawler2" parent="Enemies" instance=ExtResource("11_shadow_crawler")]
+position = Vector2(2752, -480)
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="CrumblingPlatform1" parent="Platforms" instance=ExtResource("8_crumbling_platform")]
+position = Vector2(416, 192)
+
+[node name="CrumblingPlatform2" parent="Platforms" instance=ExtResource("8_crumbling_platform")]
+position = Vector2(480, 192)
+
+[node name="CrumblingPlatform3" parent="Platforms" instance=ExtResource("8_crumbling_platform")]
+position = Vector2(544, 192)
+
+[node name="CrumblingPlatform4" parent="Platforms" instance=ExtResource("8_crumbling_platform")]
+position = Vector2(1792, -256)
+
+[node name="CrumblingPlatform5" parent="Platforms" instance=ExtResource("8_crumbling_platform")]
+position = Vector2(1856, -256)
+
+[node name="CrumblingPlatform6" parent="Platforms" instance=ExtResource("8_crumbling_platform")]
+position = Vector2(3456, -704)
+
+[node name="CrumblingPlatform7" parent="Platforms" instance=ExtResource("8_crumbling_platform")]
+position = Vector2(3520, -704)
+
+[node name="MovingPlatform1" parent="Platforms" instance=ExtResource("9_moving_platform")]
+position = Vector2(992, 0)
+path_points = Array[Vector2]([Vector2(0, 0), Vector2(160, 0)])
+speed = 80.0
+
+[node name="MovingPlatform2" parent="Platforms" instance=ExtResource("9_moving_platform")]
+position = Vector2(2176, -320)
+path_points = Array[Vector2]([Vector2(0, 0), Vector2(0, -160)])
+speed = 60.0
+
+[node name="MovingPlatform3" parent="Platforms" instance=ExtResource("9_moving_platform")]
+position = Vector2(2880, -512)
+path_points = Array[Vector2]([Vector2(0, 0), Vector2(128, 0)])
+speed = 100.0
+
+[node name="MovingPlatform4" parent="Platforms" instance=ExtResource("9_moving_platform")]
+position = Vector2(4096, -768)
+path_points = Array[Vector2]([Vector2(0, 0), Vector2(0, -128)])
+speed = 70.0
+
+[node name="PhasePlatform1" parent="Platforms" instance=ExtResource("10_phase_platform")]
+position = Vector2(1168, -96)
+visible_duration = 2.0
+invisible_duration = 1.5
+
+[node name="PhasePlatform2" parent="Platforms" instance=ExtResource("10_phase_platform")]
+position = Vector2(1296, -128)
+visible_duration = 2.0
+invisible_duration = 1.5
+phase_offset = 0.75
+
+[node name="PhasePlatform3" parent="Platforms" instance=ExtResource("10_phase_platform")]
+position = Vector2(2560, -448)
+visible_duration = 1.5
+invisible_duration = 2.0
+
+[node name="PhasePlatform4" parent="Platforms" instance=ExtResource("10_phase_platform")]
+position = Vector2(2688, -480)
+visible_duration = 1.5
+invisible_duration = 2.0
+phase_offset = 1.0
+
+[node name="PhasePlatform5" parent="Platforms" instance=ExtResource("10_phase_platform")]
+position = Vector2(3840, -800)
+visible_duration = 2.0
+invisible_duration = 1.0
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="LaserBeam1" parent="Hazards" instance=ExtResource("7_laser_beam")]
+position = Vector2(768, 80)
+rotation = 1.5708
+beam_length = 160.0
+on_duration = 2.0
+off_duration = 1.5
+
+[node name="LaserBeam2" parent="Hazards" instance=ExtResource("7_laser_beam")]
+position = Vector2(1536, -160)
+beam_length = 200.0
+on_duration = 1.5
+off_duration = 2.0
+
+[node name="LaserBeam3" parent="Hazards" instance=ExtResource("7_laser_beam")]
+position = Vector2(2432, -384)
+rotation = 1.5708
+beam_length = 128.0
+on_duration = 2.5
+off_duration = 1.0
+
+[node name="LaserBeam4" parent="Hazards" instance=ExtResource("7_laser_beam")]
+position = Vector2(3264, -608)
+beam_length = 180.0
+on_duration = 2.0
+off_duration = 1.5
+
+[node name="LaserBeam5" parent="Hazards" instance=ExtResource("7_laser_beam")]
+position = Vector2(3968, -864)
+rotation = 1.5708
+beam_length = 160.0
+on_duration = 1.5
+off_duration = 2.0
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint1" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(576, 160)
+
+[node name="Checkpoint2" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(1344, -96)
+
+[node name="Checkpoint3" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(2112, -320)
+
+[node name="Checkpoint4" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(3072, -544)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[connection signal="body_entered" from="LevelExit" to="." method="_on_level_exit_body_entered"]

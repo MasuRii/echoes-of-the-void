@@ -535,19 +535,19 @@
   - [x] Precision landing challenges
 
 ### 5.6 Level 4: Collapse
-- [ ] Create `scenes/levels/level_04_collapse.tscn`
-- [ ] Design goals:
-  - [ ] Challenge level - all mechanics combined
-  - [ ] Pulse Orbs introduction (3-4)
-  - [ ] Laser beam hazards
-  - [ ] Complex crumbling platform chains
-  - [ ] 10-12 Light Shards
-  - [ ] Two Echo Crystals (difficult placement)
-- [ ] Layout tasks:
-  - [ ] Multi-path sections
-  - [ ] Timed hazard gauntlets
-  - [ ] Vertical chase sections (rising hazard?)
-  - [ ] Enemy combination challenges
+- [x] Create `scenes/levels/level_04_collapse.tscn`
+- [x] Design goals:
+  - [x] Challenge level - all mechanics combined
+  - [x] Pulse Orbs introduction (4 with varied patterns)
+  - [x] Laser beam hazards (5 positioned for timed gauntlets)
+  - [x] Complex crumbling platform chains (7 crumbling platforms)
+  - [x] 12 Light Shards
+  - [x] Two Echo Crystals (difficult placement requiring skill)
+- [x] Layout tasks:
+  - [x] Multi-path sections (crumbling chains vs moving platforms)
+  - [x] Timed hazard gauntlets (laser beams with phase platforms)
+  - [x] Vertical chase sections (moving platforms + pulse orbs)
+  - [x] Enemy combination challenges (Pulse Orbs + Shadow Crawlers)
 
 ### 5.7 Level 5: The Last Echo (Finale)
 - [ ] Create `scenes/levels/level_05_last_echo.tscn`
