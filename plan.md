@@ -1300,6 +1300,7 @@ The project has all scene structures and scripts in place, but **critical implem
 | ISS-007 | Enemy behavior untested | OPEN | 🟡 MEDIUM | 12 |
 | ISS-008 | Platform mechanics untested | OPEN | 🟡 MEDIUM | 13 |
 | ISS-009 | Audio system untested | OPEN | 🟢 LOW | 14 |
+| ISS-010 | Wall slide particles not connected | ✅ FIXED | - | 2.3 |
 
 ---
 

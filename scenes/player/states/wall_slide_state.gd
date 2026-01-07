@@ -4,6 +4,9 @@ extends "res://scripts/classes/state.gd"
 ## Player wall slide state - sliding down a wall.
 ## Transitions to: Jump (wall jump on jump input), Fall (no wall contact or input away)
 
+# Reference to active wall slide particles
+var _wall_slide_particles: GPUParticles2D = null
+
 
 func enter() -> void:
 	# Set wall sliding flag
@@ -15,13 +18,16 @@ func enter() -> void:
 	# Flip the rotation direction based on which wall we're sliding on
 	# Positive rotation leans right (for left wall), negative leans left (for right wall)
 	actor.get_node("Sprite2D").rotation = 0.1 * wall_dir
-	# TODO: Play wall slide particles
+	# Spawn wall slide particles (sparks fly away from wall)
+	_spawn_wall_slide_particles(wall_dir)
 
 
 func exit() -> void:
 	actor.is_wall_sliding = false
 	# Reset sprite rotation when exiting wall slide
 	actor.get_node("Sprite2D").rotation = 0.0
+	# Stop and cleanup wall slide particles
+	_cleanup_wall_slide_particles()
 
 
 func physics_update(_delta: float) -> void:
@@ -57,3 +63,26 @@ func physics_update(_delta: float) -> void:
 	if not pressing_toward_wall:
 		state_machine.transition_to("fall")
 		return
+	
+	# Update particle position to follow player while sliding
+	if _wall_slide_particles and is_instance_valid(_wall_slide_particles):
+		_wall_slide_particles.global_position = actor.global_position
+
+
+## Spawns wall slide sparks at the player's position.
+## wall_dir: -1 = wall on left, 1 = wall on right
+func _spawn_wall_slide_particles(wall_dir: int) -> void:
+	# Sparks fly away from the wall, so direction is opposite of wall_dir
+	var spark_direction: int = -wall_dir
+	_wall_slide_particles = WallSlideSparks.spawn_at(
+		actor.get_tree(),
+		actor.global_position,
+		spark_direction
+	)
+
+
+## Stops and cleans up wall slide particles.
+func _cleanup_wall_slide_particles() -> void:
+	if _wall_slide_particles and is_instance_valid(_wall_slide_particles):
+		_wall_slide_particles.stop_and_cleanup()
+		_wall_slide_particles = null
