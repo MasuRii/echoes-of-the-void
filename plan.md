@@ -573,7 +573,7 @@
   - [x] `death_particles.tscn` - White dispersion burst on player death
   - [x] `respawn_particles.tscn` - Coalesce effect on respawn
   - [x] `footstep_dust.tscn` - Subtle dust when running
-  - [ ] `jump_dust.tscn` - Burst on jump
+  - [x] `jump_dust.tscn` - Burst on jump
   - [ ] `land_dust.tscn` - Impact on landing
   - [ ] `wall_slide_sparks.tscn` - Friction effect on wall
   - [ ] `shard_collect.tscn` - Sparkle burst
