@@ -211,7 +211,7 @@
   - [x] Apply opposite horizontal velocity
 
 ### 2.4 Player States (FSM)
-- [ ] Create state scripts in `scenes/player/states/`:
+- [x] Create state scripts in `scenes/player/states/`:
   - [x] `idle_state.gd` - Standing still on ground
   - [x] `run_state.gd` - Moving horizontally on ground
   - [x] `jump_state.gd` - Rising through air
@@ -219,7 +219,7 @@
   - [x] `wall_slide_state.gd` - Sliding down wall
   - [x] `death_state.gd` - Death animation, then respawn
 
-- [ ] State transitions:
+- [x] State transitions:
   ```
   Idle -> Run (movement input)
   Idle -> Jump (jump input)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbvl4w72xrqpu"]
+[gd_scene load_steps=11 format=3 uid="uid://cbvl4w72xrqpu"]
 
 [ext_resource type="Script" uid="uid://b2mmg5w87qmg3" path="res://scenes/player/player.gd" id="1_player"]
 [ext_resource type="Script" uid="uid://bq8r7oy7a6vhq" path="res://scripts/classes/state_machine.gd" id="2_statemachine"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" path="res://scenes/player/states/idle_state.gd" id="4_idle"]
 [ext_resource type="Script" path="res://scenes/player/states/run_state.gd" id="5_run"]
 [ext_resource type="Script" path="res://scenes/player/states/jump_state.gd" id="6_jump"]
+[ext_resource type="Script" path="res://scenes/player/states/fall_state.gd" id="7_fall"]
+[ext_resource type="Script" path="res://scenes/player/states/wall_slide_state.gd" id="8_wall_slide"]
+[ext_resource type="Script" path="res://scenes/player/states/death_state.gd" id="9_death"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(16, 32)
@@ -41,6 +44,15 @@ script = ExtResource("5_run")
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("6_jump")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("7_fall")
+
+[node name="WallSlide" type="Node" parent="StateMachine"]
+script = ExtResource("8_wall_slide")
+
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("9_death")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.1
