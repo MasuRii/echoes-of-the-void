@@ -131,6 +131,11 @@ func _collect() -> void:
 	# Disable further collisions
 	collision_shape.set_deferred("disabled", true)
 	
+	# Trigger hitstop for impact on major collectible
+	var game_manager := get_node_or_null("/root/GameManager")
+	if game_manager and game_manager.has_method("hitstop"):
+		game_manager.hitstop(0.05)  # Brief freeze for crystal collection
+	
 	# Emit local signal
 	collected.emit(crystal_id)
 	

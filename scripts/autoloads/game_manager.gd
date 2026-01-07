@@ -129,3 +129,24 @@ func _on_crystal_collected(crystal_id: String) -> void:
 	"""Handle crystal collection event."""
 	if crystal_id not in collected_crystals:
 		collected_crystals.append(crystal_id)
+
+
+## Applies a brief hitstop/freeze frame effect for impact.
+## Sets Engine.time_scale to 0.0 for the given duration, then restores it.
+## Commonly used for: player death, crystal collection, impactful moments.
+func hitstop(duration: float = 0.05) -> void:
+	if duration <= 0.0:
+		return
+	
+	# Store original time scale (normally 1.0, but could be different)
+	var original_time_scale := Engine.time_scale
+	
+	# Freeze time
+	Engine.time_scale = 0.0
+	
+	# Wait using a timer that ignores time scale (we use process_mode)
+	# Create a SceneTreeTimer that is NOT affected by time_scale
+	await get_tree().create_timer(duration, true, false, true).timeout
+	
+	# Restore time scale
+	Engine.time_scale = original_time_scale

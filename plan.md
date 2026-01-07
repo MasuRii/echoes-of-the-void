@@ -664,12 +664,12 @@
     - [x] Enemy death (very light)
 
 ### 7.4 Hitstop/Freeze Frames
-- [ ] Create hitstop utility in GameManager:
-  - [ ] Method: `hitstop(duration: float = 0.05) -> void`
-  - [ ] Brief `Engine.time_scale = 0.0` then restore
-  - [ ] Use for:
-    - [ ] Player death moment
-    - [ ] Crystal collection
+- [x] Create hitstop utility in GameManager:
+  - [x] Method: `hitstop(duration: float = 0.05) -> void`
+  - [x] Brief `Engine.time_scale = 0.0` then restore
+  - [x] Use for:
+    - [x] Player death moment
+    - [x] Crystal collection
     - [ ] Boss hit (if added)
 
 ### 7.5 Camera System

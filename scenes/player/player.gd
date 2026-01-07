@@ -265,6 +265,11 @@ func respawn() -> void:
 
 ## Called when the player dies - transitions to death state.
 func die() -> void:
+	# Trigger hitstop for impact
+	var game_manager := get_node_or_null("/root/GameManager")
+	if game_manager and game_manager.has_method("hitstop"):
+		game_manager.hitstop(0.08)  # Slightly longer for death impact
+	
 	# Trigger medium screen shake on death
 	if screen_shake and screen_shake.has_method("shake_medium"):
 		screen_shake.shake_medium()
