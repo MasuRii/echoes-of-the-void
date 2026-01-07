@@ -25,9 +25,12 @@ func _ready() -> void:
 	if wall_detector != null:
 		wall_detector.enabled = true
 	
-	# Start with idle animation
+	# Initialize raycast directions based on starting facing direction
+	_update_raycast_directions()
+	
+	# Start with walk animation since we patrol immediately on the ground
 	if animation_player != null:
-		animation_player.play("idle")
+		animation_player.play("walk")
 
 
 func _physics_process(delta: float) -> void:

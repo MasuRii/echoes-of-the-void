@@ -1238,11 +1238,11 @@ Instead of manually painting tiles, we will:
 > **Approach:** Code verification and fixes
 
 #### 12.1 Shadow Crawler Fixes
-- [ ] Verify shadow_crawler.gd movement code
-- [ ] Add ground detection for patrol (RayCast2D check)
-- [ ] Fix ledge detection logic
-- [ ] Add fallback behavior if no ground detected (stop or turn)
-- [ ] Test damage dealing via HitboxComponent
+- [x] Verify shadow_crawler.gd movement code
+- [x] Add ground detection for patrol (RayCast2D check)
+- [x] Fix ledge detection logic
+- [x] Add fallback behavior if no ground detected (stop or turn)
+- [x] Test damage dealing via HitboxComponent
 
 #### 12.2 Mirror Guard Fixes
 - [ ] Verify mirror_guard.gd player tracking
