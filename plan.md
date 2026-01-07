@@ -217,7 +217,7 @@
   - [x] `jump_state.gd` - Rising through air
   - [x] `fall_state.gd` - Falling through air
   - [x] `wall_slide_state.gd` - Sliding down wall
-  - [ ] `death_state.gd` - Death animation, then respawn
+  - [x] `death_state.gd` - Death animation, then respawn
 
 - [ ] State transitions:
   ```
