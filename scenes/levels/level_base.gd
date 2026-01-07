@@ -168,28 +168,96 @@ func _generate_emergency_geometry() -> void:
 
 
 func _spawn_player() -> void:
-	"""Spawn the player at the spawn point."""
+	"""Spawn the player at the spawn point with validation."""
 	if player_spawn == null:
 		push_error("LevelBase: PlayerSpawn Marker2D not found!")
 		return
 	
+	# Validate spawn position has ground beneath it
+	var spawn_pos: Vector2 = player_spawn.global_position
+	var has_ground: bool = _validate_spawn_has_ground(spawn_pos)
+	
+	if not has_ground:
+		push_warning("LevelBase: No ground detected at spawn position (%.0f, %.0f), generating emergency platform" % [spawn_pos.x, spawn_pos.y])
+		_generate_emergency_spawn_platform(spawn_pos)
+	
 	# Preload and instantiate player
 	var player_scene: PackedScene = preload("res://scenes/player/player.tscn")
 	player = player_scene.instantiate()
-	player.global_position = player_spawn.global_position
+	player.global_position = spawn_pos
 	
 	# Set initial checkpoint to spawn position
 	if player.has_method("set_last_checkpoint"):
-		player.set_last_checkpoint(player_spawn.global_position)
+		player.set_last_checkpoint(spawn_pos)
 	elif "last_checkpoint" in player:
-		player.last_checkpoint = player_spawn.global_position
+		player.last_checkpoint = spawn_pos
 	
 	add_child(player)
+	
+	print("LevelBase: Player spawned at (%.0f, %.0f)" % [spawn_pos.x, spawn_pos.y])
 	
 	# Emit player spawned event
 	var events := _get_events()
 	if events and events.has_signal("player_spawned"):
 		events.player_spawned.emit(player)
+
+
+func _validate_spawn_has_ground(spawn_pos: Vector2) -> bool:
+	"""Check if there is solid ground below the spawn position."""
+	# Check if any generated platform exists that would catch the player
+	if _generated_geometry == null:
+		return false
+	
+	# Player collision height (approximately 32 pixels, check 64 below for margin)
+	var check_distance: float = 128.0
+	var player_width: float = 16.0  # Half player width for checking
+	
+	for child in _generated_geometry.get_children():
+		if not child is StaticBody2D:
+			continue
+		
+		# Get the visual rect to determine platform bounds
+		var visual: ColorRect = child.get_node_or_null("Visual")
+		if visual == null:
+			continue
+		
+		var platform_pos: Vector2 = child.position
+		var platform_size: Vector2 = visual.size
+		
+		# Check if spawn is horizontally within platform bounds
+		var platform_left: float = platform_pos.x - player_width
+		var platform_right: float = platform_pos.x + platform_size.x + player_width
+		
+		if spawn_pos.x < platform_left or spawn_pos.x > platform_right:
+			continue
+		
+		# Check if platform is below spawn but within check distance
+		var platform_top: float = platform_pos.y
+		if platform_top > spawn_pos.y and platform_top < spawn_pos.y + check_distance:
+			return true
+	
+	return false
+
+
+func _generate_emergency_spawn_platform(spawn_pos: Vector2) -> void:
+	"""Generate a small emergency platform below the spawn point."""
+	if _generated_geometry == null:
+		_generated_geometry = Node2D.new()
+		_generated_geometry.name = "GeneratedGeometry"
+		add_child(_generated_geometry)
+		move_child(_generated_geometry, 0)
+	
+	# Create a platform centered below spawn, 64 pixels down
+	var platform_width: float = 256.0
+	var platform_height: float = 32.0
+	var platform_pos := Vector2(spawn_pos.x - platform_width / 2.0, spawn_pos.y + 48.0)
+	
+	PlatformGeneratorClass.create_platform(
+		_generated_geometry,
+		platform_pos,
+		Vector2(platform_width, platform_height)
+	)
+	print("LevelBase: Emergency spawn platform created at (%.0f, %.0f)" % [platform_pos.x, platform_pos.y])
 
 
 func _spawn_hud() -> void:

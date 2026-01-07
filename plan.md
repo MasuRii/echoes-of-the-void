@@ -1139,14 +1139,14 @@ Instead of manually painting tiles, we will:
 > **Approach:** Code fixes and verification scripts
 
 #### 10.1 Spawn & Respawn System Fixes
-- [ ] Add spawn validation in level_base.gd `_spawn_player()`:
-  - [ ] Check if generated ground exists at spawn position
-  - [ ] If no ground, auto-generate emergency platform
-  - [ ] Log warning if spawn position seems invalid
-- [ ] Fix checkpoint respawn in player.gd:
-  - [ ] Verify `last_checkpoint` is set on level load
-  - [ ] Add null check before respawn teleport
-  - [ ] Emit proper signals on respawn
+- [x] Add spawn validation in level_base.gd `_spawn_player()`:
+  - [x] Check if generated ground exists at spawn position
+  - [x] If no ground, auto-generate emergency platform
+  - [x] Log warning if spawn position seems invalid
+- [x] Fix checkpoint respawn in player.gd:
+  - [x] Verify `last_checkpoint` is set on level load
+  - [x] Add null check before respawn teleport
+  - [x] Emit proper signals on respawn
 - [ ] Create `scripts/debug/spawn_debugger.gd`:
   - [ ] Visualize spawn point and checkpoint positions
   - [ ] Show ground detection rays

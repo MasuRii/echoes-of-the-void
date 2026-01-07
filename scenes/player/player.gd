@@ -273,6 +273,11 @@ func cut_jump() -> void:
 
 ## Respawns the player at the last checkpoint.
 func respawn() -> void:
+	# Validate checkpoint before respawn
+	if last_checkpoint == Vector2.ZERO:
+		push_warning("Player: last_checkpoint is ZERO, using current position")
+		last_checkpoint = global_position
+	
 	global_position = last_checkpoint
 	velocity = Vector2.ZERO
 	can_double_jump = true
@@ -283,9 +288,18 @@ func respawn() -> void:
 	echo_trail_timer.stop()
 	
 	# Reset health for the new life
-	health_component.reset_health()
+	if health_component != null:
+		health_component.reset_health()
 	
+	print("Player: Respawned at (%.0f, %.0f)" % [last_checkpoint.x, last_checkpoint.y])
 	Events.player_respawned.emit()
+
+
+## Sets the last checkpoint position for respawning.
+func set_last_checkpoint(pos: Vector2) -> void:
+	if pos != Vector2.ZERO:
+		last_checkpoint = pos
+		print("Player: Checkpoint set at (%.0f, %.0f)" % [pos.x, pos.y])
 
 
 ## Called when the player dies - transitions to death state.
