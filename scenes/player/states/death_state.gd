@@ -4,6 +4,10 @@ extends "res://scripts/classes/state.gd"
 ## Player death state - handles death animation and respawn.
 ## Transitions to: Idle (after respawn complete)
 
+# Preload particle scenes
+const DEATH_PARTICLES_SCENE: PackedScene = preload("res://scenes/effects/particles/death_particles.tscn")
+const RESPAWN_PARTICLES_SCENE: PackedScene = preload("res://scenes/effects/particles/respawn_particles.tscn")
+
 # Duration before respawn occurs
 const RESPAWN_DELAY: float = 0.5
 
@@ -30,8 +34,8 @@ func enter() -> void:
 	# TODO: Play death animation when available
 	# actor.animation_player.play("death")
 	
-	# TODO: Play death particles (white dispersion)
-	# _spawn_death_particles()
+	# Play death particles (white dispersion burst)
+	_spawn_death_particles()
 	
 	# Make player semi-transparent during death
 	actor.modulate.a = 0.5
@@ -63,8 +67,22 @@ func _perform_respawn() -> void:
 	# Call the player's respawn method
 	actor.respawn()
 	
-	# TODO: Play respawn particles (coalesce effect)
-	# _spawn_respawn_particles()
+	# Play respawn particles (coalesce effect) at new position
+	_spawn_respawn_particles()
 	
 	# Transition back to idle state
 	state_machine.transition_to("idle")
+
+
+## Spawns death particles at the player's current position.
+func _spawn_death_particles() -> void:
+	var particles: GPUParticles2D = DEATH_PARTICLES_SCENE.instantiate()
+	actor.get_tree().current_scene.add_child(particles)
+	particles.global_position = actor.global_position
+
+
+## Spawns respawn particles at the player's respawn position.
+func _spawn_respawn_particles() -> void:
+	var particles: GPUParticles2D = RESPAWN_PARTICLES_SCENE.instantiate()
+	actor.get_tree().current_scene.add_child(particles)
+	particles.global_position = actor.global_position
