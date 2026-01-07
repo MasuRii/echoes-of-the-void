@@ -235,11 +235,11 @@
   ```
 
 ### 2.5 Echo Trail Effect
-- [ ] Create `scenes/effects/echo_ghost.tscn` - Fading player silhouette
-  - [ ] Sprite2D with player texture
-  - [ ] Modulate with cyan tint `#00FFFF`
-  - [ ] Alpha fade from 0.5 to 0 over 0.3 seconds
-  - [ ] `queue_free()` after fade complete
+- [x] Create `scenes/effects/echo_ghost.tscn` - Fading player silhouette
+  - [x] Sprite2D with player texture
+  - [x] Modulate with cyan tint `#00FFFF`
+  - [x] Alpha fade from 0.5 to 0 over 0.3 seconds
+  - [x] `queue_free()` after fade complete
 
 - [ ] Spawn echo ghosts:
   - [ ] Every 0.05s while double jump is active
