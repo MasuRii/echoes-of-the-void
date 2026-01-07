@@ -215,7 +215,7 @@
   - [x] `idle_state.gd` - Standing still on ground
   - [x] `run_state.gd` - Moving horizontally on ground
   - [x] `jump_state.gd` - Rising through air
-  - [ ] `fall_state.gd` - Falling through air
+  - [x] `fall_state.gd` - Falling through air
   - [ ] `wall_slide_state.gd` - Sliding down wall
   - [ ] `death_state.gd` - Death animation, then respawn
 
