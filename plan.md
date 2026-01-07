@@ -90,13 +90,13 @@
   - [x] Method: `load_game() -> void`
   - [x] Method: `has_save() -> bool`
 
-- [ ] Create `scripts/autoloads/audio_manager.gd` - Centralized audio control
-  - [ ] Audio bus: Master, Music, SFX
-  - [ ] Method: `play_sfx(sound_name: String) -> void`
-  - [ ] Method: `play_music(track_name: String, fade_duration: float = 1.0) -> void`
-  - [ ] Method: `set_music_volume(value: float) -> void`
-  - [ ] Method: `set_sfx_volume(value: float) -> void`
-  - [ ] Preload common SFX at startup
+- [x] Create `scripts/autoloads/audio_manager.gd` - Centralized audio control
+  - [x] Audio bus: Master, Music, SFX
+  - [x] Method: `play_sfx(sound_name: String) -> void`
+  - [x] Method: `play_music(track_name: String, fade_duration: float = 1.0) -> void`
+  - [x] Method: `set_music_volume(value: float) -> void`
+  - [x] Method: `set_sfx_volume(value: float) -> void`
+  - [x] Preload common SFX at startup
 
 - [ ] Register all autoloads in Project Settings → Autoload
 
