@@ -52,13 +52,13 @@
 - [x] Create initial `project.godot` configuration
 
 ### 1.2 Input Configuration
-- [ ] Define input actions in Project Settings → Input Map:
-  - [ ] `move_left` - A, Left Arrow, D-Pad Left
-  - [ ] `move_right` - D, Right Arrow, D-Pad Right
-  - [ ] `jump` - Space, W, Up Arrow, Gamepad South (A/X)
-  - [ ] `pause` - Escape, Start button
-  - [ ] `interact` - E, Gamepad West (X/Square)
-  - [ ] `restart` - R (debug/quick restart)
+- [x] Define input actions in Project Settings → Input Map:
+  - [x] `move_left` - A, Left Arrow, D-Pad Left
+  - [x] `move_right` - D, Right Arrow, D-Pad Right
+  - [x] `jump` - Space, W, Up Arrow, Gamepad South (A/X)
+  - [x] `pause` - Escape, Start button
+  - [x] `interact` - E, Gamepad West (X/Square)
+  - [x] `restart` - R (debug/quick restart)
 
 ### 1.3 Core Autoloads
 - [ ] Create `scripts/autoloads/events.gd` - Signal bus for decoupled communication
