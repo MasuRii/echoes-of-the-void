@@ -320,11 +320,11 @@
   - [x] Light pulsing: Scale light energy with sine wave
 
 ### 3.5 Hazards (Static Dangers)
-- [ ] Create `scenes/hazards/spike.tscn`
-  - [ ] StaticBody2D with HitboxComponent
-  - [ ] Sprite2D (white spike silhouette)
-  - [ ] CollisionShape2D (thin triangle or box)
-  - [ ] Instant kill on contact
+- [x] Create `scenes/hazards/spike.tscn`
+  - [x] StaticBody2D with HitboxComponent
+  - [x] Sprite2D (white spike silhouette)
+  - [x] CollisionShape2D (thin triangle or box)
+  - [x] Instant kill on contact
 
 - [ ] Create `scenes/hazards/void_pit.tscn`
   - [ ] Area2D trigger zone

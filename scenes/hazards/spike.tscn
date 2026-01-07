@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dspike1hazard"]
+
+[ext_resource type="Script" path="res://scenes/hazards/spike.gd" id="1_spike"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="2_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(16, 16)
+
+[node name="Spike" type="StaticBody2D" groups=["hazards"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_spike")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="HitboxComponent" type="Area2D" parent="." groups=["hitbox"]]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("2_hitbox")
+damage = 999
+
+[node name="HitboxShape" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_body")
