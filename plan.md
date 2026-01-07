@@ -611,7 +611,7 @@
 ### 6.5 Animation Polish
 - [x] Player animations:
   - [x] Idle breathing/subtle movement
-  - [ ] Run cycle (4-6 frames)
+  - [x] Run cycle (4-6 frames)
   - [ ] Jump anticipation and apex
   - [ ] Fall (arms up? dramatic pose)
   - [ ] Wall slide (pressed against wall)
