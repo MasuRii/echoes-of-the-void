@@ -112,12 +112,12 @@
   func physics_update(_delta: float) -> void: pass
   ```
 
-- [ ] Create `scripts/classes/state_machine.gd` - FSM controller
-  - [ ] Export: `initial_state: State`
-  - [ ] Track: `current_state: State`
-  - [ ] Track: `states: Dictionary`
-  - [ ] Method: `transition_to(state_name: String) -> void`
-  - [ ] Call `physics_update()` in `_physics_process()`
+- [x] Create `scripts/classes/state_machine.gd` - FSM controller
+  - [x] Export: `initial_state: State`
+  - [x] Track: `current_state: State`
+  - [x] Track: `states: Dictionary`
+  - [x] Method: `transition_to(state_name: String) -> void`
+  - [x] Call `physics_update()` in `_physics_process()`
 
 - [ ] Create `scripts/components/health_component.gd` - Reusable health logic
   - [ ] Signal: `health_changed(current: int, max: int)`
