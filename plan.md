@@ -423,24 +423,24 @@
     - [x] `queue_free()` or disable
 
 ### 4.7 Echo Crystal (Stars/Major Collectible)
-- [ ] Create `scenes/collectibles/echo_crystal.tscn`
-- [ ] Node structure:
-  - [ ] Area2D (root)
-  - [ ] Sprite2D (larger crystal, bright cyan with white core)
-  - [ ] CollisionShape2D
-  - [ ] AnimationPlayer (rotate, pulse glow)
-  - [ ] PointLight2D (strong glow)
-  - [ ] GPUParticles2D (swirling particles)
-  - [ ] AudioStreamPlayer2D
+- [x] Create `scenes/collectibles/echo_crystal.tscn`
+- [x] Node structure:
+  - [x] Area2D (root)
+  - [x] Sprite2D (larger crystal, bright cyan with white core)
+  - [x] CollisionShape2D
+  - [x] AnimationPlayer (rotate, pulse glow)
+  - [x] PointLight2D (strong glow)
+  - [x] GPUParticles2D (swirling particles)
+  - [x] AudioStreamPlayer2D
 
-- [ ] Create `scenes/collectibles/echo_crystal.gd`:
-  - [ ] Export: `crystal_id: String` (unique per crystal for save)
-  - [ ] Check if already collected via SaveManager
-  - [ ] On collection:
-    - [ ] Grand particle burst
-    - [ ] Emit `Events.crystal_collected(crystal_id)`
-    - [ ] Play triumphant sound
-    - [ ] Save collection state
+- [x] Create `scenes/collectibles/echo_crystal.gd`:
+  - [x] Export: `crystal_id: String` (unique per crystal for save)
+  - [x] Check if already collected via SaveManager
+  - [x] On collection:
+    - [x] Grand particle burst
+    - [x] Emit `Events.crystal_collected(crystal_id)`
+    - [x] Play triumphant sound
+    - [x] Save collection state
 
 ### 4.8 Checkpoint
 - [ ] Create `scenes/objects/checkpoint.tscn`
