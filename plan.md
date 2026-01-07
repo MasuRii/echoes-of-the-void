@@ -751,12 +751,12 @@
   - [ ] Preview image per level (optional)
 
 ### 8.7 Game Complete Screen
-- [ ] Create `scenes/ui/game_complete.tscn`:
-  - [ ] "THE END" or "ECHOES SILENCED"
-  - [ ] Total stats
-  - [ ] 100% completion recognition (if applicable)
-  - [ ] "Main Menu" button
-  - [ ] Credits option
+- [x] Create `scenes/ui/game_complete.tscn`:
+  - [x] "THE END" or "ECHOES SILENCED"
+  - [x] Total stats
+  - [x] 100% completion recognition (if applicable)
+  - [x] "Main Menu" button
+  - [x] Credits option
 
 ### 8.8 Final Testing Checklist
 - [ ] Complete playthrough of all 5 levels

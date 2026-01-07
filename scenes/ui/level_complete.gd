@@ -5,6 +5,7 @@ extends Control
 # Path constants
 const MAIN_MENU_PATH: String = "res://scenes/ui/main_menu.tscn"
 const LEVEL_SELECT_PATH: String = "res://scenes/ui/level_select.tscn"
+const GAME_COMPLETE_PATH: String = "res://scenes/ui/game_complete.tscn"
 
 # Cached references to autoloads
 var _game_manager: Node = null
@@ -59,9 +60,9 @@ func _ready() -> void:
 	
 	# Set initial focus
 	if _next_level_path.is_empty():
-		# Last level - focus replay or level select
-		replay_button.grab_focus()
-		next_level_button.visible = false
+		# Last level - show game complete screen instead
+		_show_game_complete()
+		return
 	else:
 		next_level_button.grab_focus()
 	
@@ -202,6 +203,21 @@ func _play_confirm_sound() -> void:
 	"""Play button confirm sound."""
 	if _audio_manager:
 		_audio_manager.play_sfx("menu_confirm")
+
+
+func _show_game_complete() -> void:
+	"""Show game complete screen instead of level complete for the final level."""
+	# Hide this screen
+	visible = false
+	
+	# Load and show game complete screen
+	var game_complete_scene: PackedScene = load(GAME_COMPLETE_PATH)
+	if game_complete_scene:
+		var game_complete: Control = game_complete_scene.instantiate()
+		get_parent().add_child(game_complete)
+	
+	# Free this level complete screen
+	queue_free()
 
 
 ## Set level completion data manually (alternative to auto-detection).
