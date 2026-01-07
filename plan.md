@@ -126,13 +126,13 @@
   - [x] Method: `take_damage(amount: int = 1) -> void`
   - [x] Method: `heal(amount: int) -> void`
 
-- [ ] Create `scripts/components/hitbox_component.gd` - Damage dealer (Area2D)
-  - [ ] Export: `damage: int = 1`
-  - [ ] Connect `area_entered` to check for hurtbox
+- [x] Create `scripts/components/hitbox_component.gd` - Damage dealer (Area2D)
+  - [x] Export: `damage: int = 1`
+  - [x] Connect `area_entered` to check for hurtbox
 
-- [ ] Create `scripts/components/hurtbox_component.gd` - Damage receiver (Area2D)
-  - [ ] Signal: `hurt(hitbox: HitboxComponent)`
-  - [ ] Detect hitbox collisions and emit signal
+- [x] Create `scripts/components/hurtbox_component.gd` - Damage receiver (Area2D)
+  - [x] Signal: `hurt(hitbox: HitboxComponent)`
+  - [x] Detect hitbox collisions and emit signal
 
 ---
 
