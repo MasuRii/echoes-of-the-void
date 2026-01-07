@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://level03mirrorsedge"]
+[gd_scene load_steps=11 format=3 uid="uid://level03mirrorsedge"]
 
 [ext_resource type="Script" uid="uid://dxg5qt2n3uxby" path="res://scenes/levels/level_base.gd" id="1_level_base"]
 [ext_resource type="TileSet" uid="uid://bm4ktv8l4dxqt" path="res://assets/tilesets/void_tileset.tres" id="2_tileset"]
@@ -11,6 +11,17 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(64, 96)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ambient"]
+gradient = SubResource("Gradient_ambient")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_ambient"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Level03MirrorsEdge" type="Node2D"]
 script = ExtResource("1_level_base")
@@ -41,7 +52,11 @@ shape = SubResource("RectangleShape2D_exit")
 [node name="ExitGlow" type="PointLight2D" parent="LevelExit"]
 color = Color(0, 1, 1, 1)
 energy = 1.5
-texture_scale = 1.5
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_ambient")
+texture_scale = 2.0
 
 [node name="Collectibles" type="Node2D" parent="."]
 
@@ -140,5 +155,70 @@ position = Vector2(1984, -160)
 position = Vector2(3136, -448)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.4, 0.4, 0.5, 1)
+
+[node name="AmbientLights" type="Node2D" parent="."]
+
+[node name="SpawnLight" type="PointLight2D" parent="AmbientLights"]
+position = Vector2(96, 320)
+color = Color(0.7, 0.8, 1, 1)
+energy = 0.6
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_ambient")
+texture_scale = 1.5
+
+[node name="PathLight1" type="PointLight2D" parent="AmbientLights"]
+position = Vector2(768, 128)
+color = Color(0.6, 0.7, 0.9, 1)
+energy = 0.4
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_ambient")
+texture_scale = 1.2
+
+[node name="PathLight2" type="PointLight2D" parent="AmbientLights"]
+position = Vector2(1472, -32)
+color = Color(0.6, 0.7, 0.9, 1)
+energy = 0.4
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_ambient")
+texture_scale = 1.2
+
+[node name="PathLight3" type="PointLight2D" parent="AmbientLights"]
+position = Vector2(2112, -192)
+color = Color(0.6, 0.7, 0.9, 1)
+energy = 0.4
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_ambient")
+texture_scale = 1.2
+
+[node name="PathLight4" type="PointLight2D" parent="AmbientLights"]
+position = Vector2(2752, -352)
+color = Color(0.6, 0.7, 0.9, 1)
+energy = 0.4
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_ambient")
+texture_scale = 1.2
+
+[node name="PathLight5" type="PointLight2D" parent="AmbientLights"]
+position = Vector2(3392, -480)
+color = Color(0.6, 0.7, 0.9, 1)
+energy = 0.4
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_ambient")
+texture_scale = 1.2
 
 [connection signal="body_entered" from="LevelExit" to="." method="_on_level_exit_body_entered"]

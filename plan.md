@@ -591,7 +591,7 @@
   - [x] Player subtle glow (PointLight2D, white, low energy)
   - [x] Collectible lights (Echo Crystals, Shards)
   - [x] Checkpoint activation lights
-  - [ ] Ambient level lighting (strategic PointLight2D placement)
+  - [x] Ambient level lighting (strategic PointLight2D placement)
   - [ ] Hazard warning lights (red tint for danger zones)
 
 ### 6.3 Echo Trail Enhancement
