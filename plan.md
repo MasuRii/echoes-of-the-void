@@ -506,18 +506,18 @@
   - [x] Clear path to exit
 
 ### 5.4 Level 2: Fractured Paths
-- [ ] Create `scenes/levels/level_02_fractured_paths.tscn`
-- [ ] Design goals:
-  - [ ] Introduce wall jump
-  - [ ] First enemy: Shadow Crawlers (2-3 of them)
-  - [ ] Crumbling platforms introduction
-  - [ ] 5-7 Light Shards
-  - [ ] Two Checkpoints
-  - [ ] One Echo Crystal (wall jump challenge)
-- [ ] Layout tasks:
-  - [ ] Vertical section requiring wall jumps
-  - [ ] Crumbling platform sequence
-  - [ ] Enemy patrol patterns to navigate
+- [x] Create `scenes/levels/level_02_fractured_paths.tscn`
+- [x] Design goals:
+  - [x] Introduce wall jump
+  - [x] First enemy: Shadow Crawlers (2-3 of them)
+  - [x] Crumbling platforms introduction
+  - [x] 5-7 Light Shards
+  - [x] Two Checkpoints
+  - [x] One Echo Crystal (wall jump challenge)
+- [x] Layout tasks:
+  - [x] Vertical section requiring wall jumps
+  - [x] Crumbling platform sequence
+  - [x] Enemy patrol patterns to navigate
 
 ### 5.5 Level 3: Mirror's Edge
 - [ ] Create `scenes/levels/level_03_mirrors_edge.tscn`

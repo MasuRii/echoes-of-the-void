@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://level02fractured"]
+
+[ext_resource type="Script" uid="uid://dxg5qt2n3uxby" path="res://scenes/levels/level_base.gd" id="1_level_base"]
+[ext_resource type="TileSet" uid="uid://bm4ktv8l4dxqt" path="res://assets/tilesets/void_tileset.tres" id="2_tileset"]
+[ext_resource type="PackedScene" uid="uid://clightshardcoll" path="res://scenes/collectibles/light_shard.tscn" id="3_lightshard"]
+[ext_resource type="PackedScene" uid="uid://cechocrystalcol" path="res://scenes/collectibles/echo_crystal.tscn" id="4_echocrystal"]
+[ext_resource type="PackedScene" uid="uid://ccheckpointobj" path="res://scenes/objects/checkpoint.tscn" id="5_checkpoint"]
+[ext_resource type="PackedScene" uid="uid://cx7j2qsmd4ypf" path="res://scenes/enemies/shadow_crawler/shadow_crawler.tscn" id="6_shadow_crawler"]
+[ext_resource type="PackedScene" uid="uid://ccrumbling_platform1" path="res://scenes/platforms/crumbling_platform.tscn" id="7_crumbling_platform"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(64, 96)
+
+[node name="Level02FracturedPaths" type="Node2D"]
+script = ExtResource("1_level_base")
+level_name = "Fractured Paths"
+next_level = "res://scenes/levels/level_03_mirrors_edge.tscn"
+total_shards = 6
+crystal_count = 1
+use_camera_limits = true
+camera_limit_left = 0
+camera_limit_right = 3200
+camera_limit_top = -600
+camera_limit_bottom = 800
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_tileset")
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(96, 320)
+
+[node name="LevelExit" type="Area2D" parent="."]
+position = Vector2(3072, -192)
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelExit"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="ExitGlow" type="PointLight2D" parent="LevelExit"]
+color = Color(0, 1, 1, 1)
+energy = 1.0
+texture_scale = 1.0
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="LightShard1" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(320, 304)
+
+[node name="LightShard2" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(672, 256)
+
+[node name="LightShard3" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(1024, 128)
+
+[node name="LightShard4" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(1600, -64)
+
+[node name="LightShard5" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(2176, -128)
+
+[node name="LightShard6" parent="Collectibles" instance=ExtResource("3_lightshard")]
+position = Vector2(2624, -224)
+
+[node name="EchoCrystal1" parent="Collectibles" instance=ExtResource("4_echocrystal")]
+position = Vector2(1408, -384)
+crystal_id = "level_02_crystal_1"
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="ShadowCrawler1" parent="Enemies" instance=ExtResource("6_shadow_crawler")]
+position = Vector2(512, 320)
+
+[node name="ShadowCrawler2" parent="Enemies" instance=ExtResource("6_shadow_crawler")]
+position = Vector2(1856, -128)
+
+[node name="ShadowCrawler3" parent="Enemies" instance=ExtResource("6_shadow_crawler")]
+position = Vector2(2432, -256)
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="CrumblingPlatform1" parent="Platforms" instance=ExtResource("7_crumbling_platform")]
+position = Vector2(896, 160)
+
+[node name="CrumblingPlatform2" parent="Platforms" instance=ExtResource("7_crumbling_platform")]
+position = Vector2(2048, -96)
+
+[node name="CrumblingPlatform3" parent="Platforms" instance=ExtResource("7_crumbling_platform")]
+position = Vector2(2304, -192)
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="Checkpoint1" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(768, 352)
+
+[node name="Checkpoint2" parent="Checkpoints" instance=ExtResource("5_checkpoint")]
+position = Vector2(1984, -96)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[connection signal="body_entered" from="LevelExit" to="." method="_on_level_exit_body_entered"]
