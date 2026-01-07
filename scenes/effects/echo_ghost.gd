@@ -6,8 +6,11 @@ extends Node2D
 
 const FADE_DURATION: float = 0.3
 const INITIAL_ALPHA: float = 0.5
-const CYAN_TINT: Color = Color("#00FFFF")
 const INITIAL_LIGHT_ENERGY: float = 0.4
+
+# Color progression: bright cyan-white → deep blue as trail ages
+const COLOR_START: Color = Color(0.7, 1.0, 1.0, 1.0)  # Bright cyan-white
+const COLOR_END: Color = Color(0.0, 0.4, 0.8, 1.0)    # Deep blue
 
 var _elapsed_time: float = 0.0
 
@@ -16,8 +19,8 @@ var _elapsed_time: float = 0.0
 
 
 func _ready() -> void:
-	# Set initial modulation with cyan tint and starting alpha
-	modulate = Color(CYAN_TINT.r, CYAN_TINT.g, CYAN_TINT.b, INITIAL_ALPHA)
+	# Set initial modulation with starting color and alpha
+	modulate = Color(COLOR_START.r, COLOR_START.g, COLOR_START.b, INITIAL_ALPHA)
 
 
 func _process(delta: float) -> void:
@@ -27,8 +30,11 @@ func _process(delta: float) -> void:
 	var progress: float = _elapsed_time / FADE_DURATION
 	var current_alpha: float = lerpf(INITIAL_ALPHA, 0.0, progress)
 	
-	# Update modulation
-	modulate.a = current_alpha
+	# Lerp color from bright cyan-white to deep blue as trail ages
+	var current_color: Color = COLOR_START.lerp(COLOR_END, progress)
+	
+	# Update modulation with both color progression and alpha fade
+	modulate = Color(current_color.r, current_color.g, current_color.b, current_alpha)
 	
 	# Fade the glow light energy along with the sprite
 	if ghost_glow:
