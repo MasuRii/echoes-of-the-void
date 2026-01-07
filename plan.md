@@ -326,10 +326,10 @@
   - [x] CollisionShape2D (thin triangle or box)
   - [x] Instant kill on contact
 
-- [ ] Create `scenes/hazards/void_pit.tscn`
-  - [ ] Area2D trigger zone
-  - [ ] Kill player on body_entered
-  - [ ] Particle effect (dark mist rising)
+- [x] Create `scenes/hazards/void_pit.tscn`
+  - [x] Area2D trigger zone
+  - [x] Kill player on body_entered
+  - [x] Particle effect (dark mist rising)
 
 - [ ] Create `scenes/hazards/laser_beam.tscn`
   - [ ] Toggleable hazard (on/off timing)

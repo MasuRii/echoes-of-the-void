@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvoidpithazard"]
+
+[ext_resource type="Script" path="res://scenes/hazards/void_pit.gd" id="1_voidpit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(64, 32)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mist"]
+emission_shape = 3
+emission_box_extents = Vector3(32, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, -20, 0)
+scale_min = 2.0
+scale_max = 4.0
+color = Color(0.1, 0.05, 0.15, 0.6)
+
+[node name="VoidPit" type="Area2D" groups=["hazards"]]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1_voidpit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="MistParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, -8)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_mist")
+lifetime = 1.5
+visibility_rect = Rect2(-40, -60, 80, 70)
