@@ -685,16 +685,16 @@
 ## Phase 8: Menus & Completion (Day 14)
 
 ### 8.1 Main Menu
-- [ ] Create `scenes/ui/main_menu.tscn`:
-  - [ ] Title: "ECHOES OF THE VOID" (stylized text/logo)
-  - [ ] Buttons (VBoxContainer):
-    - [ ] "New Game" → Start Level 1
-    - [ ] "Continue" → Load saved progress (only if save exists)
-    - [ ] "Level Select" → Level selection screen
-    - [ ] "Settings" → Settings menu
-    - [ ] "Quit" → Exit game
-  - [ ] Background: Animated void particles
-  - [ ] Subtle animations on button hover
+- [x] Create `scenes/ui/main_menu.tscn`:
+  - [x] Title: "ECHOES OF THE VOID" (stylized text/logo)
+  - [x] Buttons (VBoxContainer):
+    - [x] "New Game" → Start Level 1
+    - [x] "Continue" → Load saved progress (only if save exists)
+    - [x] "Level Select" → Level selection screen
+    - [x] "Settings" → Settings menu
+    - [x] "Quit" → Exit game
+  - [x] Background: Animated void particles
+  - [x] Subtle animations on button hover
 
 ### 8.2 Pause Menu
 - [ ] Create `scenes/ui/pause_menu.tscn`:
