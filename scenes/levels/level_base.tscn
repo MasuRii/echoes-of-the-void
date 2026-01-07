@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6qpm4xh8ytk3"]
+
+[ext_resource type="Script" uid="uid://dxg5qt2n3uxby" path="res://scenes/levels/level_base.gd" id="1_level_base"]
+
+[node name="LevelBase" type="Node2D"]
+script = ExtResource("1_level_base")
+level_name = "Level Name"
+total_shards = 0
+crystal_count = 1
+use_camera_limits = true
+camera_limit_left = 0
+camera_limit_right = 1920
+camera_limit_top = 0
+camera_limit_bottom = 1080
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(100, 500)
+
+[node name="LevelExit" type="Area2D" parent="."]
+position = Vector2(1800, 500)
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelExit"]
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[connection signal="body_entered" from="LevelExit" to="." method="_on_level_exit_body_entered"]

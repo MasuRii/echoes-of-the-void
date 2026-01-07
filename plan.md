@@ -462,25 +462,25 @@
 ## Phase 5: Level Design (Days 9-11)
 
 ### 5.1 Level Template Setup
-- [ ] Create `scenes/levels/level_base.tscn` template:
-  - [ ] Node2D (root)
-  - [ ] TileMapLayer (environment/collision)
-  - [ ] Player spawn point (Marker2D)
-  - [ ] LevelExit (Area2D)
-  - [ ] Collectibles (Node2D container)
-  - [ ] Enemies (Node2D container)
-  - [ ] Platforms (Node2D container)
-  - [ ] Hazards (Node2D container)
-  - [ ] Checkpoints (Node2D container)
-  - [ ] ParallaxBackground
-  - [ ] Camera2D with limits
+- [x] Create `scenes/levels/level_base.tscn` template:
+  - [x] Node2D (root)
+  - [x] TileMapLayer (environment/collision)
+  - [x] Player spawn point (Marker2D)
+  - [x] LevelExit (Area2D)
+  - [x] Collectibles (Node2D container)
+  - [x] Enemies (Node2D container)
+  - [x] Platforms (Node2D container)
+  - [x] Hazards (Node2D container)
+  - [x] Checkpoints (Node2D container)
+  - [x] ParallaxBackground
+  - [x] Camera2D with limits
 
-- [ ] Create `scenes/levels/level_base.gd`:
-  - [ ] Export: `level_name: String`
-  - [ ] Export: `next_level: String` (path to next level)
-  - [ ] Export: `total_shards: int`
-  - [ ] Export: `crystal_count: int`
-  - [ ] Method: `_on_level_exit_entered() -> void`
+- [x] Create `scenes/levels/level_base.gd`:
+  - [x] Export: `level_name: String`
+  - [x] Export: `next_level: String` (path to next level)
+  - [x] Export: `total_shards: int`
+  - [x] Export: `crystal_count: int`
+  - [x] Method: `_on_level_exit_entered() -> void`
 
 ### 5.2 TileSet Creation
 - [ ] Create `assets/tilesets/void_tileset.tres`:
