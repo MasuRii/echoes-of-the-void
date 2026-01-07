@@ -154,8 +154,8 @@
   - [x] `HurtboxComponent` (Area2D) - Player damage receiver
 
 ### 2.2 Player Core Script
-- [ ] Create `scenes/player/player.gd` extending CharacterBody2D
-- [ ] Constants:
+- [x] Create `scenes/player/player.gd` extending CharacterBody2D
+- [x] Constants:
   ```gdscript
   const SPEED: float = 300.0
   const JUMP_VELOCITY: float = -450.0
@@ -165,56 +165,56 @@
   const WALL_JUMP_VELOCITY: Vector2 = Vector2(350.0, -400.0)
   const DOUBLE_JUMP_VELOCITY: float = -380.0
   ```
-- [ ] Track: `can_double_jump: bool`
-- [ ] Track: `is_wall_sliding: bool`
-- [ ] Track: `facing_direction: int = 1`
-- [ ] Track: `last_checkpoint: Vector2`
-- [ ] Implement `_physics_process()` with gravity and movement
+- [x] Track: `can_double_jump: bool`
+- [x] Track: `is_wall_sliding: bool`
+- [x] Track: `facing_direction: int = 1`
+- [x] Track: `last_checkpoint: Vector2`
+- [x] Implement `_physics_process()` with gravity and movement
 
 ### 2.3 Movement Mechanics
-- [ ] **Basic Horizontal Movement**
-  - [ ] Get input direction from `move_left`/`move_right`
-  - [ ] Apply acceleration/deceleration (lerp-based for smoothness)
-  - [ ] Flip sprite based on movement direction
+- [x] **Basic Horizontal Movement**
+  - [x] Get input direction from `move_left`/`move_right`
+  - [x] Apply acceleration/deceleration (lerp-based for smoothness)
+  - [x] Flip sprite based on movement direction
 
-- [ ] **Variable Jump Height**
-  - [ ] Full jump on held input
-  - [ ] Cut jump velocity by 50% on early release
-  - [ ] Only cut if moving upward (`velocity.y < 0`)
+- [x] **Variable Jump Height**
+  - [x] Full jump on held input
+  - [x] Cut jump velocity by 50% on early release
+  - [x] Only cut if moving upward (`velocity.y < 0`)
 
-- [ ] **Coyote Time** (grace period after leaving platform)
-  - [ ] Start timer when leaving ground (not jumping)
-  - [ ] Allow jump if timer still running
-  - [ ] Duration: 0.1 seconds
+- [x] **Coyote Time** (grace period after leaving platform)
+  - [x] Start timer when leaving ground (not jumping)
+  - [x] Allow jump if timer still running
+  - [x] Duration: 0.1 seconds
 
-- [ ] **Jump Buffering** (input before landing)
-  - [ ] Start buffer timer on jump press while airborne
-  - [ ] Execute jump on landing if timer still running
-  - [ ] Duration: 0.15 seconds
+- [x] **Jump Buffering** (input before landing)
+  - [x] Start buffer timer on jump press while airborne
+  - [x] Execute jump on landing if timer still running
+  - [x] Duration: 0.15 seconds
 
-- [ ] **Double Jump**
-  - [ ] Reset `can_double_jump` on ground contact
-  - [ ] Consume double jump in air (one use)
-  - [ ] Use `DOUBLE_JUMP_VELOCITY` (slightly weaker than ground jump)
-  - [ ] Spawn echo effect on double jump activation
+- [x] **Double Jump**
+  - [x] Reset `can_double_jump` on ground contact
+  - [x] Consume double jump in air (one use)
+  - [x] Use `DOUBLE_JUMP_VELOCITY` (slightly weaker than ground jump)
+  - [x] Spawn echo effect on double jump activation
 
-- [ ] **Wall Slide**
-  - [ ] Detect wall contact using RayCast2D
-  - [ ] Only slide if pressing toward wall
-  - [ ] Reduce fall speed to `WALL_SLIDE_SPEED`
-  - [ ] Play wall slide particles
+- [x] **Wall Slide**
+  - [x] Detect wall contact using RayCast2D
+  - [x] Only slide if pressing toward wall
+  - [x] Reduce fall speed to `WALL_SLIDE_SPEED`
+  - [x] Play wall slide particles
 
-- [ ] **Wall Jump**
-  - [ ] Jump away from wall with `WALL_JUMP_VELOCITY`
-  - [ ] Brief input lockout (0.15s) to prevent immediate return
-  - [ ] Reset double jump on wall jump
-  - [ ] Apply opposite horizontal velocity
+- [x] **Wall Jump**
+  - [x] Jump away from wall with `WALL_JUMP_VELOCITY`
+  - [x] Brief input lockout (0.15s) to prevent immediate return
+  - [x] Reset double jump on wall jump
+  - [x] Apply opposite horizontal velocity
 
 ### 2.4 Player States (FSM)
 - [ ] Create state scripts in `scenes/player/states/`:
   - [x] `idle_state.gd` - Standing still on ground
   - [x] `run_state.gd` - Moving horizontally on ground
-  - [ ] `jump_state.gd` - Rising through air
+  - [x] `jump_state.gd` - Rising through air
   - [ ] `fall_state.gd` - Falling through air
   - [ ] `wall_slide_state.gd` - Sliding down wall
   - [ ] `death_state.gd` - Death animation, then respawn

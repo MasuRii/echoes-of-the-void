@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbvl4w72xrqpu"]
+[gd_scene load_steps=8 format=3 uid="uid://cbvl4w72xrqpu"]
 
 [ext_resource type="Script" uid="uid://b2mmg5w87qmg3" path="res://scenes/player/player.gd" id="1_player"]
 [ext_resource type="Script" uid="uid://bq8r7oy7a6vhq" path="res://scripts/classes/state_machine.gd" id="2_statemachine"]
 [ext_resource type="Script" uid="uid://cmj3l8rqoyhka" path="res://scripts/components/hurtbox_component.gd" id="3_hurtbox"]
+[ext_resource type="Script" path="res://scenes/player/states/idle_state.gd" id="4_idle"]
+[ext_resource type="Script" path="res://scenes/player/states/run_state.gd" id="5_run"]
+[ext_resource type="Script" path="res://scenes/player/states/jump_state.gd" id="6_jump"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(16, 32)
@@ -27,7 +30,17 @@ shape = SubResource("RectangleShape2D_body")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_statemachine")
+initial_state = NodePath("Idle")
 actor = NodePath("..")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_idle")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("5_run")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("6_jump")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.1
