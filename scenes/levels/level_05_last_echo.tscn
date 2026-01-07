@@ -34,6 +34,7 @@ fill_to = Vector2(0.5, 0)
 script = ExtResource("1_level_base")
 level_name = "The Last Echo"
 next_level = ""
+level_layout_key = "LEVEL_05"
 total_shards = 15
 crystal_count = 3
 use_camera_limits = true

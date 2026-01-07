@@ -34,6 +34,7 @@ fill_to = Vector2(0.5, 0)
 script = ExtResource("1_level_base")
 level_name = "Fractured Paths"
 next_level = "res://scenes/levels/level_03_mirrors_edge.tscn"
+level_layout_key = "LEVEL_02"
 total_shards = 6
 crystal_count = 1
 use_camera_limits = true

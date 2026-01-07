@@ -38,6 +38,7 @@ fill_to = Vector2(0.5, 0)
 script = ExtResource("1_level_base")
 level_name = "Collapse"
 next_level = "res://scenes/levels/level_05_last_echo.tscn"
+level_layout_key = "LEVEL_04"
 total_shards = 12
 crystal_count = 2
 use_camera_limits = true
