@@ -6,9 +6,7 @@ extends "res://scripts/classes/state.gd"
 
 
 func enter() -> void:
-	# TODO: Play fall animation when available
-	# actor.animation_player.play("fall")
-	pass
+	actor.animation_player.play("fall")
 
 
 func physics_update(_delta: float) -> void:

@@ -613,7 +613,7 @@
   - [x] Idle breathing/subtle movement
   - [x] Run cycle (4-6 frames)
   - [x] Jump anticipation and apex
-  - [ ] Fall (arms up? dramatic pose)
+  - [x] Fall (arms up? dramatic pose)
   - [ ] Wall slide (pressed against wall)
   - [ ] Double jump spin
 
