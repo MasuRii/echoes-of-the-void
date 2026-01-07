@@ -1214,12 +1214,12 @@ Instead of manually painting tiles, we will:
 - [x] Checkpoint placeholder (16x64, gray → cyan)
 
 #### 11.3 Programmatic Particle Systems
-- [ ] Create `scripts/effects/particle_factory.gd`:
-  - [ ] Method: `create_burst_particles(color: Color, count: int) -> GPUParticles2D`
-  - [ ] Method: `create_trail_particles(color: Color) -> GPUParticles2D`
-  - [ ] Method: `create_ambient_particles() -> GPUParticles2D`
-- [ ] Generate particles programmatically where .tscn files missing
-- [ ] Add fallback: If particle scene not found, create basic version
+- [x] Create `scripts/effects/particle_factory.gd`:
+  - [x] Method: `create_burst_particles(color: Color, count: int) -> GPUParticles2D`
+  - [x] Method: `create_trail_particles(color: Color) -> GPUParticles2D`
+  - [x] Method: `create_ambient_particles() -> GPUParticles2D`
+- [x] Generate particles programmatically where .tscn files missing
+- [x] Add fallback: If particle scene not found, create basic version
 
 #### 11.4 Lighting System Setup
 - [ ] Create `scripts/systems/lighting_manager.gd`:
