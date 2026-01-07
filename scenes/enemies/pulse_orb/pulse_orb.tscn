@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dpulseorb001"]
+[gd_scene load_steps=12 format=3 uid="uid://dpulseorb001"]
 
 [ext_resource type="Script" path="res://scenes/enemies/pulse_orb/pulse_orb.gd" id="1_enemy"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="2_health"]
 [ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="3_hitbox"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_orb"]
+size = Vector2(24, 24)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 12.0
@@ -116,9 +119,11 @@ max_light_energy = 1.5
 light_pulse_frequency = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 1, 1)
 material = SubResource("CanvasItemMaterial_glow")
 scale = Vector2(1.5, 1.5)
 texture_filter = 1
+texture = SubResource("PlaceholderTexture2D_orb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_body")

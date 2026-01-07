@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" path="res://scenes/ui/pause_menu.gd" id="1_pause_menu"]
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenuLayer" type="CanvasLayer"]
+layer = 100
+
+[node name="PauseMenu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,16 +14,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pause_menu")
 
-[node name="DarkOverlay" type="ColorRect" parent="."]
+[node name="DarkOverlay" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 color = Color(0, 0, 0, 0.7)
 
-[node name="PanelContainer" type="CenterContainer" parent="."]
+[node name="PanelContainer" type="CenterContainer" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,11 +32,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="PausedLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="PausedLabel" type="Label" parent="PauseMenu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.9, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0.8, 1, 0.4)
@@ -43,17 +47,18 @@ text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Spacer" type="Control" parent="PanelContainer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="PauseMenu/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="MenuButtons" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="MenuButtons" type="VBoxContainer" parent="PauseMenu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ResumeButton" type="Button" parent="PanelContainer/VBoxContainer/MenuButtons"]
+[node name="ResumeButton" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer/MenuButtons"]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
+focus_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 1, 1, 1)
@@ -61,9 +66,10 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "Resume"
 
-[node name="RestartButton" type="Button" parent="PanelContainer/VBoxContainer/MenuButtons"]
+[node name="RestartButton" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer/MenuButtons"]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
+focus_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 1, 1, 1)
@@ -71,9 +77,10 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "Restart Level"
 
-[node name="SettingsButton" type="Button" parent="PanelContainer/VBoxContainer/MenuButtons"]
+[node name="SettingsButton" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer/MenuButtons"]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
+focus_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 1, 1, 1)
@@ -81,9 +88,10 @@ theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "Settings"
 
-[node name="MainMenuButton" type="Button" parent="PanelContainer/VBoxContainer/MenuButtons"]
+[node name="MainMenuButton" type="Button" parent="PauseMenu/PanelContainer/VBoxContainer/MenuButtons"]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
+focus_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 1, 1, 1)

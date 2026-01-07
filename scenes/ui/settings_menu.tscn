@@ -18,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 color = Color(0, 0, 0, 0.85)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -81,9 +82,12 @@ custom_minimum_size = Vector2(200, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+focus_mode = 2
 min_value = 0.0
 max_value = 100.0
 value = 100.0
+step = 1.0
+ticks_on_borders = true
 
 [node name="ValueLabel" type="Label" parent="CenterContainer/VBoxContainer/SettingsContainer/AudioSection/MasterVolume"]
 custom_minimum_size = Vector2(50, 0)
@@ -113,9 +117,12 @@ custom_minimum_size = Vector2(200, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+focus_mode = 2
 min_value = 0.0
 max_value = 100.0
 value = 80.0
+step = 1.0
+ticks_on_borders = true
 
 [node name="ValueLabel" type="Label" parent="CenterContainer/VBoxContainer/SettingsContainer/AudioSection/MusicVolume"]
 custom_minimum_size = Vector2(50, 0)
@@ -145,9 +152,12 @@ custom_minimum_size = Vector2(200, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+focus_mode = 2
 min_value = 0.0
 max_value = 100.0
 value = 100.0
+step = 1.0
+ticks_on_borders = true
 
 [node name="ValueLabel" type="Label" parent="CenterContainer/VBoxContainer/SettingsContainer/AudioSection/SFXVolume"]
 custom_minimum_size = Vector2(50, 0)
@@ -186,6 +196,7 @@ vertical_alignment = 1
 [node name="CheckBox" type="CheckBox" parent="CenterContainer/VBoxContainer/SettingsContainer/VideoSection/FullscreenToggle"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 1, 1, 1)
@@ -208,6 +219,7 @@ vertical_alignment = 1
 [node name="CheckBox" type="CheckBox" parent="CenterContainer/VBoxContainer/SettingsContainer/VideoSection/VSyncToggle"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 1, 1, 1)
@@ -230,6 +242,7 @@ vertical_alignment = 1
 [node name="CheckBox" type="CheckBox" parent="CenterContainer/VBoxContainer/SettingsContainer/VideoSection/ScreenShakeToggle"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 1, 1, 1)

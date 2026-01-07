@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cx7j2qsmd4ypf"]
+[gd_scene load_steps=9 format=3 uid="uid://cx7j2qsmd4ypf"]
 
 [ext_resource type="Script" path="res://scenes/enemies/shadow_crawler/shadow_crawler.gd" id="1_enemy"]
 [ext_resource type="Script" path="res://scripts/components/health_component.gd" id="2_health"]
 [ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="3_hitbox"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_crawler"]
+size = Vector2(20, 16)
 
 [sub_resource type="Animation" id="Animation_walk"]
 resource_name = "walk"
@@ -78,9 +81,11 @@ script = ExtResource("1_enemy")
 move_speed = 80.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.5, 0.2, 0.5, 1)
 position = Vector2(0, -8)
 scale = Vector2(1.25, 1)
 texture_filter = 1
+texture = SubResource("PlaceholderTexture2D_crawler")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)

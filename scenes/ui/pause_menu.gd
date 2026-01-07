@@ -12,13 +12,19 @@ var _audio_manager: Node = null
 @onready var settings_button: Button = $PanelContainer/VBoxContainer/MenuButtons/SettingsButton
 @onready var main_menu_button: Button = $PanelContainer/VBoxContainer/MenuButtons/MainMenuButton
 
+# Reference to the CanvasLayer parent (for cleanup)
+var _canvas_layer: CanvasLayer = null
+
 # Main menu path constant
 const MAIN_MENU_PATH: String = "res://scenes/ui/main_menu.tscn"
 
 
 func _ready() -> void:
 	# This menu should work even when the game is paused
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	# Store reference to canvas layer parent for cleanup
+	_canvas_layer = get_parent() as CanvasLayer
 	
 	# Get autoload references
 	_game_manager = get_node_or_null("/root/GameManager")
@@ -53,8 +59,11 @@ func _on_resume_pressed() -> void:
 	if _game_manager:
 		_game_manager.change_state(_game_manager.GameState.PLAYING)
 	
-	# Hide and free this menu
-	queue_free()
+	# Hide and free the canvas layer (which includes this menu)
+	if _canvas_layer:
+		_canvas_layer.queue_free()
+	else:
+		queue_free()
 
 
 func _on_restart_pressed() -> void:
@@ -67,8 +76,11 @@ func _on_restart_pressed() -> void:
 	if _game_manager:
 		_game_manager.restart_level()
 	
-	# Free the pause menu
-	queue_free()
+	# Free the canvas layer (which includes pause menu)
+	if _canvas_layer:
+		_canvas_layer.queue_free()
+	else:
+		queue_free()
 
 
 func _on_settings_pressed() -> void:

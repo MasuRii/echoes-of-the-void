@@ -1,6 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccheckpointobj"]
+[gd_scene load_steps=9 format=3 uid="uid://ccheckpointobj"]
 
 [ext_resource type="Script" path="res://scenes/objects/checkpoint.gd" id="1_checkpoint"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_checkpoint"]
+size = Vector2(16, 64)
 
 [sub_resource type="Gradient" id="Gradient_light"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -60,6 +63,7 @@ script = ExtResource("1_checkpoint")
 modulate = Color(0.3, 0.3, 0.3, 1)
 position = Vector2(0, -32)
 scale = Vector2(0.5, 1)
+texture = SubResource("PlaceholderTexture2D_checkpoint")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -32)

@@ -28,8 +28,8 @@ var _initializing: bool = true
 
 
 func _ready() -> void:
-	# This menu should work even when the game is paused
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	# This menu should work both when paused AND when not paused (e.g., from main menu)
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	# Get autoload references
 	_audio_manager = get_node_or_null("/root/AudioManager")

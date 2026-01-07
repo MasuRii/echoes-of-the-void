@@ -1,5 +1,14 @@
 # Echoes of the Void - Development Plan
 
+> ⚠️ **CURRENT STATUS: NON-FUNCTIONAL**
+> 
+> The game structure is complete but **all 5 levels are empty** (no tile geometry painted).
+> Player spawns and immediately falls forever. See **Phase 9 (Critical Level Geometry)** at the bottom of this document for required fixes.
+> 
+> **Phases 1-8:** ✅ Structure complete (scenes, scripts, nodes exist)
+> **Phase 9:** 🔴 BLOCKING - Level geometry required (manual editor work)
+> **Phases 10-15:** 🟡 Waiting - Verification and testing after geometry added
+
 > **Engine:** Godot 4.5.1  
 > **Genre:** Atmospheric 2D Precision Platformer  
 > **Timeline:** 14 Days (1-2 weeks)  
@@ -759,6 +768,8 @@
   - [x] Credits option
 
 ### 8.8 Final Testing Checklist
+> ⚠️ **BLOCKED** - See Phase 15 for updated checklist after critical fixes
+
 - [ ] Complete playthrough of all 5 levels
 - [ ] Verify all collectibles obtainable
 - [ ] Verify all checkpoints functional
@@ -993,5 +1004,335 @@ A task is considered **COMPLETE** when:
 
 ---
 
-*Last Updated: January 2025*
+## 🚨 CRITICAL FIXES REQUIRED (Blocking Issues)
+
+> **Status:** The game is currently non-functional. The following issues must be addressed before any playtesting is possible.
+
+### Summary of Current State
+
+The project has all scene structures and scripts in place, but **critical implementation gaps** make the game unplayable:
+
+1. **ALL 5 levels have NO tile geometry** - TileMapLayer nodes exist but contain no painted tiles
+2. **Player immediately falls to death** - No ground to land on at spawn points  
+3. **Placeholder textures added** - Player and entities now visible, but nothing to interact with
+4. **Tileset exists with collision shapes** - void_tileset.tres has 32 tiles defined with physics, but never used
+5. **Game flow exists but untested** - Main menu, pause, level complete screens exist but full flow is broken
+
+---
+
+### Phase 9: Critical Level Geometry (BLOCKING)
+
+> **Priority:** 🔴 CRITICAL - Game cannot be played without this
+> **Estimated Time:** 4-6 hours
+
+#### 9.1 Level 01: Awakening - Add Tile Geometry
+- [ ] Open level_01_awakening.tscn in Godot editor
+- [ ] Paint ground tiles at PlayerSpawn position (96, 192) - minimum 3-4 tiles wide
+- [ ] Create basic ground path from spawn to exit (2432, 192)
+- [ ] Add platforms for collectible shards at positions:
+  - [ ] LightShard1 (320, 176) - platform below
+  - [ ] LightShard2 (576, 176) - platform below
+  - [ ] LightShard3 (896, 144) - slightly elevated platform
+  - [ ] LightShard4 (1408, 176) - platform below
+  - [ ] LightShard5 (1920, 176) - platform below
+- [ ] Add platform/wall for EchoCrystal1 (768, -64) - requires vertical climb
+- [ ] Add platform at Checkpoint1 position (1152, 224)
+- [ ] Add walls for wall-jump practice (optional for level 1)
+- [ ] Verify camera limits match geometry (0-2560 x -200 to 800)
+- [ ] Test: Player can traverse from spawn to exit
+- [ ] Test: All collectibles reachable
+
+#### 9.2 Level 02: Fractured Paths - Add Tile Geometry
+- [ ] Paint ground at spawn (96, 320)
+- [ ] Create vertical sections for wall jump introduction
+- [ ] Add platforms connecting to crumbling platforms at:
+  - [ ] CrumblingPlatform1 (896, 160)
+  - [ ] CrumblingPlatform2 (2048, -96)
+  - [ ] CrumblingPlatform3 (2304, -192)
+- [ ] Add patrol surfaces for ShadowCrawler enemies at:
+  - [ ] ShadowCrawler1 (512, 320) - needs flat ground
+  - [ ] ShadowCrawler2 (1856, -128) - needs platform
+  - [ ] ShadowCrawler3 (2432, -256) - needs platform
+- [ ] Add platforms for collectibles (6 shards + 1 crystal)
+- [ ] Create path to EchoCrystal1 (1408, -384) - wall jump challenge
+- [ ] Add checkpoints platforms (768, 352) and (1984, -96)
+- [ ] Create path to exit (3072, -192)
+- [ ] Verify camera limits (0-3200 x -600 to 800)
+
+#### 9.3 Level 03: Mirror's Edge - Add Tile Geometry
+- [ ] Paint ground at spawn position
+- [ ] Create wide gaps requiring double jump
+- [ ] Add platforms for moving platforms (if implemented)
+- [ ] Add surfaces for Mirror Guard enemies to patrol
+- [ ] Add phase/disappearing platform positions
+- [ ] Create path to 2 Echo Crystals with difficulty progression
+- [ ] Add platforms for 10 light shards
+- [ ] Verify all mechanics can be used (wall jump, double jump)
+
+#### 9.4 Level 04: Collapse - Add Tile Geometry  
+- [ ] Paint spawn ground
+- [ ] Create multi-path sections with crumbling platform chains
+- [ ] Add surfaces for Pulse Orb navigation
+- [ ] Position laser beam hazard platforms
+- [ ] Create 12 shard positions with platforms
+- [ ] Add 2 Echo Crystal challenge areas
+- [ ] Test timed gauntlet sections
+
+#### 9.5 Level 05: The Last Echo - Add Tile Geometry
+- [ ] Paint spawn ground (largest level: 5120x2400)
+- [ ] Create grand finale vertical climb section
+- [ ] Add surfaces for all enemy types:
+  - [ ] 4 Shadow Crawlers patrol areas
+  - [ ] 3 Mirror Guards sections
+  - [ ] 6 Pulse Orbs navigation areas
+- [ ] Position 10 Crumbling, 8 Moving, 9 Phase platforms
+- [ ] Create 3 Echo Crystal challenge areas
+- [ ] Add 15 light shard positions
+- [ ] Design "true ending" optional path
+
+---
+
+### Phase 10: Player Flow & Game Loop Fixes
+
+> **Priority:** 🟠 HIGH - Required for complete game experience
+> **Estimated Time:** 2-3 hours
+
+#### 10.1 Spawn & Respawn System Verification
+- [ ] Verify player spawns at correct position in all levels
+- [ ] Test respawn at checkpoint after death
+- [ ] Verify last_checkpoint is set correctly on level load
+- [ ] Test death → respawn → continue flow
+- [ ] Fix any null reference errors in player death sequence
+
+#### 10.2 Level Transition Flow
+- [ ] Test Main Menu → Level 1 transition
+- [ ] Test Level Complete screen appears on exit trigger
+- [ ] Test "Next Level" button loads correct level
+- [ ] Test "Restart Level" functionality
+- [ ] Test returning to Main Menu from any level
+- [ ] Test Level Select → specific level → back flow
+
+#### 10.3 Checkpoint System Verification
+- [ ] Verify checkpoint activation visual feedback
+- [ ] Test checkpoint saves player position
+- [ ] Test death after checkpoint respawns correctly
+- [ ] Verify multiple checkpoints in level work independently
+
+#### 10.4 Collectible System Verification
+- [ ] Test Light Shard collection updates HUD
+- [ ] Test Echo Crystal collection saves to SaveManager
+- [ ] Verify collected_shards count persists within level
+- [ ] Test crystal collection visual/audio feedback
+- [ ] Verify shard/crystal counts display in Level Complete screen
+
+#### 10.5 Save/Load System Verification
+- [ ] Test new game resets progress
+- [ ] Test continue loads from last level
+- [ ] Test level unlocking progression
+- [ ] Verify settings persist between sessions
+- [ ] Test save file creation and loading
+
+---
+
+### Phase 11: Asset & Visual Fixes
+
+> **Priority:** 🟡 MEDIUM - Game playable but visually incomplete
+> **Estimated Time:** 2-3 hours
+
+#### 11.1 Tileset Visual Verification
+- [ ] Verify void_tiles.svg renders correctly in editor
+- [ ] Check all 32 tile variants display
+- [ ] Verify tile collision shapes match visuals
+- [ ] Test one-way platforms work correctly
+- [ ] Check slope tiles (if any) work with player physics
+
+#### 11.2 Placeholder Texture Improvements (COMPLETED)
+- [x] Player placeholder (32x32, cyan modulate)
+- [x] Light Shard placeholder (24x24, cyan)
+- [x] Echo Crystal placeholder (32x32, cyan)
+- [x] Shadow Crawler placeholder (20x16, purple)
+- [x] Mirror Guard placeholder (16x32, light blue)
+- [x] Pulse Orb placeholder (24x24, cyan)
+- [x] Checkpoint placeholder (16x64, gray → cyan)
+
+#### 11.3 Missing Particle Effects
+- [ ] Verify death_particles.tscn exists and works
+- [ ] Verify respawn_particles.tscn exists and works
+- [ ] Test footstep_dust triggers during run
+- [ ] Test jump_dust on jump
+- [ ] Test land_dust on landing
+- [ ] Test wall_slide_sparks during wall slide
+- [ ] Verify shard_collect particles play
+- [ ] Verify crystal_collect particles play
+
+#### 11.4 Lighting System Verification
+- [ ] Test PointLight2D on collectibles visible
+- [ ] Verify checkpoint light activates
+- [ ] Check ambient lights in all levels
+- [ ] Test CanvasModulate darkness level appropriate
+- [ ] Verify player glow visible
+
+---
+
+### Phase 12: Enemy & Hazard Verification
+
+> **Priority:** 🟡 MEDIUM - Affects gameplay challenge
+> **Estimated Time:** 1-2 hours
+
+#### 12.1 Shadow Crawler Behavior
+- [ ] Verify patrol movement works (needs ground to walk on)
+- [ ] Test ledge detection (turns at edges)
+- [ ] Test wall detection (turns at walls)
+- [ ] Verify player damage on contact
+- [ ] Test enemy death when attacked
+
+#### 12.2 Mirror Guard Behavior
+- [ ] Test player detection area triggers
+- [ ] Verify mirroring of player movement
+- [ ] Test jump mirroring with delay
+- [ ] Verify collision with player
+- [ ] Test different mirror_mode settings
+
+#### 12.3 Pulse Orb Behavior
+- [ ] Test sine wave movement pattern
+- [ ] Verify amplitude and frequency exports
+- [ ] Test vertical_mode option
+- [ ] Verify light pulsing effect
+- [ ] Test player damage on contact
+
+#### 12.4 Hazard Verification
+- [ ] Test spike instant kill
+- [ ] Test void_pit detection and kill
+- [ ] Test laser_beam toggle timing
+- [ ] Verify laser warning flicker
+- [ ] Test all hazards trigger player death correctly
+
+---
+
+### Phase 13: Platform Verification
+
+> **Priority:** 🟡 MEDIUM - Required for level progression
+> **Estimated Time:** 1-2 hours
+
+#### 13.1 Crumbling Platform
+- [ ] Test player detection triggers shake
+- [ ] Verify crumble_delay timing (0.5s)
+- [ ] Test collision disables after crumble
+- [ ] Verify respawn_time (3.0s) and rebuild
+- [ ] Test particles on crumble
+
+#### 13.2 Moving Platform
+- [ ] Test platform follows path points
+- [ ] Verify player carried on platform (sync_to_physics)
+- [ ] Test wait_time at endpoints
+- [ ] Verify speed export works
+
+#### 13.3 One-Way Platform
+- [ ] Test player passes through from below
+- [ ] Verify player lands from above
+- [ ] Check visual distinction (semi-transparent)
+
+#### 13.4 Phase Platform
+- [ ] Test visible/invisible timing
+- [ ] Verify collision disabled when invisible
+- [ ] Test fade warning before disappearing
+- [ ] Verify phase_offset for synced groups
+- [ ] Test particles on phase-in
+
+---
+
+### Phase 14: Audio Verification
+
+> **Priority:** 🟢 LOW - Game playable without
+> **Estimated Time:** 1 hour
+
+#### 14.1 Sound Effects
+- [ ] Test jump.wav plays on jump
+- [ ] Test death.wav on player death
+- [ ] Test respawn.wav on respawn
+- [ ] Test shard_collect.wav on pickup
+- [ ] Test crystal_collect.wav on pickup
+- [ ] Test checkpoint.wav on activation
+- [ ] Test menu_select.wav on hover
+- [ ] Test menu_confirm.wav on click
+
+#### 14.2 Music System
+- [ ] Test main_menu.wav plays in menu
+- [ ] Test level_ambience.wav in levels
+- [ ] Test victory.wav on level complete
+- [ ] Verify music volume control works
+- [ ] Test music crossfade on transitions
+
+---
+
+### Phase 15: Final Testing Checklist (Updated)
+
+> **Priority:** 🟢 After all above phases complete
+
+- [ ] Complete playthrough Level 1 start to finish
+- [ ] Complete playthrough Level 2 with wall jumps
+- [ ] Complete playthrough Level 3 with double jumps
+- [ ] Complete playthrough Level 4 challenge level
+- [ ] Complete playthrough Level 5 finale
+- [ ] Collect ALL shards in each level (verify count)
+- [ ] Collect ALL crystals in each level (verify saves)
+- [ ] Test death/respawn at various checkpoints
+- [ ] Test pause menu in each level
+- [ ] Test settings save and persist
+- [ ] Test game save/load cycle
+- [ ] Test level select shows correct completion
+- [ ] Run at 60 FPS consistently
+- [ ] No console errors during full playthrough
+- [ ] Export and test release build
+
+---
+
+### Issue Tracking
+
+| Issue ID | Description | Status | Priority | Phase |
+|----------|-------------|--------|----------|-------|
+| ISS-001 | All levels missing tile_map_data | OPEN | 🔴 CRITICAL | 9 |
+| ISS-002 | Player falls through world | BLOCKED BY ISS-001 | 🔴 CRITICAL | 9 |
+| ISS-003 | Placeholder textures missing | ✅ FIXED | - | 11 |
+| ISS-004 | Game flow untested | OPEN | 🟠 HIGH | 10 |
+| ISS-005 | Checkpoint system untested | OPEN | 🟠 HIGH | 10 |
+| ISS-006 | Save/load system untested | OPEN | 🟠 HIGH | 10 |
+| ISS-007 | Enemy behavior untested | OPEN | 🟡 MEDIUM | 12 |
+| ISS-008 | Platform mechanics untested | OPEN | 🟡 MEDIUM | 13 |
+| ISS-009 | Audio system untested | OPEN | 🟢 LOW | 14 |
+
+---
+
+### Technical Notes
+
+#### Why Levels Are Empty
+The .tscn files contain TileMapLayer nodes with TileSet references, but **no `tile_map_data` property** which stores the actual painted cells. This is because:
+1. Levels were created programmatically with node structure only
+2. Tile painting must be done in the Godot Editor's TileMap editor
+3. The tile_map_data is a PackedByteArray that cannot be easily generated by hand
+
+#### How to Fix (Manual Process Required)
+1. Open each level .tscn in Godot Editor
+2. Select the TileMapLayer node
+3. Use the TileMap editor (bottom panel) to paint tiles
+4. The void_tileset.tres has 32 tiles with collision already configured
+5. Save the scene - tile_map_data will be added automatically
+
+#### Tile Types Available in void_tileset.tres
+| Tile Position | Type | Collision |
+|---------------|------|-----------|
+| 0:0 to 6:0 | Solid ground | Full 32x32 |
+| 7:0 | One-way top | 32x8 top |
+| 0:1 to 1:1 | Solid fill | Full 32x32 |
+| 2:1 | Left wall | 16x32 left |
+| 3:1 | Right wall | 16x32 right |
+| 4:1 | Thin pillar | 8x32 center |
+| 0:2 to 7:2 | Decorative | No collision |
+| 0:3 to 3:3 | Thin platforms | Varies, one-way |
+| 4:3, 5:3 | Slopes | Triangle |
+| 6:3, 7:3 | Half blocks | Half height |
+
+---
+
+*Last Updated: January 2026*
 *Engine: Godot 4.5.1*

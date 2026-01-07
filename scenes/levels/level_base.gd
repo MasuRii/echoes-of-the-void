@@ -263,10 +263,10 @@ func _toggle_pause() -> void:
 	# Change to paused state
 	game_manager.change_state(game_manager.GameState.PAUSED)
 	
-	# Instantiate and show pause menu
+	# Instantiate and show pause menu (now wrapped in CanvasLayer)
 	var pause_menu_scene: PackedScene = preload("res://scenes/ui/pause_menu.tscn")
-	var pause_menu: Control = pause_menu_scene.instantiate()
-	add_child(pause_menu)
+	var pause_menu_layer: CanvasLayer = pause_menu_scene.instantiate()
+	add_child(pause_menu_layer)
 
 
 ## Manually set camera limits (useful for scrolling levels).
