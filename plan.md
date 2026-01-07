@@ -697,15 +697,15 @@
   - [x] Subtle animations on button hover
 
 ### 8.2 Pause Menu
-- [ ] Create `scenes/ui/pause_menu.tscn`:
-  - [ ] "PAUSED" header
-  - [ ] Buttons:
-    - [ ] "Resume" → Unpause
-    - [ ] "Restart Level" → Reload current level
-    - [ ] "Settings" → Settings menu
-    - [ ] "Main Menu" → Return to main menu
-  - [ ] Semi-transparent dark overlay
-  - [ ] `process_mode = PROCESS_MODE_WHEN_PAUSED`
+- [x] Create `scenes/ui/pause_menu.tscn`:
+  - [x] "PAUSED" header
+  - [x] Buttons:
+    - [x] "Resume" → Unpause
+    - [x] "Restart Level" → Reload current level
+    - [x] "Settings" → Settings menu
+    - [x] "Main Menu" → Return to main menu
+  - [x] Semi-transparent dark overlay
+  - [x] `process_mode = PROCESS_MODE_WHEN_PAUSED`
 
 ### 8.3 Settings Menu
 - [ ] Create `scenes/ui/settings_menu.tscn`:

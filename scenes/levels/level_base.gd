@@ -242,6 +242,32 @@ func get_completion_percentage() -> float:
 	return float(_shards_collected) / float(total_shards)
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	"""Handle pause input to show pause menu."""
+	if event.is_action_pressed("pause"):
+		_toggle_pause()
+		get_viewport().set_input_as_handled()
+
+
+func _toggle_pause() -> void:
+	"""Toggle pause state and show/hide pause menu."""
+	var game_manager := _get_game_manager()
+	if game_manager == null:
+		return
+	
+	# Only allow pausing during gameplay
+	if game_manager.current_state != game_manager.GameState.PLAYING:
+		return
+	
+	# Change to paused state
+	game_manager.change_state(game_manager.GameState.PAUSED)
+	
+	# Instantiate and show pause menu
+	var pause_menu_scene: PackedScene = preload("res://scenes/ui/pause_menu.tscn")
+	var pause_menu: Control = pause_menu_scene.instantiate()
+	add_child(pause_menu)
+
+
 ## Manually set camera limits (useful for scrolling levels).
 func set_camera_limits(left: int, right: int, top: int, bottom: int) -> void:
 	camera_limit_left = left
