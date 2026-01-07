@@ -574,7 +574,7 @@
   - [x] `respawn_particles.tscn` - Coalesce effect on respawn
   - [x] `footstep_dust.tscn` - Subtle dust when running
   - [x] `jump_dust.tscn` - Burst on jump
-  - [ ] `land_dust.tscn` - Impact on landing
+  - [x] `land_dust.tscn` - Impact on landing
   - [ ] `wall_slide_sparks.tscn` - Friction effect on wall
   - [ ] `shard_collect.tscn` - Sparkle burst
   - [ ] `crystal_collect.tscn` - Grand particle celebration
