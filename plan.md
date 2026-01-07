@@ -587,12 +587,12 @@
   - [x] Enable `Rendering > 2D > Shadow Atlas > Size` if needed
   - [x] Set up canvas modulate for base darkness
 
-- [ ] Create light sources:
+- [x] Create light sources:
   - [x] Player subtle glow (PointLight2D, white, low energy)
   - [x] Collectible lights (Echo Crystals, Shards)
   - [x] Checkpoint activation lights
   - [x] Ambient level lighting (strategic PointLight2D placement)
-  - [ ] Hazard warning lights (red tint for danger zones)
+  - [x] Hazard warning lights (red tint for danger zones)
 
 ### 6.3 Echo Trail Enhancement
 - [ ] Improve echo ghost visuals:

@@ -1,6 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://claser_beam_hazard"]
+[gd_scene load_steps=5 format=3 uid="uid://claser_beam_hazard"]
 
 [ext_resource type="Script" path="res://scenes/hazards/laser_beam.gd" id="1_laser"]
+
+[sub_resource type="Gradient" id="Gradient_danger"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_danger"]
+gradient = SubResource("Gradient_danger")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_raycast"]
 size = Vector2(200, 4)
@@ -22,13 +33,21 @@ default_color = Color(1, 1, 1, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 enabled = false
-color = Color(1, 1, 1, 1)
-energy = 1.0
+color = Color(1, 0.2, 0.2, 1)
+energy = 0.8
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_danger")
 texture_scale = 0.5
 
 [node name="EndPointLight2D" type="PointLight2D" parent="."]
 position = Vector2(200, 0)
 enabled = false
-color = Color(1, 1, 1, 1)
+color = Color(1, 0.2, 0.2, 1)
 energy = 0.5
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_danger")
 texture_scale = 0.3

@@ -1,6 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvoidpithazard"]
+[gd_scene load_steps=6 format=3 uid="uid://cvoidpithazard"]
 
 [ext_resource type="Script" path="res://scenes/hazards/void_pit.gd" id="1_voidpit"]
+
+[sub_resource type="Gradient" id="Gradient_danger"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_danger"]
+gradient = SubResource("Gradient_danger")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
 size = Vector2(64, 32)
@@ -31,3 +42,13 @@ amount = 20
 process_material = SubResource("ParticleProcessMaterial_mist")
 lifetime = 1.5
 visibility_rect = Rect2(-40, -60, 80, 70)
+
+[node name="DangerLight" type="PointLight2D" parent="."]
+position = Vector2(0, -16)
+color = Color(0.8, 0.1, 0.2, 1)
+energy = 0.6
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_danger")
+texture_scale = 1.0
