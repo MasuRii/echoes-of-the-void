@@ -86,9 +86,14 @@ func _collect() -> void:
 	# Emit global event - get current counts from level
 	_emit_shard_collected_event()
 	
-	# Play collect sound
+	# Play collect sound - use local player if available, otherwise fallback to AudioManager
 	if audio_player and audio_player.stream:
 		audio_player.play()
+	else:
+		# Fallback to AudioManager for centralized sound
+		var audio_manager := get_node_or_null("/root/AudioManager")
+		if audio_manager:
+			audio_manager.play_sfx("shard_collect")
 	
 	# Stop ambient particles
 	if glow_particles:

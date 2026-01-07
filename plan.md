@@ -1171,12 +1171,12 @@ Instead of manually painting tiles, we will:
 - [x] Test multi-checkpoint levels (level 2+)
 
 #### 10.4 Collectible System Verification
-- [ ] Verify light_shard.gd emits correct signals
-- [ ] Verify echo_crystal.gd saves to SaveManager
-- [ ] Fix HUD shard counter connection:
-  - [ ] Connect to Events.shard_collected in hud.gd
-  - [ ] Update display on collection
-- [ ] Add collection sound fallback (if audio missing)
+- [x] Verify light_shard.gd emits correct signals
+- [x] Verify echo_crystal.gd saves to SaveManager
+- [x] Fix HUD shard counter connection:
+  - [x] Connect to Events.shard_collected in hud.gd
+  - [x] Update display on collection
+- [x] Add collection sound fallback (if audio missing)
 
 #### 10.5 Save/Load System Implementation
 - [ ] Verify SaveManager.save_game() writes correctly
