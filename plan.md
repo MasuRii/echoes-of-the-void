@@ -301,23 +301,23 @@
   - [x] Export: `mirror_mode: bool = true` (true = same direction, false = opposite)
 
 ### 3.4 Pulse Orb (Sine-Wave Movement)
-- [ ] Create `scenes/enemies/pulse_orb/pulse_orb.tscn`
-- [ ] Node structure:
-  - [ ] CharacterBody2D (root)
-  - [ ] Sprite2D (glowing orb, cyan with white core)
-  - [ ] CollisionShape2D (circle)
-  - [ ] HitboxComponent (Area2D)
-  - [ ] PointLight2D (pulsing glow)
-  - [ ] GPUParticles2D (ambient particle trail)
+- [x] Create `scenes/enemies/pulse_orb/pulse_orb.tscn`
+- [x] Node structure:
+  - [x] CharacterBody2D (root)
+  - [x] Sprite2D (glowing orb, cyan with white core)
+  - [x] CollisionShape2D (circle)
+  - [x] HitboxComponent (Area2D)
+  - [x] PointLight2D (pulsing glow)
+  - [x] GPUParticles2D (ambient particle trail)
 
-- [ ] Create `scenes/enemies/pulse_orb/pulse_orb.gd`:
-  - [ ] Movement: Sine wave pattern
-  - [ ] Export: `amplitude: float = 100.0` (wave height)
-  - [ ] Export: `frequency: float = 2.0` (oscillation speed)
-  - [ ] Export: `base_speed: float = 100.0` (horizontal movement)
-  - [ ] Export: `vertical_mode: bool = false` (switch to vertical sine)
-  - [ ] Calculate: `offset = sin(time * frequency) * amplitude`
-  - [ ] Light pulsing: Scale light energy with sine wave
+- [x] Create `scenes/enemies/pulse_orb/pulse_orb.gd`:
+  - [x] Movement: Sine wave pattern
+  - [x] Export: `amplitude: float = 100.0` (wave height)
+  - [x] Export: `frequency: float = 2.0` (oscillation speed)
+  - [x] Export: `base_speed: float = 100.0` (horizontal movement)
+  - [x] Export: `vertical_mode: bool = false` (switch to vertical sine)
+  - [x] Calculate: `offset = sin(time * frequency) * amplitude`
+  - [x] Light pulsing: Scale light energy with sine wave
 
 ### 3.5 Hazards (Static Dangers)
 - [ ] Create `scenes/hazards/spike.tscn`

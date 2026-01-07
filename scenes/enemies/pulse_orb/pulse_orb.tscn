@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpulseorb001"]
+
+[ext_resource type="Script" path="res://scenes/enemies/pulse_orb/pulse_orb.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="2_health"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="3_hitbox"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 12.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_glow"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_particles"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_particles"]
+gradient = SubResource("Gradient_particles")
+
+[node name="PulseOrb" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_enemy")
+amplitude = 100.0
+frequency = 2.0
+base_speed = 100.0
+vertical_mode = false
+min_light_energy = 0.5
+max_light_energy = 1.5
+light_pulse_frequency = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_glow")
+scale = Vector2(1.5, 1.5)
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
+max_health = 1
+
+[node name="HitboxComponent" type="Area2D" parent="." groups=["hitbox"]]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("3_hitbox")
+damage = 1
+
+[node name="HitboxShape" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_body")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 1, 1, 1)
+energy = 1.0
+shadow_enabled = false
+texture_scale = 2.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 16
+lifetime = 1.0
+speed_scale = 0.5
+randomness = 0.5
+local_coords = false
+color_initial_ramp = SubResource("GradientTexture1D_particles")
