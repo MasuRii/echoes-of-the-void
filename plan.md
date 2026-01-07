@@ -406,21 +406,21 @@
   - [x] Particles: phase-in sparkle effect
 
 ### 4.6 Light Shard (Coins)
-- [ ] Create `scenes/collectibles/light_shard.tscn`
-- [ ] Node structure:
-  - [ ] Area2D (root)
-  - [ ] Sprite2D (small glowing white/cyan diamond)
-  - [ ] CollisionShape2D (circle)
-  - [ ] AnimationPlayer (float bob, sparkle)
-  - [ ] AudioStreamPlayer2D (collect sound)
-  - [ ] GPUParticles2D (ambient glow particles)
+- [x] Create `scenes/collectibles/light_shard.tscn`
+- [x] Node structure:
+  - [x] Area2D (root)
+  - [x] Sprite2D (small glowing white/cyan diamond)
+  - [x] CollisionShape2D (circle)
+  - [x] AnimationPlayer (float bob, sparkle)
+  - [x] AudioStreamPlayer2D (collect sound)
+  - [x] GPUParticles2D (ambient glow particles)
 
-- [ ] Create `scenes/collectibles/light_shard.gd`:
-  - [ ] On player contact:
-    - [ ] Play collect animation (scale up, fade out)
-    - [ ] Play collect sound
-    - [ ] Emit `Events.shard_collected`
-    - [ ] `queue_free()` or disable
+- [x] Create `scenes/collectibles/light_shard.gd`:
+  - [x] On player contact:
+    - [x] Play collect animation (scale up, fade out)
+    - [x] Play collect sound
+    - [x] Emit `Events.shard_collected`
+    - [x] `queue_free()` or disable
 
 ### 4.7 Echo Crystal (Stars/Major Collectible)
 - [ ] Create `scenes/collectibles/echo_crystal.tscn`
