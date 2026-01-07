@@ -443,19 +443,19 @@
     - [x] Save collection state
 
 ### 4.8 Checkpoint
-- [ ] Create `scenes/objects/checkpoint.tscn`
-- [ ] Node structure:
-  - [ ] Area2D (root)
-  - [ ] Sprite2D (inactive: dim pillar, active: glowing)
-  - [ ] CollisionShape2D
-  - [ ] PointLight2D (activates on trigger)
+- [x] Create `scenes/objects/checkpoint.tscn`
+- [x] Node structure:
+  - [x] Area2D (root)
+  - [x] Sprite2D (inactive: dim pillar, active: glowing)
+  - [x] CollisionShape2D
+  - [x] PointLight2D (activates on trigger)
 
-- [ ] Create `scenes/objects/checkpoint.gd`:
-  - [ ] On player enter (first time):
-    - [ ] Update `player.last_checkpoint`
-    - [ ] Emit `Events.checkpoint_reached`
-    - [ ] Activate glow animation
-    - [ ] Play activation sound
+- [x] Create `scenes/objects/checkpoint.gd`:
+  - [x] On player enter (first time):
+    - [x] Update `player.last_checkpoint`
+    - [x] Emit `Events.checkpoint_reached`
+    - [x] Activate glow animation
+    - [x] Play activation sound
 
 ---
 
