@@ -213,7 +213,7 @@
 ### 2.4 Player States (FSM)
 - [ ] Create state scripts in `scenes/player/states/`:
   - [x] `idle_state.gd` - Standing still on ground
-  - [ ] `run_state.gd` - Moving horizontally on ground
+  - [x] `run_state.gd` - Moving horizontally on ground
   - [ ] `jump_state.gd` - Rising through air
   - [ ] `fall_state.gd` - Falling through air
   - [ ] `wall_slide_state.gd` - Sliding down wall
