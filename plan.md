@@ -579,7 +579,7 @@
   - [x] `shard_collect.tscn` - Sparkle burst
   - [x] `crystal_collect.tscn` - Grand particle celebration
   - [x] `enemy_death.tscn` - Shadow dispersion
-  - [ ] `platform_crumble.tscn` - Falling debris
+  - [x] `platform_crumble.tscn` - Falling debris
   - [ ] `ambient_void.tscn` - Floating particles in background
 
 ### 6.2 Lighting System
