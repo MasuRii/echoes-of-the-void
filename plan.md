@@ -1147,10 +1147,10 @@ Instead of manually painting tiles, we will:
   - [x] Verify `last_checkpoint` is set on level load
   - [x] Add null check before respawn teleport
   - [x] Emit proper signals on respawn
-- [ ] Create `scripts/debug/spawn_debugger.gd`:
-  - [ ] Visualize spawn point and checkpoint positions
-  - [ ] Show ground detection rays
-  - [ ] Toggle with F1 key in debug builds
+- [x] Create `scripts/debug/spawn_debugger.gd`:
+  - [x] Visualize spawn point and checkpoint positions
+  - [x] Show ground detection rays
+  - [x] Toggle with F1 key in debug builds
 
 #### 10.2 Level Transition Flow Fixes
 - [ ] Fix GameManager.load_level():
