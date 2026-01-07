@@ -344,9 +344,9 @@
 ## Phase 4: Platforms & Collectibles (Days 7-9)
 
 ### 4.1 Platform Base
-- [ ] Create `scripts/classes/platform_base.gd` extending StaticBody2D/AnimatableBody2D
-  - [ ] Export: `one_way: bool = false`
-  - [ ] Configure `collision_layer` and `collision_mask` for platform layer
+- [x] Create `scripts/classes/platform_base.gd` extending StaticBody2D/AnimatableBody2D
+  - [x] Export: `one_way: bool = false`
+  - [x] Configure `collision_layer` and `collision_mask` for platform layer
 
 ### 4.2 Crumbling Platform
 - [ ] Create `scenes/platforms/crumbling_platform.tscn`
