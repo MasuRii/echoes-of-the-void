@@ -70,15 +70,15 @@
   - [x] Signal: `checkpoint_reached(position: Vector2)`
   - [x] Signal: `game_paused(is_paused: bool)`
 
-- [ ] Create `scripts/autoloads/game_manager.gd` - Central game state controller
-  - [ ] Enum: `GameState { MENU, PLAYING, PAUSED, TRANSITIONING, GAME_OVER }`
-  - [ ] Track: `current_level: String`
-  - [ ] Track: `total_shards: int`, `collected_shards: int`
-  - [ ] Track: `collected_crystals: Array[String]`
-  - [ ] Method: `change_state(new_state: GameState) -> void`
-  - [ ] Method: `restart_level() -> void`
-  - [ ] Method: `load_level(level_path: String) -> void`
-  - [ ] Set `process_mode = PROCESS_MODE_ALWAYS` for pause handling
+- [x] Create `scripts/autoloads/game_manager.gd` - Central game state controller
+  - [x] Enum: `GameState { MENU, PLAYING, PAUSED, TRANSITIONING, GAME_OVER }`
+  - [x] Track: `current_level: String`
+  - [x] Track: `total_shards: int`, `collected_shards: int`
+  - [x] Track: `collected_crystals: Array[String]`
+  - [x] Method: `change_state(new_state: GameState) -> void`
+  - [x] Method: `restart_level() -> void`
+  - [x] Method: `load_level(level_path: String) -> void`
+  - [x] Set `process_mode = PROCESS_MODE_ALWAYS` for pause handling
 
 - [ ] Create `scripts/autoloads/save_manager.gd` - Persistent data handler
   - [ ] Save path: `user://echoes_save.json`
