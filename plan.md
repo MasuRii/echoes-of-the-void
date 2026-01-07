@@ -249,10 +249,10 @@
 ### 2.6 Player Death & Respawn
 - [x] On `died` signal from HealthComponent:
   - [x] Transition to Death state
-  - [ ] Play death particles (white dispersion)
+  - [x] Play death particles (white dispersion)
   - [x] Emit `Events.player_died`
   - [x] Wait 0.5s, then respawn at `last_checkpoint`
-  - [ ] Play respawn particles (coalesce effect)
+  - [x] Play respawn particles (coalesce effect)
   - [x] Emit `Events.player_respawned`
 
 ---
@@ -260,11 +260,11 @@
 ## Phase 3: Enemies & Hazards (Days 5-7)
 
 ### 3.1 Enemy Base Class
-- [ ] Create `scripts/classes/enemy_base.gd` extending CharacterBody2D
-  - [ ] Includes: HealthComponent, HitboxComponent
-  - [ ] Signal: `enemy_died`
-  - [ ] Virtual method: `_on_player_detected(player: Player) -> void`
-  - [ ] Common death effect (white particle burst)
+- [x] Create `scripts/classes/enemy_base.gd` extending CharacterBody2D
+  - [x] Includes: HealthComponent, HitboxComponent
+  - [x] Signal: `enemy_died`
+  - [x] Virtual method: `_on_player_detected(player: Player) -> void`
+  - [x] Common death effect (white particle burst)
 
 ### 3.2 Shadow Crawler (Patrol Enemy)
 - [ ] Create `scenes/enemies/shadow_crawler/shadow_crawler.tscn`
