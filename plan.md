@@ -61,14 +61,14 @@
   - [x] `restart` - R (debug/quick restart)
 
 ### 1.3 Core Autoloads
-- [ ] Create `scripts/autoloads/events.gd` - Signal bus for decoupled communication
-  - [ ] Signal: `player_died`
-  - [ ] Signal: `player_respawned`
-  - [ ] Signal: `shard_collected(count: int, total: int)`
-  - [ ] Signal: `crystal_collected(crystal_id: String)`
-  - [ ] Signal: `level_completed(level_name: String)`
-  - [ ] Signal: `checkpoint_reached(position: Vector2)`
-  - [ ] Signal: `game_paused(is_paused: bool)`
+- [x] Create `scripts/autoloads/events.gd` - Signal bus for decoupled communication
+  - [x] Signal: `player_died`
+  - [x] Signal: `player_respawned`
+  - [x] Signal: `shard_collected(count: int, total: int)`
+  - [x] Signal: `crystal_collected(crystal_id: String)`
+  - [x] Signal: `level_completed(level_name: String)`
+  - [x] Signal: `checkpoint_reached(position: Vector2)`
+  - [x] Signal: `game_paused(is_paused: bool)`
 
 - [ ] Create `scripts/autoloads/game_manager.gd` - Central game state controller
   - [ ] Enum: `GameState { MENU, PLAYING, PAUSED, TRANSITIONING, GAME_OVER }`
