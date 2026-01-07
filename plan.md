@@ -267,22 +267,22 @@
   - [x] Common death effect (white particle burst)
 
 ### 3.2 Shadow Crawler (Patrol Enemy)
-- [ ] Create `scenes/enemies/shadow_crawler/shadow_crawler.tscn`
-- [ ] Node structure:
-  - [ ] CharacterBody2D (root)
-  - [ ] Sprite2D (dark silhouette with red eyes)
-  - [ ] CollisionShape2D (capsule)
-  - [ ] HitboxComponent (Area2D)
-  - [ ] RayCast2D (ground detection for ledge)
-  - [ ] RayCast2D (wall detection)
-  - [ ] AnimationPlayer
+- [x] Create `scenes/enemies/shadow_crawler/shadow_crawler.tscn`
+- [x] Node structure:
+  - [x] CharacterBody2D (root)
+  - [x] Sprite2D (dark silhouette with red eyes)
+  - [x] CollisionShape2D (capsule)
+  - [x] HitboxComponent (Area2D)
+  - [x] RayCast2D (ground detection for ledge)
+  - [x] RayCast2D (wall detection)
+  - [x] AnimationPlayer
 
-- [ ] Create `scenes/enemies/shadow_crawler/shadow_crawler.gd`:
-  - [ ] Patrol between two points OR until ledge/wall
-  - [ ] Speed: 80 pixels/second
-  - [ ] Turn around at ledges (use RayCast2D to detect floor ahead)
-  - [ ] Turn around on wall collision
-  - [ ] Damage player on contact via HitboxComponent
+- [x] Create `scenes/enemies/shadow_crawler/shadow_crawler.gd`:
+  - [x] Patrol between two points OR until ledge/wall
+  - [x] Speed: 80 pixels/second
+  - [x] Turn around at ledges (use RayCast2D to detect floor ahead)
+  - [x] Turn around on wall collision
+  - [x] Damage player on contact via HitboxComponent
 
 ### 3.3 Mirror Guard (Copies Player Movement)
 - [ ] Create `scenes/enemies/mirror_guard/mirror_guard.tscn`
