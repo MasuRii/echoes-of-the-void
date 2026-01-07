@@ -19,6 +19,10 @@ const ACCELERATION: float = 2000.0
 const FRICTION: float = 1500.0
 const AIR_CONTROL: float = 0.7
 
+# Camera lookahead constants
+const CAMERA_LOOKAHEAD_X: float = 50.0
+const CAMERA_LOOKAHEAD_SMOOTHING: float = 3.0
+
 # State tracking
 var can_double_jump: bool = true
 var is_wall_sliding: bool = false
@@ -29,6 +33,7 @@ var _input_locked: bool = false
 var _input_lock_timer: float = 0.0
 var _echo_trail_active: bool = false
 var _last_echo_spawn_position: Vector2 = Vector2.ZERO  # For smooth spawn interpolation
+var _camera_target_offset_x: float = 0.0  # For smooth camera lookahead
 
 # Node references
 @onready var sprite: Sprite2D = $Sprite2D
@@ -102,6 +107,9 @@ func _physics_process(delta: float) -> void:
 	# Update sprite direction
 	_update_sprite_direction()
 	
+	# Update camera lookahead based on velocity
+	_update_camera_lookahead(delta)
+	
 	# Move the character
 	move_and_slide()
 
@@ -158,6 +166,23 @@ func _check_wall_slide() -> void:
 func _update_sprite_direction() -> void:
 	if facing_direction != 0:
 		sprite.flip_h = facing_direction < 0
+
+
+func _update_camera_lookahead(delta: float) -> void:
+	"""Update camera offset based on player velocity for lookahead effect."""
+	if camera == null:
+		return
+	
+	# Calculate target lookahead based on horizontal velocity
+	var target_offset_x: float = 0.0
+	if absf(velocity.x) > SPEED * 0.3:  # Only lookahead when moving meaningfully
+		target_offset_x = sign(velocity.x) * CAMERA_LOOKAHEAD_X
+	
+	# Smoothly interpolate toward target offset
+	_camera_target_offset_x = lerpf(_camera_target_offset_x, target_offset_x, CAMERA_LOOKAHEAD_SMOOTHING * delta)
+	
+	# Apply offset to camera (relative to default position)
+	camera.offset.x = _camera_target_offset_x
 
 
 ## Returns true if player is touching a wall (left or right).

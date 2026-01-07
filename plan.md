@@ -673,12 +673,12 @@
     - [ ] Boss hit (if added)
 
 ### 7.5 Camera System
-- [ ] Enhance Camera2D on player:
-  - [ ] Smooth follow with `position_smoothing_enabled = true`
-  - [ ] Smoothing speed: ~5.0
-  - [ ] Lookahead based on velocity
-  - [ ] Set camera limits per level (prevent seeing void)
-  - [ ] Vertical deadzone for platforming
+- [x] Enhance Camera2D on player:
+  - [x] Smooth follow with `position_smoothing_enabled = true`
+  - [x] Smoothing speed: ~5.0
+  - [x] Lookahead based on velocity
+  - [x] Set camera limits per level (prevent seeing void)
+  - [x] Vertical deadzone for platforming
 
 ---
 
