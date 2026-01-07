@@ -80,15 +80,15 @@
   - [x] Method: `load_level(level_path: String) -> void`
   - [x] Set `process_mode = PROCESS_MODE_ALWAYS` for pause handling
 
-- [ ] Create `scripts/autoloads/save_manager.gd` - Persistent data handler
-  - [ ] Save path: `user://echoes_save.json`
-  - [ ] Save: collected crystals per level
-  - [ ] Save: best shard counts per level
-  - [ ] Save: unlocked levels
-  - [ ] Save: audio/video settings
-  - [ ] Method: `save_game() -> void`
-  - [ ] Method: `load_game() -> void`
-  - [ ] Method: `has_save() -> bool`
+- [x] Create `scripts/autoloads/save_manager.gd` - Persistent data handler
+  - [x] Save path: `user://echoes_save.json`
+  - [x] Save: collected crystals per level
+  - [x] Save: best shard counts per level
+  - [x] Save: unlocked levels
+  - [x] Save: audio/video settings
+  - [x] Method: `save_game() -> void`
+  - [x] Method: `load_game() -> void`
+  - [x] Method: `has_save() -> bool`
 
 - [ ] Create `scripts/autoloads/audio_manager.gd` - Centralized audio control
   - [ ] Audio bus: Master, Music, SFX
