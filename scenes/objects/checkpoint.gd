@@ -10,6 +10,8 @@ signal activated(checkpoint_position: Vector2)
 
 # Export for offset spawn position if needed
 @export var spawn_offset: Vector2 = Vector2.ZERO
+## Unique index for this checkpoint within the level (auto-assigned in _ready if -1)
+@export var checkpoint_index: int = -1
 
 # Animation constants
 const ACTIVATION_DURATION: float = 0.5
@@ -40,11 +42,30 @@ func _ready() -> void:
 	# Add to checkpoint group
 	add_to_group("checkpoints")
 	
+	# Auto-assign checkpoint index if not set
+	if checkpoint_index < 0:
+		checkpoint_index = _get_sibling_checkpoint_index()
+	
 	# Set initial appearance (inactive)
 	_set_inactive_appearance()
 	
 	# Connect body_entered signal
 	body_entered.connect(_on_body_entered)
+
+
+## Gets this checkpoint's index based on sibling order in the Checkpoints container.
+func _get_sibling_checkpoint_index() -> int:
+	var parent := get_parent()
+	if parent == null:
+		return 0
+	
+	var index: int = 0
+	for child in parent.get_children():
+		if child == self:
+			return index
+		if child.is_in_group("checkpoints"):
+			index += 1
+	return index
 
 
 func _process(delta: float) -> void:
@@ -110,12 +131,40 @@ func _activate(player: Node2D) -> void:
 	# Emit global event
 	_emit_checkpoint_reached_event(spawn_position)
 	
+	# Save checkpoint to SaveManager for persistence
+	_save_checkpoint_state(spawn_position)
+	
 	# Play activation sound
 	if audio_player and audio_player.stream:
 		audio_player.play()
 	
 	# Play activation animation
 	_play_activation_animation()
+
+
+## Saves the checkpoint state to SaveManager for persistence across restarts.
+func _save_checkpoint_state(spawn_position: Vector2) -> void:
+	var save_manager := get_node_or_null("/root/SaveManager")
+	if save_manager == null:
+		push_warning("Checkpoint: SaveManager autoload not found, checkpoint won't persist")
+		return
+	
+	# Get current level path
+	var level_path: String = ""
+	var game_manager := get_node_or_null("/root/GameManager")
+	if game_manager and "current_level" in game_manager:
+		level_path = game_manager.current_level
+	
+	if level_path.is_empty():
+		# Try to get from scene tree
+		level_path = get_tree().current_scene.scene_file_path if get_tree().current_scene else ""
+	
+	if level_path.is_empty():
+		push_warning("Checkpoint: Could not determine level path, checkpoint won't persist")
+		return
+	
+	save_manager.save_checkpoint(level_path, checkpoint_index, spawn_position)
+	print("Checkpoint: Saved checkpoint %d at (%.0f, %.0f) for %s" % [checkpoint_index, spawn_position.x, spawn_position.y, level_path])
 
 
 ## Plays the checkpoint activation visual effects.

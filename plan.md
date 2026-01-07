@@ -1163,12 +1163,12 @@ Instead of manually painting tiles, we will:
 - [x] Create transition test script that auto-walks through all levels
 
 #### 10.3 Checkpoint System Implementation
-- [ ] Verify checkpoint.gd `_on_body_entered` implementation
-- [ ] Add checkpoint activation particles (programmatic)
-- [ ] Add checkpoint state to SaveManager:
-  - [ ] Save active checkpoint per level
-  - [ ] Restore on level reload
-- [ ] Test multi-checkpoint levels (level 2+)
+- [x] Verify checkpoint.gd `_on_body_entered` implementation
+- [x] Add checkpoint activation particles (programmatic)
+- [x] Add checkpoint state to SaveManager:
+  - [x] Save active checkpoint per level
+  - [x] Restore on level reload
+- [x] Test multi-checkpoint levels (level 2+)
 
 #### 10.4 Collectible System Verification
 - [ ] Verify light_shard.gd emits correct signals

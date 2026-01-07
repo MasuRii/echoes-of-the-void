@@ -74,6 +74,7 @@ func _ready() -> void:
 	_generate_level_geometry()  # Generate geometry BEFORE player spawn
 	_setup_level()
 	_spawn_player()
+	_restore_checkpoint_state()  # Restore saved checkpoint after player spawned
 	_spawn_hud()
 	_configure_camera()
 	_count_collectibles()
@@ -200,6 +201,45 @@ func _spawn_player() -> void:
 	var events := _get_events()
 	if events and events.has_signal("player_spawned"):
 		events.player_spawned.emit(player)
+
+
+func _restore_checkpoint_state() -> void:
+	"""Restore saved checkpoint state from SaveManager on level load."""
+	var save_manager := get_node_or_null("/root/SaveManager")
+	if save_manager == null:
+		return
+	
+	var level_path: String = scene_file_path
+	if not save_manager.has_saved_checkpoint(level_path):
+		return
+	
+	var checkpoint_data: Dictionary = save_manager.get_active_checkpoint(level_path)
+	if checkpoint_data.is_empty():
+		return
+	
+	var saved_index: int = checkpoint_data.get("checkpoint_index", -1)
+	var saved_position: Vector2 = checkpoint_data.get("position", Vector2.ZERO)
+	
+	if saved_position == Vector2.ZERO:
+		return
+	
+	# Restore player's checkpoint position
+	if player:
+		if player.has_method("set_last_checkpoint"):
+			player.set_last_checkpoint(saved_position)
+		elif "last_checkpoint" in player:
+			player.last_checkpoint = saved_position
+		print("LevelBase: Restored checkpoint %d at (%.0f, %.0f)" % [saved_index, saved_position.x, saved_position.y])
+	
+	# Restore visual state of activated checkpoints
+	if checkpoints:
+		var current_index: int = 0
+		for checkpoint in checkpoints.get_children():
+			if checkpoint.is_in_group("checkpoints"):
+				# Activate all checkpoints up to and including the saved one
+				if current_index <= saved_index and checkpoint.has_method("set_activated"):
+					checkpoint.set_activated(true)
+				current_index += 1
 
 
 func _validate_spawn_has_ground(spawn_pos: Vector2) -> bool:

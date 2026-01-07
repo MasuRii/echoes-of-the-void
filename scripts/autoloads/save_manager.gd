@@ -11,6 +11,7 @@ var _default_save_data: Dictionary = {
 	"collected_crystals": {},  # level_name: Array[String] of crystal_ids
 	"best_shards": {},         # level_name: int (best shard count)
 	"unlocked_levels": ["res://scenes/levels/level_01_awakening.tscn"],
+	"active_checkpoints": {},  # level_path: {checkpoint_index: int, position: {x: float, y: float}}
 	"settings": {
 		"master_volume": 1.0,
 		"music_volume": 0.8,
@@ -175,6 +176,56 @@ func get_unlocked_levels() -> Array:
 		return []
 	
 	return save_data["unlocked_levels"].duplicate()
+
+
+# ============================================================
+# Checkpoint State (Per-Level Active Checkpoint)
+# ============================================================
+
+func save_checkpoint(level_path: String, checkpoint_index: int, checkpoint_position: Vector2) -> void:
+	"""Save the active checkpoint for a level."""
+	if not save_data.has("active_checkpoints"):
+		save_data["active_checkpoints"] = {}
+	
+	save_data["active_checkpoints"][level_path] = {
+		"checkpoint_index": checkpoint_index,
+		"position": {"x": checkpoint_position.x, "y": checkpoint_position.y}
+	}
+	save_game()
+
+
+func get_active_checkpoint(level_path: String) -> Dictionary:
+	"""Get the active checkpoint data for a level.
+	Returns empty dict if no checkpoint saved, otherwise:
+	{checkpoint_index: int, position: Vector2}"""
+	if not save_data.has("active_checkpoints"):
+		return {}
+	if not save_data["active_checkpoints"].has(level_path):
+		return {}
+	
+	var data: Dictionary = save_data["active_checkpoints"][level_path]
+	# Convert stored position back to Vector2
+	var pos_data: Dictionary = data.get("position", {})
+	return {
+		"checkpoint_index": data.get("checkpoint_index", 0),
+		"position": Vector2(pos_data.get("x", 0.0), pos_data.get("y", 0.0))
+	}
+
+
+func clear_checkpoint(level_path: String) -> void:
+	"""Clear the saved checkpoint for a level (e.g., on level restart)."""
+	if not save_data.has("active_checkpoints"):
+		return
+	if save_data["active_checkpoints"].has(level_path):
+		save_data["active_checkpoints"].erase(level_path)
+		save_game()
+
+
+func has_saved_checkpoint(level_path: String) -> bool:
+	"""Check if a checkpoint has been saved for a level."""
+	if not save_data.has("active_checkpoints"):
+		return false
+	return save_data["active_checkpoints"].has(level_path)
 
 
 # ============================================================
