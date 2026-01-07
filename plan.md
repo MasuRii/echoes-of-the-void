@@ -575,7 +575,7 @@
   - [x] `footstep_dust.tscn` - Subtle dust when running
   - [x] `jump_dust.tscn` - Burst on jump
   - [x] `land_dust.tscn` - Impact on landing
-  - [ ] `wall_slide_sparks.tscn` - Friction effect on wall
+  - [x] `wall_slide_sparks.tscn` - Friction effect on wall
   - [ ] `shard_collect.tscn` - Sparkle burst
   - [ ] `crystal_collect.tscn` - Grand particle celebration
   - [ ] `enemy_death.tscn` - Shadow dispersion
