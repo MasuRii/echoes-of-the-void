@@ -1077,13 +1077,13 @@ Instead of manually painting tiles, we will:
 - [x] Define LEVEL_05_LAYOUT with grand finale vertical climb
 
 #### 9.3 Integrate Generator with Level Base
-- [ ] Modify `scenes/levels/level_base.gd`:
-  - [ ] Add `@export var auto_generate_geometry: bool = true`
-  - [ ] Add `@export var level_layout_key: String = ""` (e.g., "LEVEL_01")
-  - [ ] In `_ready()`, call `_generate_level_geometry()` before player spawn
-  - [ ] Load layout from level_layouts.gd based on level_layout_key
-  - [ ] Create platforms under a "GeneratedGeometry" Node2D container
-- [ ] Add fallback: If no layout defined, generate simple ground at spawn
+- [x] Modify `scenes/levels/level_base.gd`:
+  - [x] Add `@export var auto_generate_geometry: bool = true`
+  - [x] Add `@export var level_layout_key: String = ""` (e.g., "LEVEL_01")
+  - [x] In `_ready()`, call `_generate_level_geometry()` before player spawn
+  - [x] Load layout from level_layouts.gd based on level_layout_key
+  - [x] Create platforms under a "GeneratedGeometry" Node2D container
+- [x] Add fallback: If no layout defined, generate simple ground at spawn
 
 #### 9.4 Level 01: Awakening - Define Layout Data
 - [ ] Main ground platform: pos(0, 224), size(2560, 64)

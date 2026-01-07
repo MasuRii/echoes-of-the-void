@@ -6,6 +6,10 @@ extends Node2D
 ## level exit handling, and camera limits configuration.
 ## Extend or use this scene as a base for individual levels.
 
+# Preload procedural generation systems
+const PlatformGeneratorClass := preload("res://scripts/systems/platform_generator.gd")
+const LevelLayoutsClass := preload("res://scripts/data/level_layouts.gd")
+
 # Signals
 signal level_started
 signal level_exit_triggered
@@ -16,6 +20,12 @@ signal level_exit_triggered
 @export var level_name: String = "Unnamed Level"
 ## Path to the next level scene. Empty if this is the last level.
 @export_file("*.tscn") var next_level: String = ""
+
+@export_group("Procedural Geometry")
+## Enable automatic geometry generation from level layouts.
+@export var auto_generate_geometry: bool = true
+## Key to look up layout data (e.g., "LEVEL_01", "LEVEL_02").
+@export var level_layout_key: String = ""
 
 @export_group("Collectibles")
 ## Total number of light shards in this level.
@@ -46,6 +56,9 @@ var _level_completed: bool = false
 # HUD reference
 var _hud: CanvasLayer = null
 
+# Container for generated geometry
+var _generated_geometry: Node2D = null
+
 # Cached node references
 @onready var player_spawn: Marker2D = $PlayerSpawn
 @onready var level_exit: Area2D = $LevelExit
@@ -58,6 +71,7 @@ var _hud: CanvasLayer = null
 
 func _ready() -> void:
 	_connect_events()
+	_generate_level_geometry()  # Generate geometry BEFORE player spawn
 	_setup_level()
 	_spawn_player()
 	_spawn_hud()
@@ -80,6 +94,77 @@ func _connect_events() -> void:
 func _setup_level() -> void:
 	"""Virtual method for level-specific setup. Override in subclasses."""
 	pass
+
+
+func _generate_level_geometry() -> void:
+	"""Generate procedural level geometry from layout data."""
+	if not auto_generate_geometry:
+		return
+	
+	# Create container for generated geometry
+	_generated_geometry = Node2D.new()
+	_generated_geometry.name = "GeneratedGeometry"
+	add_child(_generated_geometry)
+	# Move to front so it's behind other elements
+	move_child(_generated_geometry, 0)
+	
+	# Try to load layout from level_layouts.gd
+	var layout: Variant = null
+	if level_layout_key != "":
+		layout = LevelLayoutsClass.get_layout(level_layout_key)
+	
+	if layout == null:
+		# No layout defined - generate emergency ground at spawn
+		push_warning("LevelBase: No layout found for key '%s', generating emergency ground" % level_layout_key)
+		_generate_emergency_geometry()
+		return
+	
+	# Validate layout
+	if not LevelLayoutsClass.validate_layout(layout):
+		push_warning("LevelBase: Invalid layout for '%s', generating emergency ground" % level_layout_key)
+		_generate_emergency_geometry()
+		return
+	
+	# Generate platforms from layout data
+	var platform_count: int = 0
+	for platform_data: Dictionary in layout["platforms"]:
+		var pos: Vector2 = platform_data.get("pos", Vector2.ZERO)
+		var size: Vector2 = platform_data.get("size", Vector2(64, 32))
+		PlatformGeneratorClass.create_platform(_generated_geometry, pos, size)
+		platform_count += 1
+	
+	# Generate walls from layout data
+	var wall_count: int = 0
+	for wall_data: Dictionary in layout["walls"]:
+		var pos: Vector2 = wall_data.get("pos", Vector2.ZERO)
+		var height: float = wall_data.get("height", 128.0)
+		var side: String = wall_data.get("side", "left")
+		PlatformGeneratorClass.create_wall(_generated_geometry, pos, height, side)
+		wall_count += 1
+	
+	# Generate one-way platforms from layout data
+	var one_way_count: int = 0
+	for one_way_data: Dictionary in layout["one_way_platforms"]:
+		var pos: Vector2 = one_way_data.get("pos", Vector2.ZERO)
+		var width: float = one_way_data.get("width", 96.0)
+		PlatformGeneratorClass.create_one_way_platform(_generated_geometry, pos, width)
+		one_way_count += 1
+	
+	print("LevelBase: Generated geometry for '%s' - %d platforms, %d walls, %d one-way" % [
+		level_layout_key, platform_count, wall_count, one_way_count
+	])
+
+
+func _generate_emergency_geometry() -> void:
+	"""Generate emergency ground platform at spawn position as fallback."""
+	if player_spawn == null:
+		push_error("LevelBase: Cannot generate emergency geometry - no spawn point!")
+		return
+	
+	# Create a ground platform below the spawn point
+	var spawn_y: float = player_spawn.global_position.y + 32.0  # Slightly below spawn
+	PlatformGeneratorClass.create_emergency_ground(_generated_geometry, spawn_y)
+	print("LevelBase: Generated emergency ground at Y=%.0f" % spawn_y)
 
 
 func _spawn_player() -> void:
