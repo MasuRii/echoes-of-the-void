@@ -2,16 +2,16 @@
 
 > ⚠️ **CURRENT STATUS: NON-FUNCTIONAL**
 > 
-> The game structure is complete but **all 5 levels are empty** (no tile geometry painted).
-> Player spawns and immediately falls forever. See **Phase 9 (Critical Level Geometry)** at the bottom of this document for required fixes.
+> The game structure is complete but **all 5 levels are empty** (no geometry).
+> Player spawns and immediately falls forever. See **Phase 9 (Procedural Level Geometry System)** for the automated fix.
 > 
-> **Phases 1-8:** ✅ COMPLETE - All programmatic/script tasks finished (January 8, 2026)
-> **Phase 9:** 🔴 BLOCKING - Level geometry required (manual Godot editor work)
-> **Phases 10-15:** 🟡 Waiting - Verification and testing after geometry added
-> 
-> **Note:** A `.ralph-done` file has been created indicating all automatable tasks are complete.
+> **Phases 1-8:** ✅ Structure complete (scenes, scripts, nodes exist)
+> **Phase 9:** 🔴 BLOCKING - Procedural geometry generator needed (code-based)
+> **Phases 10-15:** 🟡 Waiting - Verification and testing after geometry system implemented
+>
+> **⚡ All fixes are 100% code-based - NO manual Godot Editor work required**
 
-> **Engine:** Godot 4.5.1  
+> **Engine:** Godot 4.5.1
 > **Genre:** Atmospheric 2D Precision Platformer  
 > **Timeline:** 14 Days (1-2 weeks)  
 > **Scope:** 5 Levels, Core Mechanics, Polish
@@ -1009,88 +1009,127 @@ A task is considered **COMPLETE** when:
 ## 🚨 CRITICAL FIXES REQUIRED (Blocking Issues)
 
 > **Status:** The game is currently non-functional. The following issues must be addressed before any playtesting is possible.
+> 
+> **Approach:** All fixes will be **fully automated via code** - no manual Godot Editor work required.
 
 ### Summary of Current State
 
 The project has all scene structures and scripts in place, but **critical implementation gaps** make the game unplayable:
 
-1. **ALL 5 levels have NO tile geometry** - TileMapLayer nodes exist but contain no painted tiles
+1. **ALL 5 levels have NO tile geometry** - TileMapLayer nodes exist but contain no tiles
 2. **Player immediately falls to death** - No ground to land on at spawn points  
 3. **Placeholder textures added** - Player and entities now visible, but nothing to interact with
-4. **Tileset exists with collision shapes** - void_tileset.tres has 32 tiles defined with physics, but never used
-5. **Game flow exists but untested** - Main menu, pause, level complete screens exist but full flow is broken
+4. **Tileset exists but unused** - void_tileset.tres has 32 tiles defined with physics
+5. **Game flow exists but untested** - Main menu, pause, level complete screens exist but flow is broken
+
+### Solution: Programmatic Level Generation
+
+Instead of manually painting tiles, we will:
+1. **Create a procedural platform system** using StaticBody2D + ColorRect (code-generated)
+2. **Define level layouts in data files** (JSON or GDScript dictionaries)
+3. **Generate geometry at runtime** via level_base.gd or dedicated generator script
+4. **Use placeholder colored rectangles** as platforms until art is ready
 
 ---
 
-### Phase 9: Critical Level Geometry (BLOCKING)
+### Phase 9: Procedural Level Geometry System (BLOCKING)
 
 > **Priority:** 🔴 CRITICAL - Game cannot be played without this
-> **Estimated Time:** 4-6 hours
+> **Estimated Time:** 3-4 hours
+> **Approach:** 100% code-based, no manual editor work
 
-#### 9.1 Level 01: Awakening - Add Tile Geometry
-- [ ] Open level_01_awakening.tscn in Godot editor
-- [ ] Paint ground tiles at PlayerSpawn position (96, 192) - minimum 3-4 tiles wide
-- [ ] Create basic ground path from spawn to exit (2432, 192)
-- [ ] Add platforms for collectible shards at positions:
-  - [ ] LightShard1 (320, 176) - platform below
-  - [ ] LightShard2 (576, 176) - platform below
-  - [ ] LightShard3 (896, 144) - slightly elevated platform
-  - [ ] LightShard4 (1408, 176) - platform below
-  - [ ] LightShard5 (1920, 176) - platform below
-- [ ] Add platform/wall for EchoCrystal1 (768, -64) - requires vertical climb
-- [ ] Add platform at Checkpoint1 position (1152, 224)
-- [ ] Add walls for wall-jump practice (optional for level 1)
-- [ ] Verify camera limits match geometry (0-2560 x -200 to 800)
-- [ ] Test: Player can traverse from spawn to exit
-- [ ] Test: All collectibles reachable
+#### 9.1 Create Platform Generator System
+- [ ] Create `scripts/systems/platform_generator.gd`
+  - [ ] Static method: `create_platform(parent: Node, pos: Vector2, size: Vector2, color: Color) -> StaticBody2D`
+  - [ ] Creates StaticBody2D with CollisionShape2D (RectangleShape2D)
+  - [ ] Adds ColorRect child for visual (uses color parameter)
+  - [ ] Sets collision_layer to platform layer (4)
+  - [ ] Returns the created platform node
+- [ ] Add method: `create_wall(parent: Node, pos: Vector2, height: float, side: String) -> StaticBody2D`
+  - [ ] Creates vertical wall for wall-jumping
+  - [ ] side parameter: "left" or "right" for proper positioning
+- [ ] Add method: `create_one_way_platform(parent: Node, pos: Vector2, width: float) -> StaticBody2D`
+  - [ ] Creates platform with one_way_collision enabled
+  - [ ] Semi-transparent visual to distinguish from solid
 
-#### 9.2 Level 02: Fractured Paths - Add Tile Geometry
-- [ ] Paint ground at spawn (96, 320)
-- [ ] Create vertical sections for wall jump introduction
-- [ ] Add platforms connecting to crumbling platforms at:
-  - [ ] CrumblingPlatform1 (896, 160)
-  - [ ] CrumblingPlatform2 (2048, -96)
-  - [ ] CrumblingPlatform3 (2304, -192)
-- [ ] Add patrol surfaces for ShadowCrawler enemies at:
-  - [ ] ShadowCrawler1 (512, 320) - needs flat ground
-  - [ ] ShadowCrawler2 (1856, -128) - needs platform
-  - [ ] ShadowCrawler3 (2432, -256) - needs platform
-- [ ] Add platforms for collectibles (6 shards + 1 crystal)
-- [ ] Create path to EchoCrystal1 (1408, -384) - wall jump challenge
-- [ ] Add checkpoints platforms (768, 352) and (1984, -96)
-- [ ] Create path to exit (3072, -192)
-- [ ] Verify camera limits (0-3200 x -600 to 800)
+#### 9.2 Create Level Data Definition System
+- [ ] Create `scripts/data/level_layouts.gd` with level geometry data
+  ```gdscript
+  # Example structure for each level
+  const LEVEL_01_LAYOUT = {
+      "platforms": [
+          {"pos": Vector2(0, 224), "size": Vector2(2560, 64)},  # Main ground
+          {"pos": Vector2(768, 0), "size": Vector2(128, 128)},  # Crystal platform
+      ],
+      "walls": [
+          {"pos": Vector2(700, 64), "height": 192, "side": "left"},
+          {"pos": Vector2(836, 64), "height": 192, "side": "right"},
+      ],
+      "one_way_platforms": [
+          {"pos": Vector2(400, 160), "width": 96},
+      ]
+  }
+  ```
+- [ ] Define LEVEL_01_LAYOUT with platforms supporting all collectible positions
+- [ ] Define LEVEL_02_LAYOUT with vertical sections and wall-jump areas
+- [ ] Define LEVEL_03_LAYOUT with double-jump gaps
+- [ ] Define LEVEL_04_LAYOUT with complex multi-path sections
+- [ ] Define LEVEL_05_LAYOUT with grand finale vertical climb
 
-#### 9.3 Level 03: Mirror's Edge - Add Tile Geometry
-- [ ] Paint ground at spawn position
-- [ ] Create wide gaps requiring double jump
-- [ ] Add platforms for moving platforms (if implemented)
-- [ ] Add surfaces for Mirror Guard enemies to patrol
-- [ ] Add phase/disappearing platform positions
-- [ ] Create path to 2 Echo Crystals with difficulty progression
-- [ ] Add platforms for 10 light shards
-- [ ] Verify all mechanics can be used (wall jump, double jump)
+#### 9.3 Integrate Generator with Level Base
+- [ ] Modify `scenes/levels/level_base.gd`:
+  - [ ] Add `@export var auto_generate_geometry: bool = true`
+  - [ ] Add `@export var level_layout_key: String = ""` (e.g., "LEVEL_01")
+  - [ ] In `_ready()`, call `_generate_level_geometry()` before player spawn
+  - [ ] Load layout from level_layouts.gd based on level_layout_key
+  - [ ] Create platforms under a "GeneratedGeometry" Node2D container
+- [ ] Add fallback: If no layout defined, generate simple ground at spawn
 
-#### 9.4 Level 04: Collapse - Add Tile Geometry  
-- [ ] Paint spawn ground
-- [ ] Create multi-path sections with crumbling platform chains
-- [ ] Add surfaces for Pulse Orb navigation
-- [ ] Position laser beam hazard platforms
-- [ ] Create 12 shard positions with platforms
-- [ ] Add 2 Echo Crystal challenge areas
-- [ ] Test timed gauntlet sections
+#### 9.4 Level 01: Awakening - Define Layout Data
+- [ ] Main ground platform: pos(0, 224), size(2560, 64)
+- [ ] Floating platforms for shards at Y=144-176
+- [ ] Wall section at X=700-836 for crystal access (Y=-64)
+- [ ] Checkpoint platform integrated with main ground
+- [ ] Exit platform at X=2400
+- [ ] Test: Player can reach all collectibles and exit
 
-#### 9.5 Level 05: The Last Echo - Add Tile Geometry
-- [ ] Paint spawn ground (largest level: 5120x2400)
-- [ ] Create grand finale vertical climb section
-- [ ] Add surfaces for all enemy types:
-  - [ ] 4 Shadow Crawlers patrol areas
-  - [ ] 3 Mirror Guards sections
-  - [ ] 6 Pulse Orbs navigation areas
-- [ ] Position 10 Crumbling, 8 Moving, 9 Phase platforms
-- [ ] Create 3 Echo Crystal challenge areas
-- [ ] Add 15 light shard positions
-- [ ] Design "true ending" optional path
+#### 9.5 Level 02: Fractured Paths - Define Layout Data  
+- [ ] Ground section at spawn: pos(0, 352), size(640, 64)
+- [ ] Vertical wall-jump shaft: walls at X=640-768, height 400
+- [ ] Elevated platforms for ShadowCrawler patrol
+- [ ] Gaps between platforms (96-128px) for jumping
+- [ ] Path leading upward to exit at Y=-192
+- [ ] Wall-jump challenge area for crystal at Y=-384
+
+#### 9.6 Level 03: Mirror's Edge - Define Layout Data
+- [ ] Wider gaps (160-256px) requiring double jump
+- [ ] Platforms at varying heights for Mirror Guard
+- [ ] Moving platform anchor positions (static fallback if moving not working)
+- [ ] Phase platform positions
+- [ ] Two crystal challenge areas at different difficulties
+
+#### 9.7 Level 04: Collapse - Define Layout Data
+- [ ] Multi-path branching structure
+- [ ] Crumbling platform chain positions
+- [ ] Laser beam safe zones
+- [ ] Pulse Orb navigation corridors
+- [ ] 12 shard positions with supporting platforms
+- [ ] 2 crystal challenge areas
+
+#### 9.8 Level 05: The Last Echo - Define Layout Data
+- [ ] Grand scale: 5120x2400 play area
+- [ ] Vertical tower climb section
+- [ ] All enemy type patrol areas
+- [ ] 27 platform positions (10 crumbling, 8 moving, 9 phase)
+- [ ] 3 crystal positions at increasing difficulty
+- [ ] Epic finale area at top with bright exit
+
+#### 9.9 Update Level Scene Files
+- [ ] Update level_01_awakening.tscn: set `level_layout_key = "LEVEL_01"`
+- [ ] Update level_02_fractured_paths.tscn: set `level_layout_key = "LEVEL_02"`
+- [ ] Update level_03_mirrors_edge.tscn: set `level_layout_key = "LEVEL_03"`
+- [ ] Update level_04_collapse.tscn: set `level_layout_key = "LEVEL_04"`
+- [ ] Update level_05_last_echo.tscn: set `level_layout_key = "LEVEL_05"`
 
 ---
 
@@ -1098,41 +1137,56 @@ The project has all scene structures and scripts in place, but **critical implem
 
 > **Priority:** 🟠 HIGH - Required for complete game experience
 > **Estimated Time:** 2-3 hours
+> **Approach:** Code fixes and verification scripts
 
-#### 10.1 Spawn & Respawn System Verification
-- [ ] Verify player spawns at correct position in all levels
-- [ ] Test respawn at checkpoint after death
-- [ ] Verify last_checkpoint is set correctly on level load
-- [ ] Test death → respawn → continue flow
-- [ ] Fix any null reference errors in player death sequence
+#### 10.1 Spawn & Respawn System Fixes
+- [ ] Add spawn validation in level_base.gd `_spawn_player()`:
+  - [ ] Check if generated ground exists at spawn position
+  - [ ] If no ground, auto-generate emergency platform
+  - [ ] Log warning if spawn position seems invalid
+- [ ] Fix checkpoint respawn in player.gd:
+  - [ ] Verify `last_checkpoint` is set on level load
+  - [ ] Add null check before respawn teleport
+  - [ ] Emit proper signals on respawn
+- [ ] Create `scripts/debug/spawn_debugger.gd`:
+  - [ ] Visualize spawn point and checkpoint positions
+  - [ ] Show ground detection rays
+  - [ ] Toggle with F1 key in debug builds
 
-#### 10.2 Level Transition Flow
-- [ ] Test Main Menu → Level 1 transition
-- [ ] Test Level Complete screen appears on exit trigger
-- [ ] Test "Next Level" button loads correct level
-- [ ] Test "Restart Level" functionality
-- [ ] Test returning to Main Menu from any level
-- [ ] Test Level Select → specific level → back flow
+#### 10.2 Level Transition Flow Fixes
+- [ ] Fix GameManager.load_level():
+  - [ ] Add scene existence validation before loading
+  - [ ] Add transition animation (fade to black)
+  - [ ] Proper cleanup of previous level
+- [ ] Fix level_complete.gd "Next Level" button:
+  - [ ] Verify next_level path is valid
+  - [ ] Handle last level (show game complete instead)
+- [ ] Create transition test script that auto-walks through all levels
 
-#### 10.3 Checkpoint System Verification
-- [ ] Verify checkpoint activation visual feedback
-- [ ] Test checkpoint saves player position
-- [ ] Test death after checkpoint respawns correctly
-- [ ] Verify multiple checkpoints in level work independently
+#### 10.3 Checkpoint System Implementation
+- [ ] Verify checkpoint.gd `_on_body_entered` implementation
+- [ ] Add checkpoint activation particles (programmatic)
+- [ ] Add checkpoint state to SaveManager:
+  - [ ] Save active checkpoint per level
+  - [ ] Restore on level reload
+- [ ] Test multi-checkpoint levels (level 2+)
 
 #### 10.4 Collectible System Verification
-- [ ] Test Light Shard collection updates HUD
-- [ ] Test Echo Crystal collection saves to SaveManager
-- [ ] Verify collected_shards count persists within level
-- [ ] Test crystal collection visual/audio feedback
-- [ ] Verify shard/crystal counts display in Level Complete screen
+- [ ] Verify light_shard.gd emits correct signals
+- [ ] Verify echo_crystal.gd saves to SaveManager
+- [ ] Fix HUD shard counter connection:
+  - [ ] Connect to Events.shard_collected in hud.gd
+  - [ ] Update display on collection
+- [ ] Add collection sound fallback (if audio missing)
 
-#### 10.5 Save/Load System Verification
-- [ ] Test new game resets progress
-- [ ] Test continue loads from last level
-- [ ] Test level unlocking progression
-- [ ] Verify settings persist between sessions
-- [ ] Test save file creation and loading
+#### 10.5 Save/Load System Implementation
+- [ ] Verify SaveManager.save_game() writes correctly
+- [ ] Verify SaveManager.load_game() reads correctly
+- [ ] Add save file migration (for future updates)
+- [ ] Create `scripts/debug/save_debugger.gd`:
+  - [ ] Print save file contents on F2
+  - [ ] Allow save file reset on Shift+F2
+- [ ] Test full save/load cycle programmatically
 
 ---
 
@@ -1140,13 +1194,16 @@ The project has all scene structures and scripts in place, but **critical implem
 
 > **Priority:** 🟡 MEDIUM - Game playable but visually incomplete
 > **Estimated Time:** 2-3 hours
+> **Approach:** Programmatic asset generation and fixes
 
-#### 11.1 Tileset Visual Verification
-- [ ] Verify void_tiles.svg renders correctly in editor
-- [ ] Check all 32 tile variants display
-- [ ] Verify tile collision shapes match visuals
-- [ ] Test one-way platforms work correctly
-- [ ] Check slope tiles (if any) work with player physics
+#### 11.1 Platform Visual System
+- [ ] Create platform visual styles in platform_generator.gd:
+  - [ ] Solid platform: White/light gray (#CCCCCC)
+  - [ ] One-way platform: Semi-transparent white (#FFFFFF80)
+  - [ ] Wall: Slightly different shade (#AAAAAA)
+  - [ ] Hazard platform: Red tint (#FF6666)
+- [ ] Add optional outline/border to platforms
+- [ ] Add subtle gradient or texture via shader (optional)
 
 #### 11.2 Placeholder Texture Improvements (COMPLETED)
 - [x] Player placeholder (32x32, cyan modulate)
@@ -1157,135 +1214,154 @@ The project has all scene structures and scripts in place, but **critical implem
 - [x] Pulse Orb placeholder (24x24, cyan)
 - [x] Checkpoint placeholder (16x64, gray → cyan)
 
-#### 11.3 Missing Particle Effects
-- [ ] Verify death_particles.tscn exists and works
-- [ ] Verify respawn_particles.tscn exists and works
-- [ ] Test footstep_dust triggers during run
-- [ ] Test jump_dust on jump
-- [ ] Test land_dust on landing
-- [ ] Test wall_slide_sparks during wall slide
-- [ ] Verify shard_collect particles play
-- [ ] Verify crystal_collect particles play
+#### 11.3 Programmatic Particle Systems
+- [ ] Create `scripts/effects/particle_factory.gd`:
+  - [ ] Method: `create_burst_particles(color: Color, count: int) -> GPUParticles2D`
+  - [ ] Method: `create_trail_particles(color: Color) -> GPUParticles2D`
+  - [ ] Method: `create_ambient_particles() -> GPUParticles2D`
+- [ ] Generate particles programmatically where .tscn files missing
+- [ ] Add fallback: If particle scene not found, create basic version
 
-#### 11.4 Lighting System Verification
-- [ ] Test PointLight2D on collectibles visible
-- [ ] Verify checkpoint light activates
-- [ ] Check ambient lights in all levels
-- [ ] Test CanvasModulate darkness level appropriate
-- [ ] Verify player glow visible
+#### 11.4 Lighting System Setup
+- [ ] Create `scripts/systems/lighting_manager.gd`:
+  - [ ] Auto-add player glow if missing
+  - [ ] Create ambient level lighting based on level bounds
+  - [ ] Add danger zone lighting near hazards
+- [ ] Integrate with level_base.gd on level load
+- [ ] Add CanvasModulate adjustment per level (darker for later levels)
 
 ---
 
-### Phase 12: Enemy & Hazard Verification
+### Phase 12: Enemy & Hazard Fixes
 
 > **Priority:** 🟡 MEDIUM - Affects gameplay challenge
 > **Estimated Time:** 1-2 hours
+> **Approach:** Code verification and fixes
 
-#### 12.1 Shadow Crawler Behavior
-- [ ] Verify patrol movement works (needs ground to walk on)
-- [ ] Test ledge detection (turns at edges)
-- [ ] Test wall detection (turns at walls)
-- [ ] Verify player damage on contact
-- [ ] Test enemy death when attacked
+#### 12.1 Shadow Crawler Fixes
+- [ ] Verify shadow_crawler.gd movement code
+- [ ] Add ground detection for patrol (RayCast2D check)
+- [ ] Fix ledge detection logic
+- [ ] Add fallback behavior if no ground detected (stop or turn)
+- [ ] Test damage dealing via HitboxComponent
 
-#### 12.2 Mirror Guard Behavior
-- [ ] Test player detection area triggers
-- [ ] Verify mirroring of player movement
-- [ ] Test jump mirroring with delay
+#### 12.2 Mirror Guard Fixes
+- [ ] Verify mirror_guard.gd player tracking
+- [ ] Fix mirroring calculation
+- [ ] Add jump delay timer
+- [ ] Test in level 3 context
+
+#### 12.3 Pulse Orb Fixes
+- [ ] Verify sine wave calculation in pulse_orb.gd
+- [ ] Add visual pulse sync with movement
+- [ ] Test amplitude and frequency exports
 - [ ] Verify collision with player
-- [ ] Test different mirror_mode settings
 
-#### 12.3 Pulse Orb Behavior
-- [ ] Test sine wave movement pattern
-- [ ] Verify amplitude and frequency exports
-- [ ] Test vertical_mode option
-- [ ] Verify light pulsing effect
-- [ ] Test player damage on contact
-
-#### 12.4 Hazard Verification
-- [ ] Test spike instant kill
-- [ ] Test void_pit detection and kill
-- [ ] Test laser_beam toggle timing
-- [ ] Verify laser warning flicker
-- [ ] Test all hazards trigger player death correctly
+#### 12.4 Hazard Fixes
+- [ ] Verify spike.gd instant kill
+- [ ] Verify void_pit.gd detection
+- [ ] Fix laser_beam.gd toggle timing:
+  - [ ] Verify Timer connections
+  - [ ] Add visual warning before activation
+  - [ ] Test on/off cycle
 
 ---
 
-### Phase 13: Platform Verification
+### Phase 13: Platform Mechanics Fixes
 
 > **Priority:** 🟡 MEDIUM - Required for level progression
 > **Estimated Time:** 1-2 hours
+> **Approach:** Code verification and fixes
 
-#### 13.1 Crumbling Platform
-- [ ] Test player detection triggers shake
-- [ ] Verify crumble_delay timing (0.5s)
-- [ ] Test collision disables after crumble
-- [ ] Verify respawn_time (3.0s) and rebuild
-- [ ] Test particles on crumble
+#### 13.1 Crumbling Platform Fixes
+- [ ] Verify crumbling_platform.gd detection
+- [ ] Fix Timer connections for crumble/respawn
+- [ ] Add shake animation before crumble
+- [ ] Test collision disable/enable cycle
+- [ ] Add placeholder crumble visual (scale/fade)
 
-#### 13.2 Moving Platform
-- [ ] Test platform follows path points
-- [ ] Verify player carried on platform (sync_to_physics)
-- [ ] Test wait_time at endpoints
-- [ ] Verify speed export works
+#### 13.2 Moving Platform Fixes
+- [ ] Verify moving_platform.gd path following
+- [ ] Fix player carrying (AnimatableBody2D sync_to_physics)
+- [ ] Test with simple 2-point path
+- [ ] Add platform position reset on level restart
 
-#### 13.3 One-Way Platform
+#### 13.3 One-Way Platform Verification
+- [ ] Verify one_way_collision setting in generator
 - [ ] Test player passes through from below
-- [ ] Verify player lands from above
-- [ ] Check visual distinction (semi-transparent)
+- [ ] Test player lands from above
+- [ ] Verify visual distinction
 
-#### 13.4 Phase Platform
-- [ ] Test visible/invisible timing
-- [ ] Verify collision disabled when invisible
-- [ ] Test fade warning before disappearing
-- [ ] Verify phase_offset for synced groups
-- [ ] Test particles on phase-in
+#### 13.4 Phase Platform Fixes
+- [ ] Verify phase_platform.gd timer logic
+- [ ] Fix collision toggle
+- [ ] Add fade animation before disappear
+- [ ] Test phase_offset synchronization
+- [ ] Add audio cue on phase change
 
 ---
 
-### Phase 14: Audio Verification
+### Phase 14: Audio System Fixes
 
 > **Priority:** 🟢 LOW - Game playable without
 > **Estimated Time:** 1 hour
+> **Approach:** Fallback sounds and verification
 
-#### 14.1 Sound Effects
-- [ ] Test jump.wav plays on jump
-- [ ] Test death.wav on player death
-- [ ] Test respawn.wav on respawn
-- [ ] Test shard_collect.wav on pickup
-- [ ] Test crystal_collect.wav on pickup
-- [ ] Test checkpoint.wav on activation
-- [ ] Test menu_select.wav on hover
-- [ ] Test menu_confirm.wav on click
+#### 14.1 Audio Fallback System
+- [ ] Create `scripts/systems/audio_fallback.gd`:
+  - [ ] Generate simple beep/tone sounds programmatically
+  - [ ] Use as fallback when .wav files missing
+  - [ ] AudioStreamGenerator for procedural audio
+- [ ] Integrate with AudioManager:
+  - [ ] Check if sound file exists
+  - [ ] Use fallback if missing
+  - [ ] Log warning for missing audio
 
-#### 14.2 Music System
-- [ ] Test main_menu.wav plays in menu
-- [ ] Test level_ambience.wav in levels
-- [ ] Test victory.wav on level complete
-- [ ] Verify music volume control works
-- [ ] Test music crossfade on transitions
+#### 14.2 Sound Effect Connections
+- [ ] Verify player.gd calls AudioManager.play_sfx()
+- [ ] Verify collectible scripts play sounds
+- [ ] Verify checkpoint activation sound
+- [ ] Verify menu button sounds
+
+#### 14.3 Music System Verification
+- [ ] Verify main_menu.gd starts music
+- [ ] Verify level_base.gd handles level music
+- [ ] Test volume controls in settings
+- [ ] Test crossfade on transitions
 
 ---
 
-### Phase 15: Final Testing Checklist (Updated)
+### Phase 15: Automated Testing & Verification
 
 > **Priority:** 🟢 After all above phases complete
+> **Approach:** Automated test scripts
 
-- [ ] Complete playthrough Level 1 start to finish
-- [ ] Complete playthrough Level 2 with wall jumps
-- [ ] Complete playthrough Level 3 with double jumps
-- [ ] Complete playthrough Level 4 challenge level
-- [ ] Complete playthrough Level 5 finale
-- [ ] Collect ALL shards in each level (verify count)
-- [ ] Collect ALL crystals in each level (verify saves)
-- [ ] Test death/respawn at various checkpoints
-- [ ] Test pause menu in each level
-- [ ] Test settings save and persist
-- [ ] Test game save/load cycle
-- [ ] Test level select shows correct completion
-- [ ] Run at 60 FPS consistently
-- [ ] No console errors during full playthrough
-- [ ] Export and test release build
+#### 15.1 Create Automated Test Suite
+- [ ] Create `scripts/tests/level_test_runner.gd`:
+  - [ ] Auto-load each level
+  - [ ] Verify player spawns on ground
+  - [ ] Verify no immediate death
+  - [ ] Verify collectibles count matches expected
+  - [ ] Verify exit is reachable (pathfinding check)
+- [ ] Create `scripts/tests/flow_test_runner.gd`:
+  - [ ] Test menu → level 1 → complete → level 2
+  - [ ] Test pause/unpause
+  - [ ] Test death/respawn
+  - [ ] Test save/load cycle
+
+#### 15.2 Debug Visualization Tools
+- [ ] Create `scripts/debug/level_visualizer.gd`:
+  - [ ] Draw platform bounds
+  - [ ] Show collectible positions
+  - [ ] Show enemy patrol paths
+  - [ ] Show checkpoint coverage
+  - [ ] Toggle with F3
+
+#### 15.3 Performance Profiling
+- [ ] Add frame time logging
+- [ ] Check particle system performance
+- [ ] Verify 60 FPS target
+- [ ] Profile memory usage
 
 ---
 
@@ -1293,7 +1369,7 @@ The project has all scene structures and scripts in place, but **critical implem
 
 | Issue ID | Description | Status | Priority | Phase |
 |----------|-------------|--------|----------|-------|
-| ISS-001 | All levels missing tile_map_data | OPEN | 🔴 CRITICAL | 9 |
+| ISS-001 | All levels missing geometry | OPEN | 🔴 CRITICAL | 9 |
 | ISS-002 | Player falls through world | BLOCKED BY ISS-001 | 🔴 CRITICAL | 9 |
 | ISS-003 | Placeholder textures missing | ✅ FIXED | - | 11 |
 | ISS-004 | Game flow untested | OPEN | 🟠 HIGH | 10 |
@@ -1302,38 +1378,76 @@ The project has all scene structures and scripts in place, but **critical implem
 | ISS-007 | Enemy behavior untested | OPEN | 🟡 MEDIUM | 12 |
 | ISS-008 | Platform mechanics untested | OPEN | 🟡 MEDIUM | 13 |
 | ISS-009 | Audio system untested | OPEN | 🟢 LOW | 14 |
-| ISS-010 | Wall slide particles not connected | ✅ FIXED | - | 2.3 |
 
 ---
 
-### Technical Notes
+### Technical Architecture: Procedural Generation
 
-#### Why Levels Are Empty
-The .tscn files contain TileMapLayer nodes with TileSet references, but **no `tile_map_data` property** which stores the actual painted cells. This is because:
-1. Levels were created programmatically with node structure only
-2. Tile painting must be done in the Godot Editor's TileMap editor
-3. The tile_map_data is a PackedByteArray that cannot be easily generated by hand
+#### Platform Generator Flow
+```
+Level Load
+    ↓
+level_base._ready()
+    ↓
+_generate_level_geometry()
+    ↓
+Load layout from level_layouts.gd
+    ↓
+For each platform in layout:
+    → PlatformGenerator.create_platform()
+    → Add to GeneratedGeometry node
+    ↓
+For each wall in layout:
+    → PlatformGenerator.create_wall()
+    ↓
+For each one_way in layout:
+    → PlatformGenerator.create_one_way_platform()
+    ↓
+Spawn player (now has ground to land on)
+```
 
-#### How to Fix (Manual Process Required)
-1. Open each level .tscn in Godot Editor
-2. Select the TileMapLayer node
-3. Use the TileMap editor (bottom panel) to paint tiles
-4. The void_tileset.tres has 32 tiles with collision already configured
-5. Save the scene - tile_map_data will be added automatically
+#### Platform Data Format
+```gdscript
+# level_layouts.gd
+const LAYOUTS = {
+    "LEVEL_01": {
+        "platforms": [
+            # Main ground - full width
+            {"pos": Vector2(0, 224), "size": Vector2(2560, 64), "type": "solid"},
+            # Elevated platform for shard 3
+            {"pos": Vector2(864, 112), "size": Vector2(64, 32), "type": "solid"},
+        ],
+        "walls": [
+            # Wall jump section for crystal
+            {"pos": Vector2(700, -64), "height": 288, "side": "left"},
+            {"pos": Vector2(836, -64), "height": 288, "side": "right"},
+        ],
+        "one_way_platforms": [],
+        "metadata": {
+            "ground_y": 224,
+            "spawn_check": true
+        }
+    }
+}
+```
 
-#### Tile Types Available in void_tileset.tres
-| Tile Position | Type | Collision |
-|---------------|------|-----------|
-| 0:0 to 6:0 | Solid ground | Full 32x32 |
-| 7:0 | One-way top | 32x8 top |
-| 0:1 to 1:1 | Solid fill | Full 32x32 |
-| 2:1 | Left wall | 16x32 left |
-| 3:1 | Right wall | 16x32 right |
-| 4:1 | Thin pillar | 8x32 center |
-| 0:2 to 7:2 | Decorative | No collision |
-| 0:3 to 3:3 | Thin platforms | Varies, one-way |
-| 4:3, 5:3 | Slopes | Triangle |
-| 6:3, 7:3 | Half blocks | Half height |
+#### Generated Node Structure
+```
+Level (Node2D)
+├── GeneratedGeometry (Node2D)      ← Created by generator
+│   ├── Platform_0 (StaticBody2D)
+│   │   ├── CollisionShape2D
+│   │   └── ColorRect
+│   ├── Platform_1 (StaticBody2D)
+│   ├── Wall_0 (StaticBody2D)
+│   └── OneWay_0 (StaticBody2D)
+├── TileMapLayer (unused, kept for future)
+├── PlayerSpawn
+├── Player (spawned after geometry)
+├── Collectibles
+├── Enemies
+└── ...
+```
 
 ---
 
