@@ -595,10 +595,10 @@
   - [x] Hazard warning lights (red tint for danger zones)
 
 ### 6.3 Echo Trail Enhancement
-- [ ] Improve echo ghost visuals:
+- [x] Improve echo ghost visuals:
   - [x] Add subtle glow via CanvasModulate or shader
   - [x] Trail color progression (bright → dim)
-  - [ ] Smooth spawn interpolation
+  - [x] Smooth spawn interpolation
   - [x] Size variation (slight shrink over time)
 
 ### 6.4 Screen Effects

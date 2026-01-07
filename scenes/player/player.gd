@@ -28,6 +28,7 @@ var _was_on_floor: bool = false
 var _input_locked: bool = false
 var _input_lock_timer: float = 0.0
 var _echo_trail_active: bool = false
+var _last_echo_spawn_position: Vector2 = Vector2.ZERO  # For smooth spawn interpolation
 
 # Node references
 @onready var sprite: Sprite2D = $Sprite2D
@@ -47,6 +48,9 @@ var _echo_trail_active: bool = false
 func _ready() -> void:
 	# Store initial position as first checkpoint
 	last_checkpoint = global_position
+	
+	# Initialize last echo spawn position for smooth interpolation
+	_last_echo_spawn_position = global_position
 	
 	# Add player to group for easy access
 	add_to_group("player")
@@ -242,6 +246,7 @@ func respawn() -> void:
 	is_wall_sliding = false
 	_input_locked = false
 	_echo_trail_active = false
+	_last_echo_spawn_position = last_checkpoint  # Reset interpolation on respawn
 	echo_trail_timer.stop()
 	
 	# Reset health for the new life
@@ -273,14 +278,27 @@ func _on_health_component_died() -> void:
 
 
 ## Spawns a single echo ghost at the player's current position.
-func spawn_echo_ghost() -> void:
+## If use_interpolation is true, spawns at midpoint between last and current position for smoother trails.
+func spawn_echo_ghost(use_interpolation: bool = false) -> void:
+	var spawn_pos: Vector2 = global_position
+	
+	# For smooth spawn interpolation: spawn between last position and current position
+	if use_interpolation and _last_echo_spawn_position != Vector2.ZERO:
+		spawn_pos = _last_echo_spawn_position.lerp(global_position, 0.5)
+	
 	var echo: Node2D = ECHO_GHOST_SCENE.instantiate()
 	get_tree().current_scene.add_child(echo)
-	echo.initialize(sprite, global_position, sprite.flip_h)
+	echo.initialize(sprite, spawn_pos, sprite.flip_h)
+	
+	# Update last spawn position for next interpolation
+	_last_echo_spawn_position = global_position
 
 
 ## Spawns a burst of echo ghosts (for double jump activation).
 func spawn_echo_burst(count: int) -> void:
+	# Reset interpolation tracking for the burst
+	_last_echo_spawn_position = global_position
+	
 	for i in range(count):
 		# Slightly offset each ghost in time by spawning with small delay
 		var echo: Node2D = ECHO_GHOST_SCENE.instantiate()
@@ -303,4 +321,5 @@ func _on_echo_trail_timer_timeout() -> void:
 		if is_on_floor() or velocity.y > 200.0:
 			stop_echo_trail()
 		else:
-			spawn_echo_ghost()
+			# Use smooth interpolation for continuous trail spawning
+			spawn_echo_ghost(true)
