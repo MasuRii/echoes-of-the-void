@@ -91,3 +91,12 @@ shape = SubResource("RectangleShape2D_hurtbox")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_health")
+
+[node name="PlayerGlow" type="PointLight2D" parent="."]
+position = Vector2(0, -16)
+color = Color(1, 1, 1, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture_scale = 0.5

@@ -588,7 +588,7 @@
   - [x] Set up canvas modulate for base darkness
 
 - [ ] Create light sources:
-  - [ ] Player subtle glow (PointLight2D, white, low energy)
+  - [x] Player subtle glow (PointLight2D, white, low energy)
   - [ ] Collectible lights (Echo Crystals, Shards)
   - [ ] Checkpoint activation lights
   - [ ] Ambient level lighting (strategic PointLight2D placement)
