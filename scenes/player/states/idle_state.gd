@@ -8,8 +8,8 @@ extends "res://scripts/classes/state.gd"
 func enter() -> void:
 	# Reset velocity when entering idle
 	actor.velocity.x = 0.0
-	# TODO: Play idle animation when available
-	# actor.animation_player.play("idle")
+	# Play idle breathing animation
+	actor.animation_player.play("idle")
 
 
 func physics_update(_delta: float) -> void:

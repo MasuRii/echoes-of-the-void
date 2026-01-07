@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cbvl4w72xrqpu"]
+[gd_scene load_steps=14 format=3 uid="uid://cbvl4w72xrqpu"]
 
 [ext_resource type="Script" uid="uid://b2mmg5w87qmg3" path="res://scenes/player/player.gd" id="1_player"]
 [ext_resource type="Script" uid="uid://bq8r7oy7a6vhq" path="res://scripts/classes/state_machine.gd" id="2_statemachine"]
@@ -10,6 +10,28 @@
 [ext_resource type="Script" path="res://scenes/player/states/fall_state.gd" id="8_fall"]
 [ext_resource type="Script" path="res://scenes/player/states/wall_slide_state.gd" id="9_wall_slide"]
 [ext_resource type="Script" path="res://scenes/player/states/death_state.gd" id="10_death"]
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 1), Vector2(0.52, 0.98), Vector2(0.5, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_player"]
+_data = {
+&"idle": SubResource("Animation_idle")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(16, 32)
@@ -31,6 +53,9 @@ position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_body")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_player")
+}
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_statemachine")
