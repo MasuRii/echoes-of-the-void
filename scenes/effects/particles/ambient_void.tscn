@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5m7vt4r8whkn"]
+
+[ext_resource type="Script" path="res://scenes/effects/particles/ambient_void.gd" id="1_ambient_void"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ambient"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(960, 540, 0)
+direction = Vector3(0, -1, 0)
+spread = 45.0
+initial_velocity_min = 5.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, -10, 0)
+scale_min = 1.0
+scale_max = 3.0
+color = Color(0.6, 0.8, 1, 0.3)
+
+[node name="AmbientVoid" type="GPUParticles2D"]
+z_index = -10
+script = ExtResource("1_ambient_void")
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ambient")
+lifetime = 8.0
+preprocess = 4.0
+visibility_rect = Rect2(-1000, -600, 2000, 1200)

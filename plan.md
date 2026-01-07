@@ -580,7 +580,7 @@
   - [x] `crystal_collect.tscn` - Grand particle celebration
   - [x] `enemy_death.tscn` - Shadow dispersion
   - [x] `platform_crumble.tscn` - Falling debris
-  - [ ] `ambient_void.tscn` - Floating particles in background
+  - [x] `ambient_void.tscn` - Floating particles in background
 
 ### 6.2 Lighting System
 - [ ] Configure project for 2D lighting:
