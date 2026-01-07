@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbvl4w72xrqpu"]
+[gd_scene load_steps=15 format=3 uid="uid://cbvl4w72xrqpu"]
 
 [ext_resource type="Script" uid="uid://b2mmg5w87qmg3" path="res://scenes/player/player.gd" id="1_player"]
 [ext_resource type="Script" uid="uid://bq8r7oy7a6vhq" path="res://scripts/classes/state_machine.gd" id="2_statemachine"]
@@ -26,6 +26,35 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0.5, 1), Vector2(0.52, 0.98), Vector2(0.5, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jump"]
+resource_name = "jump"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 1), Vector2(0.54, 0.92), Vector2(0.46, 1.08), Vector2(0.48, 1.04)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -16), Vector2(0, -14), Vector2(0, -18), Vector2(0, -17)]
 }
 
 [sub_resource type="Animation" id="Animation_run"]
@@ -72,6 +101,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_player"]
 _data = {
 &"idle": SubResource("Animation_idle"),
+&"jump": SubResource("Animation_jump"),
 &"run": SubResource("Animation_run")
 }
 
