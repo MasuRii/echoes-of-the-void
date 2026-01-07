@@ -617,10 +617,10 @@
   - [x] Wall slide (pressed against wall)
   - [x] Double jump spin
 
-- [ ] Enemy animations:
+- [x] Enemy animations:
   - [x] Shadow Crawler walk cycle
   - [x] Mirror Guard idle stance
-  - [ ] Pulse Orb pulsing glow
+  - [x] Pulse Orb pulsing glow
 
 ---
 

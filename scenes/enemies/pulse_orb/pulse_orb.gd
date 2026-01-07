@@ -28,6 +28,7 @@ extends EnemyBase
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var point_light: PointLight2D = $PointLight2D
 @onready var particles: GPUParticles2D = $GPUParticles2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # Internal state
 var _time_elapsed: float = 0.0
@@ -47,6 +48,10 @@ func _ready() -> void:
 	
 	# Pulse Orb ignores gravity (floating enemy)
 	gravity = 0.0
+	
+	# Play pulsing glow animation
+	if animation_player != null:
+		animation_player.play("pulse")
 
 
 func _physics_process(delta: float) -> void:
