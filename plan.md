@@ -1251,10 +1251,12 @@ Instead of manually painting tiles, we will:
 - [x] Test in level 3 context (fixed UID mismatch in level_03_mirrors_edge.tscn)
 
 #### 12.3 Pulse Orb Fixes
-- [ ] Verify sine wave calculation in pulse_orb.gd
-- [ ] Add visual pulse sync with movement
-- [ ] Test amplitude and frequency exports
-- [ ] Verify collision with player
+- [x] Verify sine wave calculation in pulse_orb.gd
+- [x] Add visual pulse sync with movement
+- [x] Test amplitude and frequency exports
+- [x] Verify collision with player (fixed HitboxComponent collision_mask from 4 to 1)
+- [x] Fixed player HurtboxComponent collision_layer from 0 to 1 (enables all hazard detection)
+- [x] Fixed all enemy HitboxComponent collision_mask to 1 (ShadowCrawler, MirrorGuard, PulseOrb)
 
 #### 12.4 Hazard Fixes
 - [ ] Verify spike.gd instant kill

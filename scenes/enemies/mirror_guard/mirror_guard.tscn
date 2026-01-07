@@ -108,7 +108,7 @@ max_health = 1
 
 [node name="HitboxComponent" type="Area2D" parent="." groups=["hitbox"]]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 1
 script = ExtResource("3_hitbox")
 damage = 1
 
@@ -118,7 +118,7 @@ shape = SubResource("RectangleShape2D_body")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 1
 monitorable = false
 
 [node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea"]
