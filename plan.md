@@ -247,13 +247,13 @@
   - [x] On double jump activation (burst of 3)
 
 ### 2.6 Player Death & Respawn
-- [ ] On `died` signal from HealthComponent:
-  - [ ] Transition to Death state
+- [x] On `died` signal from HealthComponent:
+  - [x] Transition to Death state
   - [ ] Play death particles (white dispersion)
-  - [ ] Emit `Events.player_died`
-  - [ ] Wait 0.5s, then respawn at `last_checkpoint`
+  - [x] Emit `Events.player_died`
+  - [x] Wait 0.5s, then respawn at `last_checkpoint`
   - [ ] Play respawn particles (coalesce effect)
-  - [ ] Emit `Events.player_respawned`
+  - [x] Emit `Events.player_respawned`
 
 ---
 

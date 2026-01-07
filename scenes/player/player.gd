@@ -41,6 +41,7 @@ var _echo_trail_active: bool = false
 @onready var wall_detector_left: RayCast2D = $WallDetectorLeft
 @onready var wall_detector_right: RayCast2D = $WallDetectorRight
 @onready var hurtbox: Area2D = $HurtboxComponent
+@onready var health_component: Node = $HealthComponent
 
 
 func _ready() -> void:
@@ -52,6 +53,12 @@ func _ready() -> void:
 	
 	# Connect echo trail timer for continuous spawning during special moves
 	echo_trail_timer.timeout.connect(_on_echo_trail_timer_timeout)
+	
+	# Connect hurtbox to health component for damage handling
+	hurtbox.hurt.connect(_on_hurtbox_hurt)
+	
+	# Connect health component died signal to trigger death state
+	health_component.died.connect(_on_health_component_died)
 
 
 func _physics_process(delta: float) -> void:
@@ -236,16 +243,33 @@ func respawn() -> void:
 	_input_locked = false
 	_echo_trail_active = false
 	echo_trail_timer.stop()
+	
+	# Reset health for the new life
+	health_component.reset_health()
+	
 	Events.player_respawned.emit()
 
 
-## Called when the player dies.
+## Called when the player dies - transitions to death state.
 func die() -> void:
-	Events.player_died.emit()
-	# TODO: Play death particles, transition to death state
-	# For now, respawn after brief delay
-	await get_tree().create_timer(0.5).timeout
-	respawn()
+	state_machine.transition_to("death")
+
+
+## Callback when hurtbox receives a hit from a hitbox.
+func _on_hurtbox_hurt(hitbox: Area2D) -> void:
+	# Extract damage from hitbox if it has a damage property
+	var damage: int = 1
+	if hitbox.has_method("get_damage"):
+		damage = hitbox.get_damage()
+	elif "damage" in hitbox:
+		damage = hitbox.damage
+	
+	health_component.take_damage(damage)
+
+
+## Callback when health component signals death.
+func _on_health_component_died() -> void:
+	die()
 
 
 ## Spawns a single echo ghost at the player's current position.
