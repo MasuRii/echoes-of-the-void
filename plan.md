@@ -1196,13 +1196,13 @@ Instead of manually painting tiles, we will:
 > **Approach:** Programmatic asset generation and fixes
 
 #### 11.1 Platform Visual System
-- [ ] Create platform visual styles in platform_generator.gd:
-  - [ ] Solid platform: White/light gray (#CCCCCC)
-  - [ ] One-way platform: Semi-transparent white (#FFFFFF80)
-  - [ ] Wall: Slightly different shade (#AAAAAA)
-  - [ ] Hazard platform: Red tint (#FF6666)
-- [ ] Add optional outline/border to platforms
-- [ ] Add subtle gradient or texture via shader (optional)
+- [x] Create platform visual styles in platform_generator.gd:
+  - [x] Solid platform: White/light gray (#CCCCCC)
+  - [x] One-way platform: Semi-transparent white (#FFFFFF80)
+  - [x] Wall: Slightly different shade (#AAAAAA)
+  - [x] Hazard platform: Red tint (#FF6666)
+- [x] Add optional outline/border to platforms
+- [x] Add subtle gradient or texture via shader (optional - skipped, borders sufficient)
 
 #### 11.2 Placeholder Texture Improvements (COMPLETED)
 - [x] Player placeholder (32x32, cyan modulate)

@@ -21,6 +21,68 @@ const COLOR_HAZARD_PLATFORM := Color(1.0, 0.4, 0.4, 1.0)  # Red tint #FF6666
 # Default wall width
 const WALL_WIDTH: float = 32.0
 
+# Border/outline settings
+const BORDER_ENABLED: bool = true
+const BORDER_WIDTH: float = 2.0
+const BORDER_COLOR := Color(1.0, 1.0, 1.0, 0.8)  # Bright white border
+
+
+## Creates a bordered visual container with optional outline.
+## Returns a Control node containing the fill and optional border.
+static func _create_bordered_visual(
+	size: Vector2,
+	fill_color: Color,
+	show_border: bool = BORDER_ENABLED
+) -> Control:
+	var container := Control.new()
+	container.name = "Visual"
+	container.custom_minimum_size = size
+	container.size = size
+	
+	# Main fill
+	var fill := ColorRect.new()
+	fill.name = "Fill"
+	fill.size = size
+	fill.color = fill_color
+	fill.position = Vector2.ZERO
+	container.add_child(fill)
+	
+	# Border overlay (only if enabled and size allows)
+	if show_border and size.x > BORDER_WIDTH * 4 and size.y > BORDER_WIDTH * 4:
+		# Top border
+		var top := ColorRect.new()
+		top.name = "BorderTop"
+		top.size = Vector2(size.x, BORDER_WIDTH)
+		top.color = BORDER_COLOR
+		top.position = Vector2.ZERO
+		container.add_child(top)
+		
+		# Bottom border
+		var bottom := ColorRect.new()
+		bottom.name = "BorderBottom"
+		bottom.size = Vector2(size.x, BORDER_WIDTH)
+		bottom.color = BORDER_COLOR
+		bottom.position = Vector2(0, size.y - BORDER_WIDTH)
+		container.add_child(bottom)
+		
+		# Left border
+		var left := ColorRect.new()
+		left.name = "BorderLeft"
+		left.size = Vector2(BORDER_WIDTH, size.y)
+		left.color = BORDER_COLOR
+		left.position = Vector2.ZERO
+		container.add_child(left)
+		
+		# Right border
+		var right := ColorRect.new()
+		right.name = "BorderRight"
+		right.size = Vector2(BORDER_WIDTH, size.y)
+		right.color = BORDER_COLOR
+		right.position = Vector2(size.x - BORDER_WIDTH, 0)
+		container.add_child(right)
+	
+	return container
+
 
 ## Creates a solid platform with collision and visual.
 ## Returns the created StaticBody2D node.
@@ -53,11 +115,8 @@ static func create_platform(
 	collision_shape.position = size / 2.0
 	platform.add_child(collision_shape)
 	
-	# Create visual ColorRect
-	var visual := ColorRect.new()
-	visual.name = "Visual"
-	visual.size = size
-	visual.color = color
+	# Create bordered visual
+	var visual := _create_bordered_visual(size, color, BORDER_ENABLED)
 	visual.position = Vector2.ZERO
 	platform.add_child(visual)
 	
@@ -105,11 +164,8 @@ static func create_wall(
 		collision_shape.position = Vector2(size.x / 2.0, size.y / 2.0)
 	wall.add_child(collision_shape)
 	
-	# Create visual ColorRect
-	var visual := ColorRect.new()
-	visual.name = "Visual"
-	visual.size = size
-	visual.color = COLOR_WALL
+	# Create bordered visual
+	var visual := _create_bordered_visual(size, COLOR_WALL, BORDER_ENABLED)
 	visual.position = Vector2.ZERO
 	wall.add_child(visual)
 	
@@ -153,11 +209,9 @@ static func create_one_way_platform(
 	collision_shape.one_way_collision_margin = 4.0
 	platform.add_child(collision_shape)
 	
-	# Create visual ColorRect (semi-transparent to indicate one-way)
-	var visual := ColorRect.new()
-	visual.name = "Visual"
-	visual.size = size
-	visual.color = COLOR_ONE_WAY_PLATFORM
+	# Create bordered visual (semi-transparent to indicate one-way)
+	# Use dashed/lighter border for one-way platforms
+	var visual := _create_bordered_visual(size, COLOR_ONE_WAY_PLATFORM, BORDER_ENABLED)
 	visual.position = Vector2.ZERO
 	platform.add_child(visual)
 	
