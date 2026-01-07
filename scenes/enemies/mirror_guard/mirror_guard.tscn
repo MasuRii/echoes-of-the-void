@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmirrorguard01"]
+
+[ext_resource type="Script" path="res://scenes/enemies/mirror_guard/mirror_guard.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="2_health"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="3_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(16, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detection"]
+radius = 150.0
+
+[node name="MirrorGuard" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_enemy")
+move_speed = 300.0
+mirror_mode = true
+jump_delay = 0.1
+detection_radius = 150.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+scale = Vector2(1, 2)
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
+max_health = 1
+
+[node name="HitboxComponent" type="Area2D" parent="." groups=["hitbox"]]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("3_hitbox")
+damage = 1
+
+[node name="HitboxShape" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="DetectionShape" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_detection")

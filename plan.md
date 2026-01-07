@@ -285,20 +285,20 @@
   - [x] Damage player on contact via HitboxComponent
 
 ### 3.3 Mirror Guard (Copies Player Movement)
-- [ ] Create `scenes/enemies/mirror_guard/mirror_guard.tscn`
-- [ ] Node structure:
-  - [ ] CharacterBody2D (root)
-  - [ ] Sprite2D (inverted color player silhouette)
-  - [ ] CollisionShape2D
-  - [ ] HitboxComponent (Area2D)
-  - [ ] DetectionArea (Area2D) - Large circular detection radius
+- [x] Create `scenes/enemies/mirror_guard/mirror_guard.tscn`
+- [x] Node structure:
+  - [x] CharacterBody2D (root)
+  - [x] Sprite2D (inverted color player silhouette)
+  - [x] CollisionShape2D
+  - [x] HitboxComponent (Area2D)
+  - [x] DetectionArea (Area2D) - Large circular detection radius
 
-- [ ] Create `scenes/enemies/mirror_guard/mirror_guard.gd`:
-  - [ ] Track player reference when in detection area
-  - [ ] Mirror player's X velocity (inverted or same, configurable)
-  - [ ] Jump when player jumps (with slight delay: 0.1s)
-  - [ ] Speed matches player speed
-  - [ ] Export: `mirror_mode: bool = true` (true = same direction, false = opposite)
+- [x] Create `scenes/enemies/mirror_guard/mirror_guard.gd`:
+  - [x] Track player reference when in detection area
+  - [x] Mirror player's X velocity (inverted or same, configurable)
+  - [x] Jump when player jumps (with slight delay: 0.1s)
+  - [x] Speed matches player speed
+  - [x] Export: `mirror_mode: bool = true` (true = same direction, false = opposite)
 
 ### 3.4 Pulse Orb (Sine-Wave Movement)
 - [ ] Create `scenes/enemies/pulse_orb/pulse_orb.tscn`
