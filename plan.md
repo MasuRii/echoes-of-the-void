@@ -389,21 +389,21 @@
 - [x] Player passes through from below, lands from above
 
 ### 4.5 Disappearing/Reappearing Platform
-- [ ] Create `scenes/platforms/phase_platform.tscn`
-- [ ] Node structure:
-  - [ ] StaticBody2D (root)
-  - [ ] Sprite2D
-  - [ ] CollisionShape2D
-  - [ ] Timer (phase timer)
+- [x] Create `scenes/platforms/phase_platform.tscn`
+- [x] Node structure:
+  - [x] StaticBody2D (root)
+  - [x] Sprite2D
+  - [x] CollisionShape2D
+  - [x] Timer (phase timer)
 
-- [ ] Create `scenes/platforms/phase_platform.gd`:
-  - [ ] Export: `visible_duration: float = 2.0`
-  - [ ] Export: `invisible_duration: float = 2.0`
-  - [ ] Export: `start_visible: bool = true`
-  - [ ] Export: `phase_offset: float = 0.0` (for synced groups)
-  - [ ] Fade out before disappearing (warning)
-  - [ ] Disable collision when invisible
-  - [ ] Particles: phase-in sparkle effect
+- [x] Create `scenes/platforms/phase_platform.gd`:
+  - [x] Export: `visible_duration: float = 2.0`
+  - [x] Export: `invisible_duration: float = 2.0`
+  - [x] Export: `start_visible: bool = true`
+  - [x] Export: `phase_offset: float = 0.0` (for synced groups)
+  - [x] Fade out before disappearing (warning)
+  - [x] Disable collision when invisible
+  - [x] Particles: phase-in sparkle effect
 
 ### 4.6 Light Shard (Coins)
 - [ ] Create `scenes/collectibles/light_shard.tscn`

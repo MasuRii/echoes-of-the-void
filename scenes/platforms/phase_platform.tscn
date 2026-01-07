@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://cphase_platform1"]
+
+[ext_resource type="Script" path="res://scenes/platforms/phase_platform.gd" id="1_phase"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_collision"]
+size = Vector2(64, 16)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_phase"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(32, 8, 0)
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+scale_min = 1.0
+scale_max = 3.0
+color = Color(0, 1, 1, 0.8)
+
+[node name="PhasePlatform" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_phase")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.5, 0.9, 1, 0.9)
+scale = Vector2(4, 1)
+texture = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_collision")
+
+[node name="PhaseTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="PhaseParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_phase")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.8
