@@ -1,0 +1,130 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4x8levelcomplete"]
+
+[ext_resource type="Script" path="res://scenes/ui/level_complete.gd" id="1_level_complete"]
+
+[node name="LevelComplete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_level_complete")
+
+[node name="DarkOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="PanelContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="HeaderLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.6, 0.8, 0.5)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 64
+text = "LEVEL COMPLETE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer1" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="StatsContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ShardsLabel" type="Label" parent="PanelContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Shards: 0 / 0"
+horizontal_alignment = 1
+
+[node name="CrystalsLabel" type="Label" parent="PanelContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Crystals: 0 / 3"
+horizontal_alignment = 1
+
+[node name="CrystalIndicators" type="HBoxContainer" parent="PanelContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Crystal1" type="TextureRect" parent="PanelContainer/VBoxContainer/StatsContainer/CrystalIndicators"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+modulate = Color(0.3, 0.3, 0.3, 0.5)
+stretch_mode = 5
+
+[node name="Crystal2" type="TextureRect" parent="PanelContainer/VBoxContainer/StatsContainer/CrystalIndicators"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+modulate = Color(0.3, 0.3, 0.3, 0.5)
+stretch_mode = 5
+
+[node name="Crystal3" type="TextureRect" parent="PanelContainer/VBoxContainer/StatsContainer/CrystalIndicators"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+modulate = Color(0.3, 0.3, 0.3, 0.5)
+stretch_mode = 5
+
+[node name="Spacer2" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NextLevelButton" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Next Level"
+
+[node name="ReplayButton" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Replay"
+
+[node name="LevelSelectButton" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Level Select"

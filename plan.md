@@ -732,16 +732,16 @@
   - [x] Fade in/out on activity
 
 ### 8.5 Level Complete Screen
-- [ ] Create `scenes/ui/level_complete.tscn`:
-  - [ ] "LEVEL COMPLETE" header
-  - [ ] Stats:
-    - [ ] Shards collected: X / Y
-    - [ ] Crystals found: X / 3
+- [x] Create `scenes/ui/level_complete.tscn`:
+  - [x] "LEVEL COMPLETE" header
+  - [x] Stats:
+    - [x] Shards collected: X / Y
+    - [x] Crystals found: X / 3
     - [ ] Time (optional)
-  - [ ] Buttons:
-    - [ ] "Next Level" → Load next
-    - [ ] "Replay" → Restart current
-    - [ ] "Level Select" → Back to select
+  - [x] Buttons:
+    - [x] "Next Level" → Load next
+    - [x] "Replay" → Restart current
+    - [x] "Level Select" → Back to select
 
 ### 8.6 Level Select
 - [ ] Create `scenes/ui/level_select.tscn`:

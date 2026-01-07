@@ -214,21 +214,11 @@ func _on_level_exit_body_entered(body: Node2D) -> void:
 
 
 func _complete_level() -> void:
-	"""Handle level completion. Override for custom transitions."""
-	var game_manager := _get_game_manager()
-	
-	if next_level.is_empty():
-		# Last level - show game complete screen
-		if game_manager:
-			game_manager.change_state(game_manager.GameState.GAME_OVER)
-		return
-	
-	# Load next level
-	if game_manager:
-		game_manager.load_level(next_level)
-	else:
-		# Fallback direct scene change
-		get_tree().change_scene_to_file(next_level)
+	"""Handle level completion. Show level complete screen."""
+	# Show level complete screen
+	var level_complete_scene: PackedScene = preload("res://scenes/ui/level_complete.tscn")
+	var level_complete: Control = level_complete_scene.instantiate()
+	add_child(level_complete)
 
 
 ## Returns the current shard collection count.
