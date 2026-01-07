@@ -491,19 +491,19 @@
   - [x] One-way tiles (platform tops)
 
 ### 5.3 Level 1: Awakening (Tutorial)
-- [ ] Create `scenes/levels/level_01_awakening.tscn`
-- [ ] Design goals:
-  - [ ] Teach basic movement (run, jump)
-  - [ ] Introduce Light Shards (3-5 easy ones)
-  - [ ] First checkpoint
-  - [ ] Simple gap jumps, no enemies
-  - [ ] One hidden Echo Crystal (requires exploration)
-  - [ ] Estimated length: 30-60 seconds
-- [ ] Layout tasks:
-  - [ ] Starting chamber with visual cues
-  - [ ] Progressive gap sizes (small → medium)
-  - [ ] Height variation introduction
-  - [ ] Clear path to exit
+- [x] Create `scenes/levels/level_01_awakening.tscn`
+- [x] Design goals:
+  - [x] Teach basic movement (run, jump)
+  - [x] Introduce Light Shards (3-5 easy ones)
+  - [x] First checkpoint
+  - [x] Simple gap jumps, no enemies
+  - [x] One hidden Echo Crystal (requires exploration)
+  - [x] Estimated length: 30-60 seconds
+- [x] Layout tasks:
+  - [x] Starting chamber with visual cues
+  - [x] Progressive gap sizes (small → medium)
+  - [x] Height variation introduction
+  - [x] Clear path to exit
 
 ### 5.4 Level 2: Fractured Paths
 - [ ] Create `scenes/levels/level_02_fractured_paths.tscn`
