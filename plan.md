@@ -119,12 +119,12 @@
   - [x] Method: `transition_to(state_name: String) -> void`
   - [x] Call `physics_update()` in `_physics_process()`
 
-- [ ] Create `scripts/components/health_component.gd` - Reusable health logic
-  - [ ] Signal: `health_changed(current: int, max: int)`
-  - [ ] Signal: `died`
-  - [ ] Export: `max_health: int = 1`
-  - [ ] Method: `take_damage(amount: int = 1) -> void`
-  - [ ] Method: `heal(amount: int) -> void`
+- [x] Create `scripts/components/health_component.gd` - Reusable health logic
+  - [x] Signal: `health_changed(current: int, max: int)`
+  - [x] Signal: `died`
+  - [x] Export: `max_health: int = 1`
+  - [x] Method: `take_damage(amount: int = 1) -> void`
+  - [x] Method: `heal(amount: int) -> void`
 
 - [ ] Create `scripts/components/hitbox_component.gd` - Damage dealer (Area2D)
   - [ ] Export: `damage: int = 1`
