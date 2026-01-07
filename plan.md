@@ -101,7 +101,7 @@
 - [x] Register all autoloads in Project Settings → Autoload
 
 ### 1.4 Base Classes
-- [ ] Create `scripts/classes/state.gd` - FSM state base class
+- [x] Create `scripts/classes/state.gd` - FSM state base class
   ```gdscript
   class_name State extends Node
   var state_machine: StateMachine
