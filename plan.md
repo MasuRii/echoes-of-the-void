@@ -589,7 +589,7 @@
 
 - [ ] Create light sources:
   - [x] Player subtle glow (PointLight2D, white, low energy)
-  - [ ] Collectible lights (Echo Crystals, Shards)
+  - [x] Collectible lights (Echo Crystals, Shards)
   - [ ] Checkpoint activation lights
   - [ ] Ambient level lighting (strategic PointLight2D placement)
   - [ ] Hazard warning lights (red tint for danger zones)
