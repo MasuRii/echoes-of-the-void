@@ -627,22 +627,22 @@
 ## Phase 7: Audio & Juice (Days 13-14)
 
 ### 7.1 Sound Effects
-- [ ] Create/source SFX and place in `assets/audio/sfx/`:
-  - [ ] `jump.wav` - Whoosh on jump
-  - [ ] `double_jump.wav` - Echo/reverb jump
-  - [ ] `land.wav` - Soft thud
-  - [ ] `wall_slide.wav` - Friction/scrape (looping)
-  - [ ] `wall_jump.wav` - Kick-off sound
-  - [ ] `footstep_01.wav`, `footstep_02.wav` - Subtle steps
-  - [ ] `death.wav` - Dissolve/shatter
-  - [ ] `respawn.wav` - Reformation
-  - [ ] `shard_collect.wav` - Light chime
-  - [ ] `crystal_collect.wav` - Grand chime/chord
-  - [ ] `checkpoint.wav` - Activation tone
-  - [ ] `enemy_death.wav` - Shadow disperse
-  - [ ] `platform_crumble.wav` - Stone breaking
-  - [ ] `menu_select.wav` - UI blip
-  - [ ] `menu_confirm.wav` - UI confirm
+- [x] Create/source SFX and place in `assets/audio/sfx/`:
+  - [x] `jump.wav` - Whoosh on jump
+  - [x] `double_jump.wav` - Echo/reverb jump
+  - [x] `land.wav` - Soft thud
+  - [x] `wall_slide.wav` - Friction/scrape (looping)
+  - [x] `wall_jump.wav` - Kick-off sound
+  - [x] `footstep_01.wav`, `footstep_02.wav` - Subtle steps
+  - [x] `death.wav` - Dissolve/shatter
+  - [x] `respawn.wav` - Reformation
+  - [x] `shard_collect.wav` - Light chime
+  - [x] `crystal_collect.wav` - Grand chime/chord
+  - [x] `checkpoint.wav` - Activation tone
+  - [x] `enemy_death.wav` - Shadow disperse
+  - [x] `platform_crumble.wav` - Stone breaking
+  - [x] `menu_select.wav` - UI blip
+  - [x] `menu_confirm.wav` - UI confirm
 
 ### 7.2 Music
 - [ ] Create/source music tracks for `assets/audio/music/`:
