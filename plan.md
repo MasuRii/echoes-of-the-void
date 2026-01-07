@@ -1053,7 +1053,7 @@ Instead of manually painting tiles, we will:
   - [x] Semi-transparent visual to distinguish from solid
 
 #### 9.2 Create Level Data Definition System
-- [ ] Create `scripts/data/level_layouts.gd` with level geometry data
+- [x] Create `scripts/data/level_layouts.gd` with level geometry data
   ```gdscript
   # Example structure for each level
   const LEVEL_01_LAYOUT = {
@@ -1070,11 +1070,11 @@ Instead of manually painting tiles, we will:
       ]
   }
   ```
-- [ ] Define LEVEL_01_LAYOUT with platforms supporting all collectible positions
-- [ ] Define LEVEL_02_LAYOUT with vertical sections and wall-jump areas
-- [ ] Define LEVEL_03_LAYOUT with double-jump gaps
-- [ ] Define LEVEL_04_LAYOUT with complex multi-path sections
-- [ ] Define LEVEL_05_LAYOUT with grand finale vertical climb
+- [x] Define LEVEL_01_LAYOUT with platforms supporting all collectible positions
+- [x] Define LEVEL_02_LAYOUT with vertical sections and wall-jump areas
+- [x] Define LEVEL_03_LAYOUT with double-jump gaps
+- [x] Define LEVEL_04_LAYOUT with complex multi-path sections
+- [x] Define LEVEL_05_LAYOUT with grand finale vertical climb
 
 #### 9.3 Integrate Generator with Level Base
 - [ ] Modify `scenes/levels/level_base.gd`:
