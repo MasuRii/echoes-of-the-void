@@ -602,11 +602,11 @@
   - [x] Size variation (slight shrink over time)
 
 ### 6.4 Screen Effects
-- [ ] Create `scenes/effects/screen_effects.tscn`:
-  - [ ] Vignette overlay (subtle darkness at edges)
-  - [ ] CRT/scanline optional filter (togglable)
-  - [ ] Death fade to black
-  - [ ] Level transition fade
+- [x] Create `scenes/effects/screen_effects.tscn`:
+  - [x] Vignette overlay (subtle darkness at edges)
+  - [x] CRT/scanline optional filter (togglable)
+  - [x] Death fade to black
+  - [x] Level transition fade
 
 ### 6.5 Animation Polish
 - [ ] Player animations:
