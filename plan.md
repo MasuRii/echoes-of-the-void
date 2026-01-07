@@ -47,7 +47,7 @@
   - [x] Set stretch mode to `canvas_items`, aspect `expand`
   - [x] Configure 2D physics layers: `player`, `enemy`, `platform`, `hazard`, `collectible`
   - [x] Set default clear color to pure black `#000000`
-- [ ] Create folder structure (see File Structure section below)
+- [x] Create folder structure (see File Structure section below)
 - [x] Set up `.gitignore` for Godot project
 - [x] Create initial `project.godot` configuration
 
