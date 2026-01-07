@@ -87,10 +87,15 @@ func restart_level() -> void:
 	change_state(GameState.PLAYING)
 
 
-func load_level(level_path: String) -> void:
-	"""Load a new level by path."""
+func load_level(level_path: String, with_transition: bool = true) -> void:
+	"""Load a new level by path with optional fade transition."""
 	if level_path.is_empty():
 		push_warning("GameManager: Cannot load empty level path")
+		return
+	
+	# Validate scene exists before attempting to load
+	if not ResourceLoader.exists(level_path):
+		push_error("GameManager: Level scene does not exist: %s" % level_path)
 		return
 	
 	change_state(GameState.TRANSITIONING)
@@ -98,6 +103,13 @@ func load_level(level_path: String) -> void:
 	# Reset level-specific tracking
 	collected_shards = 0
 	total_shards = 0
+	
+	# Perform transition animation if enabled
+	if with_transition:
+		await _perform_fade_transition(0.3)  # Fade out
+	
+	# Clean up any lingering references from previous level
+	_cleanup_previous_level()
 	
 	var error := get_tree().change_scene_to_file(level_path)
 	if error != OK:
@@ -109,7 +121,70 @@ func load_level(level_path: String) -> void:
 	
 	# Wait a frame then set to playing
 	await get_tree().process_frame
+	
+	# Fade in after level loads
+	if with_transition:
+		await _perform_fade_in(0.3)
+	
 	change_state(GameState.PLAYING)
+
+
+func _cleanup_previous_level() -> void:
+	"""Clean up references and state from the previous level."""
+	# Clear any lingering crystal references for the new level
+	# Note: We don't clear collected_crystals as those are persistent across levels
+	pass
+
+
+func _perform_fade_transition(duration: float) -> void:
+	"""Perform a fade to black transition."""
+	var fade_layer := CanvasLayer.new()
+	fade_layer.layer = 100  # Render on top of everything
+	fade_layer.name = "TransitionFade"
+	get_tree().root.add_child(fade_layer)
+	
+	var fade_rect := ColorRect.new()
+	fade_rect.color = Color.BLACK
+	fade_rect.modulate.a = 0.0
+	fade_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	fade_layer.add_child(fade_rect)
+	
+	# Fade out (transparent to black)
+	var tween := create_tween()
+	tween.tween_property(fade_rect, "modulate:a", 1.0, duration)
+	await tween.finished
+	
+	# Store reference to remove after fade in
+	set_meta("_transition_layer", fade_layer)
+
+
+func _perform_fade_in(duration: float) -> void:
+	"""Perform a fade in from black transition."""
+	var fade_layer: CanvasLayer = get_meta("_transition_layer", null)
+	if fade_layer == null:
+		# No transition layer exists, create one already at black
+		fade_layer = CanvasLayer.new()
+		fade_layer.layer = 100
+		fade_layer.name = "TransitionFade"
+		get_tree().root.add_child(fade_layer)
+		
+		var fade_rect := ColorRect.new()
+		fade_rect.color = Color.BLACK
+		fade_rect.modulate.a = 1.0
+		fade_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+		fade_layer.add_child(fade_rect)
+	
+	var fade_rect: ColorRect = fade_layer.get_child(0) as ColorRect
+	if fade_rect:
+		# Fade in (black to transparent)
+		var tween := create_tween()
+		tween.tween_property(fade_rect, "modulate:a", 0.0, duration)
+		await tween.finished
+	
+	# Clean up
+	fade_layer.queue_free()
+	if has_meta("_transition_layer"):
+		remove_meta("_transition_layer")
 
 
 func _on_player_died() -> void:

@@ -145,6 +145,13 @@ func _on_next_level_pressed() -> void:
 		# No next level - shouldn't happen if button is visible
 		return
 	
+	# Validate next level path exists before attempting to load
+	if not ResourceLoader.exists(_next_level_path):
+		push_error("LevelComplete: Next level scene does not exist: %s" % _next_level_path)
+		# Fall back to level select or main menu
+		_on_level_select_pressed()
+		return
+	
 	# Small delay to hear the confirm sound
 	await get_tree().create_timer(0.1).timeout
 	

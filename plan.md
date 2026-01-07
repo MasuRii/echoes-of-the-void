@@ -1153,14 +1153,14 @@ Instead of manually painting tiles, we will:
   - [x] Toggle with F1 key in debug builds
 
 #### 10.2 Level Transition Flow Fixes
-- [ ] Fix GameManager.load_level():
-  - [ ] Add scene existence validation before loading
-  - [ ] Add transition animation (fade to black)
-  - [ ] Proper cleanup of previous level
-- [ ] Fix level_complete.gd "Next Level" button:
-  - [ ] Verify next_level path is valid
-  - [ ] Handle last level (show game complete instead)
-- [ ] Create transition test script that auto-walks through all levels
+- [x] Fix GameManager.load_level():
+  - [x] Add scene existence validation before loading
+  - [x] Add transition animation (fade to black)
+  - [x] Proper cleanup of previous level
+- [x] Fix level_complete.gd "Next Level" button:
+  - [x] Verify next_level path is valid
+  - [x] Handle last level (show game complete instead)
+- [x] Create transition test script that auto-walks through all levels
 
 #### 10.3 Checkpoint System Implementation
 - [ ] Verify checkpoint.gd `_on_body_entered` implementation
