@@ -331,13 +331,13 @@
   - [x] Kill player on body_entered
   - [x] Particle effect (dark mist rising)
 
-- [ ] Create `scenes/hazards/laser_beam.tscn`
-  - [ ] Toggleable hazard (on/off timing)
-  - [ ] RayCast2D for instant hit detection
-  - [ ] Visual: Bright white line with glow
-  - [ ] Export: `on_duration: float = 2.0`
-  - [ ] Export: `off_duration: float = 1.5`
-  - [ ] Warning flicker before activating
+- [x] Create `scenes/hazards/laser_beam.tscn`
+  - [x] Toggleable hazard (on/off timing)
+  - [x] RayCast2D for instant hit detection
+  - [x] Visual: Bright white line with glow
+  - [x] Export: `on_duration: float = 2.0`
+  - [x] Export: `off_duration: float = 1.5`
+  - [x] Warning flicker before activating
 
 ---
 
