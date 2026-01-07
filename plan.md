@@ -645,12 +645,12 @@
   - [x] `menu_confirm.wav` - UI confirm
 
 ### 7.2 Music
-- [ ] Create/source music tracks for `assets/audio/music/`:
-  - [ ] `main_menu.ogg` - Atmospheric, mysterious
-  - [ ] `level_ambience.ogg` - Subtle, tense background
-  - [ ] `level_intense.ogg` - For challenging sections (optional)
-  - [ ] `victory.ogg` - Level complete jingle (short)
-  - [ ] `game_complete.ogg` - Ending theme
+- [x] Create/source music tracks for `assets/audio/music/`:
+  - [x] `main_menu.wav` - Atmospheric, mysterious
+  - [x] `level_ambience.wav` - Subtle, tense background
+  - [x] `level_intense.wav` - For challenging sections (optional)
+  - [x] `victory.wav` - Level complete jingle (short)
+  - [x] `game_complete.wav` - Ending theme
 
 ### 7.3 Screen Shake
 - [x] Create `scripts/components/screen_shake.gd`:
@@ -836,9 +836,9 @@ echoes-of-the-void/
 ├── assets/
 │   ├── audio/
 │   │   ├── music/
-│   │   │   ├── main_menu.ogg
-│   │   │   ├── level_ambience.ogg
-│   │   │   └── victory.ogg
+│   │   │   ├── main_menu.wav
+│   │   │   ├── level_ambience.wav
+│   │   │   └── victory.wav
 │   │   └── sfx/
 │   │       ├── jump.wav
 │   │       ├── death.wav
