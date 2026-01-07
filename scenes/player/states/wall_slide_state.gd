@@ -8,13 +8,20 @@ extends "res://scripts/classes/state.gd"
 func enter() -> void:
 	# Set wall sliding flag
 	actor.is_wall_sliding = true
-	# TODO: Play wall slide animation when available
-	# actor.animation_player.play("wall_slide")
+	# Play wall slide animation
+	actor.animation_player.play("wall_slide")
+	# Adjust sprite rotation based on wall direction (lean into the wall)
+	var wall_dir: int = actor.get_wall_direction()
+	# Flip the rotation direction based on which wall we're sliding on
+	# Positive rotation leans right (for left wall), negative leans left (for right wall)
+	actor.get_node("Sprite2D").rotation = 0.1 * wall_dir
 	# TODO: Play wall slide particles
 
 
 func exit() -> void:
 	actor.is_wall_sliding = false
+	# Reset sprite rotation when exiting wall slide
+	actor.get_node("Sprite2D").rotation = 0.0
 
 
 func physics_update(_delta: float) -> void:

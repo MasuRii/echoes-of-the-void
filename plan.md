@@ -614,7 +614,7 @@
   - [x] Run cycle (4-6 frames)
   - [x] Jump anticipation and apex
   - [x] Fall (arms up? dramatic pose)
-  - [ ] Wall slide (pressed against wall)
+  - [x] Wall slide (pressed against wall)
   - [ ] Double jump spin
 
 - [ ] Enemy animations:
