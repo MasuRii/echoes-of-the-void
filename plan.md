@@ -618,7 +618,7 @@
   - [x] Double jump spin
 
 - [ ] Enemy animations:
-  - [ ] Shadow Crawler walk cycle
+  - [x] Shadow Crawler walk cycle
   - [ ] Mirror Guard idle stance
   - [ ] Pulse Orb pulsing glow
 

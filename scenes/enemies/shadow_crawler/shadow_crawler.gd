@@ -24,6 +24,10 @@ func _ready() -> void:
 		ledge_detector.enabled = true
 	if wall_detector != null:
 		wall_detector.enabled = true
+	
+	# Start with idle animation
+	if animation_player != null:
+		animation_player.play("idle")
 
 
 func _physics_process(delta: float) -> void:
@@ -37,6 +41,13 @@ func _physics_process(delta: float) -> void:
 	# Only patrol when on the floor
 	if is_on_floor():
 		_patrol()
+		# Play walk animation while moving
+		if animation_player != null and animation_player.current_animation != "walk":
+			animation_player.play("walk")
+	else:
+		# Play idle when in the air (falling)
+		if animation_player != null and animation_player.current_animation != "idle":
+			animation_player.play("idle")
 	
 	move_and_slide()
 
