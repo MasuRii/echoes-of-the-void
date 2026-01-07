@@ -1039,18 +1039,18 @@ Instead of manually painting tiles, we will:
 > **Approach:** 100% code-based, no manual editor work
 
 #### 9.1 Create Platform Generator System
-- [ ] Create `scripts/systems/platform_generator.gd`
-  - [ ] Static method: `create_platform(parent: Node, pos: Vector2, size: Vector2, color: Color) -> StaticBody2D`
-  - [ ] Creates StaticBody2D with CollisionShape2D (RectangleShape2D)
-  - [ ] Adds ColorRect child for visual (uses color parameter)
-  - [ ] Sets collision_layer to platform layer (4)
-  - [ ] Returns the created platform node
-- [ ] Add method: `create_wall(parent: Node, pos: Vector2, height: float, side: String) -> StaticBody2D`
-  - [ ] Creates vertical wall for wall-jumping
-  - [ ] side parameter: "left" or "right" for proper positioning
-- [ ] Add method: `create_one_way_platform(parent: Node, pos: Vector2, width: float) -> StaticBody2D`
-  - [ ] Creates platform with one_way_collision enabled
-  - [ ] Semi-transparent visual to distinguish from solid
+- [x] Create `scripts/systems/platform_generator.gd`
+  - [x] Static method: `create_platform(parent: Node, pos: Vector2, size: Vector2, color: Color) -> StaticBody2D`
+  - [x] Creates StaticBody2D with CollisionShape2D (RectangleShape2D)
+  - [x] Adds ColorRect child for visual (uses color parameter)
+  - [x] Sets collision_layer to platform layer (3)
+  - [x] Returns the created platform node
+- [x] Add method: `create_wall(parent: Node, pos: Vector2, height: float, side: String) -> StaticBody2D`
+  - [x] Creates vertical wall for wall-jumping
+  - [x] side parameter: "left" or "right" for proper positioning
+- [x] Add method: `create_one_way_platform(parent: Node, pos: Vector2, width: float) -> StaticBody2D`
+  - [x] Creates platform with one_way_collision enabled
+  - [x] Semi-transparent visual to distinguish from solid
 
 #### 9.2 Create Level Data Definition System
 - [ ] Create `scripts/data/level_layouts.gd` with level geometry data
