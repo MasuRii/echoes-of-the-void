@@ -368,19 +368,19 @@
   - [x] Export: `respawn_time: float = 3.0`
 
 ### 4.3 Moving Platform
-- [ ] Create `scenes/platforms/moving_platform.tscn`
-- [ ] Node structure:
-  - [ ] AnimatableBody2D (root) - For proper player carrying
-  - [ ] Sprite2D
-  - [ ] CollisionShape2D
-  - [ ] Path follow setup with Marker2D points
+- [x] Create `scenes/platforms/moving_platform.tscn`
+- [x] Node structure:
+  - [x] AnimatableBody2D (root) - For proper player carrying
+  - [x] Sprite2D
+  - [x] CollisionShape2D
+  - [x] Path follow setup with Marker2D points
 
-- [ ] Create `scenes/platforms/moving_platform.gd`:
-  - [ ] Export: `speed: float = 100.0`
-  - [ ] Export: `wait_time: float = 0.5` (pause at endpoints)
-  - [ ] Export: `path_points: Array[Vector2]`
-  - [ ] Use `move_and_collide()` or tween between points
-  - [ ] Set `sync_to_physics = true` for smooth player riding
+- [x] Create `scenes/platforms/moving_platform.gd`:
+  - [x] Export: `speed: float = 100.0`
+  - [x] Export: `wait_time: float = 0.5` (pause at endpoints)
+  - [x] Export: `path_points: Array[Vector2]`
+  - [x] Use `move_and_collide()` or tween between points
+  - [x] Set `sync_to_physics = true` for smooth player riding
 
 ### 4.4 One-Way Platform
 - [ ] Create `scenes/platforms/one_way_platform.tscn`
