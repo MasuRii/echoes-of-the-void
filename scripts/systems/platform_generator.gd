@@ -187,6 +187,9 @@ static func create_one_way_platform(
 	platform.name = "GeneratedOneWay_%d" % parent.get_child_count()
 	platform.position = pos
 	
+	# Add to group for identification
+	platform.add_to_group("one_way_platforms")
+	
 	# Set collision layer to platform layer (layer 3)
 	platform.collision_layer = 0
 	platform.set_collision_layer_value(COLLISION_LAYER_PLATFORM, true)
@@ -209,9 +212,8 @@ static func create_one_way_platform(
 	collision_shape.one_way_collision_margin = 4.0
 	platform.add_child(collision_shape)
 	
-	# Create bordered visual (semi-transparent to indicate one-way)
-	# Use dashed/lighter border for one-way platforms
-	var visual := _create_bordered_visual(size, COLOR_ONE_WAY_PLATFORM, BORDER_ENABLED)
+	# Create dashed visual to indicate one-way (distinguishable from solid platforms)
+	var visual := _create_one_way_visual(size)
 	visual.position = Vector2.ZERO
 	platform.add_child(visual)
 	
@@ -219,6 +221,58 @@ static func create_one_way_platform(
 	parent.add_child(platform)
 	
 	return platform
+
+
+## Creates a dashed visual for one-way platforms to distinguish from solid platforms.
+## Returns a Control node containing the dashed line pattern.
+static func _create_one_way_visual(size: Vector2) -> Control:
+	var container := Control.new()
+	container.name = "Visual"
+	container.custom_minimum_size = size
+	container.size = size
+	
+	# Constants for dashed appearance
+	const DASH_WIDTH: float = 12.0
+	const DASH_GAP: float = 8.0
+	const DASH_COLOR := Color(1.0, 1.0, 1.0, 0.9)  # Bright white dashes
+	const BG_COLOR := Color(0.7, 0.9, 1.0, 0.3)  # Cyan-tinted semi-transparent background
+	
+	# Background (very subtle fill)
+	var background := ColorRect.new()
+	background.name = "Background"
+	background.size = size
+	background.color = BG_COLOR
+	background.position = Vector2.ZERO
+	container.add_child(background)
+	
+	# Create dashed top line pattern
+	var dash_x: float = 2.0
+	var dash_index: int = 0
+	
+	while dash_x < size.x - 2.0:
+		var dash_width: float = minf(DASH_WIDTH, size.x - dash_x - 2.0)
+		if dash_width < 4.0:
+			break
+		
+		var dash := ColorRect.new()
+		dash.name = "Dash_%d" % dash_index
+		dash.size = Vector2(dash_width, 3.0)
+		dash.color = DASH_COLOR
+		dash.position = Vector2(dash_x, 0.0)
+		container.add_child(dash)
+		
+		dash_x += DASH_WIDTH + DASH_GAP
+		dash_index += 1
+	
+	# Subtle bottom edge indicator
+	var bottom := ColorRect.new()
+	bottom.name = "BottomEdge"
+	bottom.size = Vector2(size.x, 1.0)
+	bottom.color = Color(1.0, 1.0, 1.0, 0.4)
+	bottom.position = Vector2(0, size.y - 1.0)
+	container.add_child(bottom)
+	
+	return container
 
 
 ## Creates a hazard-styled platform (visual only - no damage).

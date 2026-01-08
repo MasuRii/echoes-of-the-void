@@ -1292,10 +1292,10 @@ Instead of manually painting tiles, we will:
 - [x] Add platform position reset on level restart
 
 #### 13.3 One-Way Platform Verification
-- [ ] Verify one_way_collision setting in generator
-- [ ] Test player passes through from below
-- [ ] Test player lands from above
-- [ ] Verify visual distinction
+- [x] Verify one_way_collision setting in generator
+- [x] Test player passes through from below
+- [x] Test player lands from above
+- [x] Verify visual distinction (dashed pattern + cyan tint)
 
 #### 13.4 Phase Platform Fixes
 - [ ] Verify phase_platform.gd timer logic
