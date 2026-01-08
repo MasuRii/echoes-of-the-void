@@ -1279,11 +1279,11 @@ Instead of manually painting tiles, we will:
 > **Approach:** Code verification and fixes
 
 #### 13.1 Crumbling Platform Fixes
-- [ ] Verify crumbling_platform.gd detection
-- [ ] Fix Timer connections for crumble/respawn
-- [ ] Add shake animation before crumble
-- [ ] Test collision disable/enable cycle
-- [ ] Add placeholder crumble visual (scale/fade)
+- [x] Verify crumbling_platform.gd detection
+- [x] Fix Timer connections for crumble/respawn
+- [x] Add shake animation before crumble
+- [x] Test collision disable/enable cycle
+- [x] Add placeholder crumble visual (scale/fade)
 
 #### 13.2 Moving Platform Fixes
 - [ ] Verify moving_platform.gd path following
@@ -1381,7 +1381,7 @@ Instead of manually painting tiles, we will:
 | ISS-005 | Checkpoint system untested | OPEN | 🟠 HIGH | 10 |
 | ISS-006 | Save/load system untested | OPEN | 🟠 HIGH | 10 |
 | ISS-007 | Enemy/hazard behavior untested | ✅ FIXED | - | 12 |
-| ISS-008 | Platform mechanics untested | OPEN | 🟡 MEDIUM | 13 |
+| ISS-008 | Platform mechanics untested | IN PROGRESS | 🟡 MEDIUM | 13 |
 | ISS-009 | Audio system untested | OPEN | 🟢 LOW | 14 |
 
 ---
