@@ -1298,11 +1298,11 @@ Instead of manually painting tiles, we will:
 - [x] Verify visual distinction (dashed pattern + cyan tint)
 
 #### 13.4 Phase Platform Fixes
-- [ ] Verify phase_platform.gd timer logic
-- [ ] Fix collision toggle
-- [ ] Add fade animation before disappear
-- [ ] Test phase_offset synchronization
-- [ ] Add audio cue on phase change
+- [x] Verify phase_platform.gd timer logic
+- [x] Fix collision toggle
+- [x] Add fade animation before disappear
+- [x] Test phase_offset synchronization
+- [x] Add audio cue on phase change
 
 ---
 
@@ -1381,7 +1381,7 @@ Instead of manually painting tiles, we will:
 | ISS-005 | Checkpoint system untested | OPEN | 🟠 HIGH | 10 |
 | ISS-006 | Save/load system untested | OPEN | 🟠 HIGH | 10 |
 | ISS-007 | Enemy/hazard behavior untested | ✅ FIXED | - | 12 |
-| ISS-008 | Platform mechanics untested | IN PROGRESS | 🟡 MEDIUM | 13 |
+| ISS-008 | Platform mechanics untested | ✅ FIXED | - | 13 |
 | ISS-009 | Audio system untested | OPEN | 🟢 LOW | 14 |
 
 ---
