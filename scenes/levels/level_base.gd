@@ -492,6 +492,9 @@ func _on_level_exit_body_entered(body: Node2D) -> void:
 
 func _complete_level() -> void:
 	"""Handle level completion. Show level complete screen and play victory music."""
+	# Save progress to SaveManager
+	_save_level_progress()
+	
 	# Play victory music
 	_play_victory_music()
 	
@@ -499,6 +502,28 @@ func _complete_level() -> void:
 	var level_complete_scene: PackedScene = preload("res://scenes/ui/level_complete.tscn")
 	var level_complete: Control = level_complete_scene.instantiate()
 	add_child(level_complete)
+
+
+func _save_level_progress() -> void:
+	"""Save level completion progress to SaveManager."""
+	var save_manager := get_node_or_null("/root/SaveManager")
+	if save_manager == null:
+		push_warning("LevelBase: SaveManager not found, progress not saved")
+		return
+	
+	var level_path: String = scene_file_path
+	
+	# Save best shards count (only if better than previous best)
+	save_manager.save_best_shards(level_path, _shards_collected)
+	print("LevelBase: Saved shards %d for %s" % [_shards_collected, level_path])
+	
+	# Unlock next level if it exists
+	if not next_level.is_empty():
+		save_manager.unlock_level(next_level)
+		print("LevelBase: Unlocked next level: %s" % next_level)
+	
+	# Clear checkpoint for this level since it's now completed
+	save_manager.clear_checkpoint(level_path)
 
 
 ## Returns the current shard collection count.

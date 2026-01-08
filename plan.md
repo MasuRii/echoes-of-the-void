@@ -7,6 +7,7 @@
 > 
 > **Phases 1-9:** ✅ Complete (scenes, scripts, procedural geometry system)
 > **Phases 10-16:** ✅ Complete (verification, testing, debug tools, unified debug manager)
+> **Phase 17:** ✅ Complete (bug fixes - level completion save logic)
 >
 > **⚡ All fixes are 100% code-based - NO manual Godot Editor work required**
 
@@ -1430,6 +1431,33 @@ Instead of manually painting tiles, we will:
 | ISS-007 | Enemy/hazard behavior untested | ✅ FIXED | - | 12 |
 | ISS-008 | Platform mechanics untested | ✅ FIXED | - | 13 |
 | ISS-009 | Audio system untested | ✅ FIXED | - | 14 |
+| ISS-010 | Level completion not saving progress | ✅ FIXED | HIGH | 17 |
+
+---
+
+### Phase 17: Bug Fixes & Polish
+
+> **Priority:** 🟠 HIGH - Critical functionality fixes
+> **Status:** ✅ COMPLETE
+> **Approach:** Bug fixes discovered during codebase review
+
+#### 17.1 Level Completion Save Logic (ISS-010)
+- [x] Fix `_complete_level()` in level_base.gd to save progress
+  - [x] Save best shards count to SaveManager when level completes
+  - [x] Unlock next level in SaveManager when level completes
+  - [x] Clear checkpoint state for completed level (fresh start on replay)
+  - [x] Add debug logging for save operations
+
+**Bug Description:** When a player completed a level, the game was not:
+1. Saving the shard count as "best shards" for the level
+2. Unlocking the next level in the save file
+
+**Impact:** Level Select would not show newly unlocked levels, and player progress (shard counts) was not persisted. Players would have to re-complete levels to progress.
+
+**Fix Applied:** Added `_save_level_progress()` method to `level_base.gd` that:
+- Calls `save_manager.save_best_shards()` to record shard count
+- Calls `save_manager.unlock_level()` to unlock next level
+- Calls `save_manager.clear_checkpoint()` to reset checkpoint for completed level
 
 ---
 
