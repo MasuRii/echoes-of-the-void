@@ -22,6 +22,11 @@ func physics_update(_delta: float) -> void:
 	
 	# Check if we landed
 	if actor.is_on_floor():
+		# Play landing sound
+		var audio_manager := actor.get_node_or_null("/root/AudioManager")
+		if audio_manager:
+			audio_manager.play_sfx("land")
+		
 		# Trigger landing shake based on fall velocity
 		if actor.screen_shake and actor.screen_shake.has_method("shake_landing"):
 			actor.screen_shake.shake_landing(_fall_velocity)

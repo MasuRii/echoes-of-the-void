@@ -51,8 +51,13 @@ var _camera_target_offset_x: float = 0.0  # For smooth camera lookahead
 @onready var camera: Camera2D = $Camera2D
 @onready var screen_shake: Node = $Camera2D/ScreenShake
 
+# Cached reference to AudioManager for sound playback
+var _audio_manager: Node = null
+
 
 func _ready() -> void:
+	# Get AudioManager reference
+	_audio_manager = get_node_or_null("/root/AudioManager")
 	# Store initial position as first checkpoint
 	last_checkpoint = global_position
 	
@@ -214,6 +219,10 @@ func jump() -> void:
 	velocity.y = JUMP_VELOCITY
 	coyote_timer.stop()
 	jump_buffer_timer.stop()
+	
+	# Play jump sound
+	if _audio_manager:
+		_audio_manager.play_sfx("jump")
 
 
 ## Performs a double jump (weaker than regular jump).
@@ -221,6 +230,10 @@ func double_jump() -> void:
 	if can_double_jump:
 		velocity.y = DOUBLE_JUMP_VELOCITY
 		can_double_jump = false
+		
+		# Play double jump sound
+		if _audio_manager:
+			_audio_manager.play_sfx("double_jump")
 		
 		# Play double jump spin animation
 		animation_player.play("double_jump")
@@ -255,6 +268,10 @@ func wall_jump() -> void:
 	
 	is_wall_sliding = false
 	wall_jump_cooldown.start()
+	
+	# Play wall jump sound
+	if _audio_manager:
+		_audio_manager.play_sfx("wall_jump")
 	
 	# Spawn echo ghost on wall jump activation
 	spawn_echo_ghost()
@@ -291,6 +308,10 @@ func respawn() -> void:
 	if health_component != null:
 		health_component.reset_health()
 	
+	# Play respawn sound
+	if _audio_manager:
+		_audio_manager.play_sfx("respawn")
+	
 	print("Player: Respawned at (%.0f, %.0f)" % [last_checkpoint.x, last_checkpoint.y])
 	Events.player_respawned.emit()
 
@@ -304,6 +325,10 @@ func set_last_checkpoint(pos: Vector2) -> void:
 
 ## Called when the player dies - transitions to death state.
 func die() -> void:
+	# Play death sound
+	if _audio_manager:
+		_audio_manager.play_sfx("death")
+	
 	# Trigger hitstop for impact
 	var game_manager := get_node_or_null("/root/GameManager")
 	if game_manager and game_manager.has_method("hitstop"):

@@ -134,9 +134,14 @@ func _activate(player: Node2D) -> void:
 	# Save checkpoint to SaveManager for persistence
 	_save_checkpoint_state(spawn_position)
 	
-	# Play activation sound
+	# Play activation sound - use local player if available, otherwise fallback to AudioManager
 	if audio_player and audio_player.stream:
 		audio_player.play()
+	else:
+		# Fallback to AudioManager for centralized sound
+		var audio_manager := get_node_or_null("/root/AudioManager")
+		if audio_manager:
+			audio_manager.play_sfx("checkpoint")
 	
 	# Play activation animation
 	_play_activation_animation()

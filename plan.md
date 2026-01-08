@@ -1323,10 +1323,10 @@ Instead of manually painting tiles, we will:
   - [x] Log warning for missing audio
 
 #### 14.2 Sound Effect Connections
-- [ ] Verify player.gd calls AudioManager.play_sfx()
-- [ ] Verify collectible scripts play sounds
-- [ ] Verify checkpoint activation sound
-- [ ] Verify menu button sounds
+- [x] Verify player.gd calls AudioManager.play_sfx()
+- [x] Verify collectible scripts play sounds
+- [x] Verify checkpoint activation sound
+- [x] Verify menu button sounds
 
 #### 14.3 Music System Verification
 - [ ] Verify main_menu.gd starts music

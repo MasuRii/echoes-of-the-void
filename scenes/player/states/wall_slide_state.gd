@@ -7,6 +7,9 @@ extends "res://scripts/classes/state.gd"
 # Reference to active wall slide particles
 var _wall_slide_particles: GPUParticles2D = null
 
+# Reference to looping wall slide audio player
+var _wall_slide_audio: AudioStreamPlayer = null
+
 
 func enter() -> void:
 	# Set wall sliding flag
@@ -20,6 +23,8 @@ func enter() -> void:
 	actor.get_node("Sprite2D").rotation = 0.1 * wall_dir
 	# Spawn wall slide particles (sparks fly away from wall)
 	_spawn_wall_slide_particles(wall_dir)
+	# Start wall slide looping sound
+	_start_wall_slide_audio()
 
 
 func exit() -> void:
@@ -28,6 +33,8 @@ func exit() -> void:
 	actor.get_node("Sprite2D").rotation = 0.0
 	# Stop and cleanup wall slide particles
 	_cleanup_wall_slide_particles()
+	# Stop wall slide audio
+	_stop_wall_slide_audio()
 
 
 func physics_update(_delta: float) -> void:
@@ -86,3 +93,32 @@ func _cleanup_wall_slide_particles() -> void:
 	if _wall_slide_particles and is_instance_valid(_wall_slide_particles):
 		_wall_slide_particles.stop_and_cleanup()
 		_wall_slide_particles = null
+
+
+## Starts looping wall slide audio.
+func _start_wall_slide_audio() -> void:
+	var audio_manager := actor.get_node_or_null("/root/AudioManager")
+	if audio_manager == null:
+		return
+	
+	# Create a dedicated player for looping wall slide sound
+	_wall_slide_audio = AudioStreamPlayer.new()
+	var stream: AudioStream = audio_manager._get_sfx_stream("wall_slide")
+	if stream == null:
+		_wall_slide_audio.queue_free()
+		_wall_slide_audio = null
+		return
+	
+	_wall_slide_audio.stream = stream
+	_wall_slide_audio.bus = "SFX"
+	_wall_slide_audio.volume_db = -3.0  # Slightly quieter for looping
+	actor.add_child(_wall_slide_audio)
+	_wall_slide_audio.play()
+
+
+## Stops looping wall slide audio.
+func _stop_wall_slide_audio() -> void:
+	if _wall_slide_audio and is_instance_valid(_wall_slide_audio):
+		_wall_slide_audio.stop()
+		_wall_slide_audio.queue_free()
+		_wall_slide_audio = null
