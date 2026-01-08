@@ -34,6 +34,12 @@ signal level_exit_triggered
 ## Number of echo crystals in this level (typically 1-3).
 @export_range(0, 3) var crystal_count: int = 1
 
+@export_group("Audio")
+## Music track to play during this level (from assets/audio/music/).
+@export var level_music: String = "level_ambience"
+## Fade duration for music transitions in seconds.
+@export var music_fade_duration: float = 1.5
+
 @export_group("Camera Limits")
 ## Enable camera bounds for this level.
 @export var use_camera_limits: bool = true
@@ -62,6 +68,9 @@ var _generated_geometry: Node2D = null
 
 # Lighting system references
 var _lighting_data: Dictionary = {}
+
+# Audio manager reference
+var _audio_manager: Node = null
 
 # Cached node references
 @onready var player_spawn: Marker2D = $PlayerSpawn
@@ -381,6 +390,9 @@ func _initialize_game_state() -> void:
 		game_manager.total_shards = total_shards
 		game_manager.collected_shards = 0
 		game_manager.change_state(game_manager.GameState.PLAYING)
+	
+	# Start level music
+	_start_level_music()
 
 
 func _get_events() -> Node:
@@ -391,6 +403,36 @@ func _get_events() -> Node:
 func _get_game_manager() -> Node:
 	"""Get the GameManager autoload safely."""
 	return get_node_or_null("/root/GameManager")
+
+
+func _get_audio_manager() -> Node:
+	"""Get the AudioManager autoload safely."""
+	if _audio_manager == null:
+		_audio_manager = get_node_or_null("/root/AudioManager")
+	return _audio_manager
+
+
+func _start_level_music() -> void:
+	"""Start playing level music with crossfade from any previous track."""
+	var audio_mgr := _get_audio_manager()
+	if audio_mgr == null:
+		return
+	
+	if level_music.is_empty():
+		return
+	
+	# Play level music with configured fade duration
+	audio_mgr.play_music(level_music, music_fade_duration)
+
+
+func _play_victory_music() -> void:
+	"""Play victory jingle when level is completed."""
+	var audio_mgr := _get_audio_manager()
+	if audio_mgr == null:
+		return
+	
+	# Play victory music with short fade
+	audio_mgr.play_music("victory", 0.5)
 
 
 func _on_shard_collected(count: int, _total: int) -> void:
@@ -449,7 +491,10 @@ func _on_level_exit_body_entered(body: Node2D) -> void:
 
 
 func _complete_level() -> void:
-	"""Handle level completion. Show level complete screen."""
+	"""Handle level completion. Show level complete screen and play victory music."""
+	# Play victory music
+	_play_victory_music()
+	
 	# Show level complete screen
 	var level_complete_scene: PackedScene = preload("res://scenes/ui/level_complete.tscn")
 	var level_complete: Control = level_complete_scene.instantiate()
