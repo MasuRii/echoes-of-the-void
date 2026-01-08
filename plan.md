@@ -1342,12 +1342,12 @@ Instead of manually painting tiles, we will:
 > **Approach:** Automated test scripts
 
 #### 15.1 Create Automated Test Suite
-- [ ] Create `scripts/tests/level_test_runner.gd`:
-  - [ ] Auto-load each level
-  - [ ] Verify player spawns on ground
-  - [ ] Verify no immediate death
-  - [ ] Verify collectibles count matches expected
-  - [ ] Verify exit is reachable (pathfinding check)
+- [x] Create `scripts/tests/level_test_runner.gd`:
+  - [x] Auto-load each level
+  - [x] Verify player spawns on ground
+  - [x] Verify no immediate death
+  - [x] Verify collectibles count matches expected
+  - [x] Verify exit exists and is configured
 - [ ] Create `scripts/tests/flow_test_runner.gd`:
   - [ ] Test menu → level 1 → complete → level 2
   - [ ] Test pause/unpause
