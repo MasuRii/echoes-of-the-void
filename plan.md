@@ -1286,10 +1286,10 @@ Instead of manually painting tiles, we will:
 - [x] Add placeholder crumble visual (scale/fade)
 
 #### 13.2 Moving Platform Fixes
-- [ ] Verify moving_platform.gd path following
-- [ ] Fix player carrying (AnimatableBody2D sync_to_physics)
-- [ ] Test with simple 2-point path
-- [ ] Add platform position reset on level restart
+- [x] Verify moving_platform.gd path following
+- [x] Fix player carrying (AnimatableBody2D sync_to_physics)
+- [x] Test with simple 2-point path
+- [x] Add platform position reset on level restart
 
 #### 13.3 One-Way Platform Verification
 - [ ] Verify one_way_collision setting in generator

@@ -57,6 +57,7 @@ func _ready() -> void:
 	_setup_collision_layers()
 	_setup_one_way()
 	_setup_timer()
+	_setup_visual()
 	
 	# Enable sync_to_physics for smooth player riding
 	sync_to_physics = true
@@ -100,6 +101,44 @@ func _setup_timer() -> void:
 	wait_timer.one_shot = true
 	wait_timer.wait_time = wait_time
 	wait_timer.timeout.connect(_on_wait_timer_timeout)
+
+
+## Sets up placeholder visual if no texture/visual exists.
+func _setup_visual() -> void:
+	# Check if we already have a Visual ColorRect
+	var visual: ColorRect = get_node_or_null("Visual")
+	if visual != null:
+		return  # Visual already exists
+	
+	# Check if Sprite2D has a texture
+	if sprite and sprite.texture != null:
+		return  # Sprite has a valid texture
+	
+	# Create programmatic placeholder visual
+	var platform_color := Color(0.5, 0.75, 0.9, 1.0)  # Light blue
+	var border_color := Color(0.7, 0.9, 1.0, 1.0)  # Brighter border
+	var inner_color := Color(0.4, 0.65, 0.8, 1.0)  # Darker inner
+	
+	# Get collision shape size for visual sizing
+	var shape_size := Vector2(64, 16)  # Default
+	if collision_shape and collision_shape.shape is RectangleShape2D:
+		shape_size = collision_shape.shape.size
+	
+	# Create main visual container
+	visual = ColorRect.new()
+	visual.name = "Visual"
+	visual.position = -shape_size / 2.0
+	visual.size = shape_size
+	visual.color = border_color
+	add_child(visual)
+	
+	# Create inner visual for depth effect
+	var inner := ColorRect.new()
+	inner.name = "Inner"
+	inner.position = Vector2(2, 2)
+	inner.size = shape_size - Vector2(4, 4)
+	inner.color = inner_color
+	visual.add_child(inner)
 
 
 ## Converts relative path points to absolute world positions.
@@ -223,3 +262,45 @@ func teleport_to_waypoint(index: int) -> void:
 	if index >= 0 and index < path_points.size():
 		_current_waypoint_index = index
 		global_position = path_points[index]
+
+
+## Resets the platform to its initial state (for level restarts).
+func reset_position() -> void:
+	# Stop waiting if applicable
+	_is_waiting = false
+	wait_timer.stop()
+	
+	# Reset waypoint tracking
+	_current_waypoint_index = 0
+	_moving_forward = true
+	
+	# Teleport back to starting position
+	global_position = _start_position
+	
+	# Re-convert path points since they were made absolute
+	# We need to recalculate based on the stored start position
+	_reconvert_path_to_absolute()
+	
+	# Reactivate if it was auto-start
+	if auto_start and not start_paused:
+		_is_active = true
+
+
+## Reconverts path points back to absolute positions from start position.
+## Used after reset when we need to restore the original path.
+func _reconvert_path_to_absolute() -> void:
+	# First convert back to relative (subtract old start position which is current absolute)
+	# Since path_points are already absolute from the first conversion,
+	# we need to calculate relative offsets from the first waypoint
+	if path_points.is_empty():
+		return
+	
+	var first_point: Vector2 = path_points[0]
+	var relative_offsets: Array[Vector2] = []
+	
+	for point in path_points:
+		relative_offsets.append(point - first_point)
+	
+	# Now apply to the start position
+	for i in range(relative_offsets.size()):
+		path_points[i] = _start_position + relative_offsets[i]

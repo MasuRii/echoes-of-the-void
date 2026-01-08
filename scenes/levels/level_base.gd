@@ -405,8 +405,27 @@ func _on_crystal_collected(crystal_id: String) -> void:
 
 
 func _on_player_died() -> void:
-	"""Handle player death. Override for custom behavior."""
-	pass
+	"""Handle player death. Reset dynamic platforms for fair respawn."""
+	_reset_moving_platforms()
+
+
+## Resets all moving platforms to their initial positions.
+func _reset_moving_platforms() -> void:
+	"""Reset moving platforms to start positions for player respawn."""
+	# Check platforms container
+	if platforms == null:
+		return
+	
+	for platform in platforms.get_children():
+		if platform.is_in_group("moving_platforms"):
+			if platform.has_method("reset_position"):
+				platform.reset_position()
+	
+	# Also check for any moving platforms that might be elsewhere in the tree
+	var all_moving := get_tree().get_nodes_in_group("moving_platforms")
+	for platform in all_moving:
+		if platform.has_method("reset_position"):
+			platform.reset_position()
 
 
 func _on_level_exit_body_entered(body: Node2D) -> void:
@@ -492,3 +511,38 @@ func set_camera_limits(left: int, right: int, top: int, bottom: int) -> void:
 	camera_limit_top = top
 	camera_limit_bottom = bottom
 	_configure_camera()
+
+
+## Resets all dynamic elements in the level (for level restart).
+func reset_level_elements() -> void:
+	"""Reset all dynamic elements to their initial state."""
+	# Reset moving platforms
+	_reset_moving_platforms()
+	
+	# Reset phase platforms if they have reset methods
+	_reset_phase_platforms()
+	
+	# Reset crumbling platforms if they have reset methods
+	_reset_crumbling_platforms()
+
+
+## Resets all phase platforms to their initial state.
+func _reset_phase_platforms() -> void:
+	"""Reset phase platforms to their initial state."""
+	if platforms == null:
+		return
+	
+	for platform in platforms.get_children():
+		if platform.is_in_group("phase_platforms") and platform.has_method("reset"):
+			platform.reset()
+
+
+## Resets all crumbling platforms to their initial state.
+func _reset_crumbling_platforms() -> void:
+	"""Reset crumbling platforms to their initial state."""
+	if platforms == null:
+		return
+	
+	for platform in platforms.get_children():
+		if platform.is_in_group("crumbling_platforms") and platform.has_method("reset"):
+			platform.reset()
