@@ -6,7 +6,7 @@
 > All 5 levels will generate platforms, walls, and one-way platforms at runtime.
 > 
 > **Phases 1-9:** ✅ Complete (scenes, scripts, procedural geometry system)
-> **Phases 10-15:** ✅ Complete (verification, testing, debug tools)
+> **Phases 10-16:** ✅ Complete (verification, testing, debug tools, unified debug manager)
 >
 > **⚡ All fixes are 100% code-based - NO manual Godot Editor work required**
 
@@ -1380,6 +1380,43 @@ Instead of manually painting tiles, we will:
 
 ---
 
+### Phase 16: Unified Debug Manager
+
+> **Priority:** 🟢 Quality of Life - Aids manual testing
+> **Status:** ✅ COMPLETE
+> **Approach:** Single debug overlay with all tools accessible
+
+#### 16.1 Debug Manager Implementation
+- [x] Create `scripts/debug/debug_manager.gd`:
+  - [x] Unified debug overlay toggled with F12
+  - [x] Display all debug key bindings with descriptions
+  - [x] Show real-time game state (GameManager state, player position, shards, FPS)
+  - [x] Display Final Testing Checklist (Phase 8.8) for reference
+  - [x] Quick actions when overlay is open:
+    - [x] 1-5 keys to load levels directly
+    - [x] M to return to main menu
+    - [x] G to give 999 shards (test HUD)
+    - [x] I to toggle invincibility
+    - [x] T to teleport player to mouse position
+  - [x] Registered as autoload (DebugManager)
+  - [x] Only active in debug builds (OS.is_debug_build())
+
+#### Debug Tools Summary (All Keys)
+| Key | Tool | Description |
+|-----|------|-------------|
+| F1 | Spawn Debugger | Visualize spawn point and checkpoints |
+| F2 | Save Debugger | Print save file contents |
+| Shift+F2 | Reset Save | Clear all save data |
+| F3 | Level Visualizer | Show bounds, collectibles, enemies |
+| Shift+F3 | Cycle Mode | Switch visualizer display mode |
+| F4 | Level Test Runner | Automated level verification |
+| F5 | Flow Test Runner | Game flow tests |
+| F6 | Performance Profiler | FPS, frame time, memory |
+| Shift+F6 | Reset Stats | Clear profiler statistics |
+| F12 | Debug Manager | Toggle unified overlay |
+
+---
+
 ### Issue Tracking
 
 | Issue ID | Description | Status | Priority | Phase |
@@ -1466,5 +1503,5 @@ Level (Node2D)
 
 ---
 
-*Last Updated: January 2026*
+*Last Updated: January 8, 2026*
 *Engine: Godot 4.5.1*
