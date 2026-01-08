@@ -88,6 +88,13 @@ layout_mode = 2
 modulate = Color(0.3, 0.3, 0.3, 0.5)
 stretch_mode = 5
 
+[node name="TimeLabel" type="Label" parent="PanelContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 24
+text = "Time: 00:00.00"
+horizontal_alignment = 1
+
 [node name="Spacer2" type="Control" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2

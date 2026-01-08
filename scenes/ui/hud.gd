@@ -16,6 +16,7 @@ const ACTIVE_ALPHA: float = 1.0
 @onready var shard_label: Label = $MarginContainer/VBoxContainer/ShardContainer/ShardLabel
 @onready var crystal_container: HBoxContainer = $MarginContainer/VBoxContainer/CrystalContainer
 @onready var crystal_slots: Array[TextureRect] = []
+@onready var timer_label: Label = $MarginContainer/TimerLabel
 
 # State tracking
 var _fade_timer: float = 0.0
@@ -24,6 +25,10 @@ var _current_shards: int = 0
 var _total_shards: int = 0
 var _collected_crystals: int = 0
 var _total_crystals: int = 3
+
+# Speedrun timer state
+var _level_time: float = 0.0
+var _timer_running: bool = false
 
 # Cached autoload references
 var _events: Node = null
@@ -44,6 +49,11 @@ func _ready() -> void:
 	# Initialize display
 	_update_shard_display()
 	_update_crystal_display()
+	_update_timer_display()
+	
+	# Start the speedrun timer
+	_timer_running = true
+	_level_time = 0.0
 	
 	# Start fully visible
 	if hud_container:
@@ -52,6 +62,11 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	# Update speedrun timer
+	if _timer_running:
+		_level_time += delta
+		_update_timer_display()
+	
 	# Handle fade to idle state
 	if _fade_timer > 0:
 		_fade_timer -= delta
@@ -118,6 +133,12 @@ func _update_crystal_display() -> void:
 				slot.modulate = Color(0.3, 0.3, 0.3, 0.5)
 
 
+func _update_timer_display() -> void:
+	"""Update the speedrun timer text."""
+	if timer_label:
+		timer_label.text = _format_time(_level_time)
+
+
 func _show_hud() -> void:
 	"""Make HUD fully visible and reset fade timer."""
 	_fade_timer = FADE_DELAY
@@ -149,8 +170,11 @@ func reset() -> void:
 	_current_shards = 0
 	_total_shards = 0
 	_collected_crystals = 0
+	_level_time = 0.0
+	_timer_running = true
 	_update_shard_display()
 	_update_crystal_display()
+	_update_timer_display()
 	_show_hud()
 
 
@@ -159,3 +183,33 @@ func set_shard_counts(current: int, total: int) -> void:
 	_current_shards = current
 	_total_shards = total
 	_update_shard_display()
+
+
+## Format time in seconds to MM:SS.ms format for speedrun display.
+func _format_time(time_seconds: float) -> String:
+	var minutes: int = int(time_seconds) / 60
+	var seconds: int = int(time_seconds) % 60
+	var milliseconds: int = int((time_seconds - int(time_seconds)) * 100)
+	return "%02d:%02d.%02d" % [minutes, seconds, milliseconds]
+
+
+## Get the current level time in seconds.
+func get_level_time() -> float:
+	return _level_time
+
+
+## Stop the timer (called when level completes).
+func stop_timer() -> void:
+	_timer_running = false
+
+
+## Start or resume the timer.
+func start_timer() -> void:
+	_timer_running = true
+
+
+## Reset the timer to zero.
+func reset_timer() -> void:
+	_level_time = 0.0
+	_timer_running = true
+	_update_timer_display()

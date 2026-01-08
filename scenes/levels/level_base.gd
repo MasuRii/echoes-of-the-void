@@ -492,6 +492,13 @@ func _on_level_exit_body_entered(body: Node2D) -> void:
 
 func _complete_level() -> void:
 	"""Handle level completion. Show level complete screen and play victory music."""
+	# Stop the HUD timer and get final time
+	var completion_time: float = 0.0
+	if _hud and _hud.has_method("stop_timer"):
+		_hud.stop_timer()
+	if _hud and _hud.has_method("get_level_time"):
+		completion_time = _hud.get_level_time()
+	
 	# Save progress to SaveManager
 	_save_level_progress()
 	
@@ -501,6 +508,11 @@ func _complete_level() -> void:
 	# Show level complete screen
 	var level_complete_scene: PackedScene = preload("res://scenes/ui/level_complete.tscn")
 	var level_complete: Control = level_complete_scene.instantiate()
+	
+	# Pass completion time to the level complete screen
+	if level_complete.has_method("set_completion_time"):
+		level_complete.set_completion_time(completion_time)
+	
 	add_child(level_complete)
 
 

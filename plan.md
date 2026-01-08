@@ -8,6 +8,7 @@
 > **Phases 1-9:** ✅ Complete (scenes, scripts, procedural geometry system)
 > **Phases 10-16:** ✅ Complete (verification, testing, debug tools, unified debug manager)
 > **Phase 17:** ✅ Complete (bug fixes - level completion save logic)
+> **Phase 18:** ✅ Complete (speedrun timer for HUD and level complete screen)
 >
 > **⚡ All fixes are 100% code-based - NO manual Godot Editor work required**
 
@@ -738,7 +739,7 @@
 - [x] Create `scenes/ui/hud.tscn`:
   - [x] Shard counter (icon + "X / Y")
   - [x] Crystal indicators (3 slots, filled when collected)
-  - [ ] (Optional) Timer for speedrunning
+  - [x] Timer for speedrunning
   - [x] Positioned in corners, minimal intrusion
   - [x] Fade in/out on activity
 
@@ -748,7 +749,7 @@
   - [x] Stats:
     - [x] Shards collected: X / Y
     - [x] Crystals found: X / 3
-    - [ ] Time (optional)
+    - [x] Time (completion time display)
   - [x] Buttons:
     - [x] "Next Level" → Load next
     - [x] "Replay" → Restart current
@@ -1461,6 +1462,44 @@ Instead of manually painting tiles, we will:
 
 ---
 
+### Phase 18: Speedrun Timer Feature
+
+> **Priority:** 🟢 Enhancement - Quality of life for speedrunners
+> **Status:** ✅ COMPLETE
+> **Approach:** Timer display in HUD and level complete screen
+
+#### 18.1 HUD Speedrun Timer
+- [x] Add timer state tracking to `hud.gd`:
+  - [x] Track `_level_time: float` for elapsed time
+  - [x] Track `_timer_running: bool` for pause control
+  - [x] Update timer display every frame in `_process()`
+- [x] Add `TimerLabel` node to `hud.tscn`:
+  - [x] Positioned in top-right corner
+  - [x] Format: MM:SS.ms (e.g., "01:23.45")
+  - [x] Subtle color to not distract from gameplay
+- [x] Timer control methods:
+  - [x] `get_level_time()` - Return current elapsed time
+  - [x] `stop_timer()` - Stop on level complete
+  - [x] `start_timer()` - Start/resume timer
+  - [x] `reset_timer()` - Reset to zero for level restart
+
+#### 18.2 Level Complete Time Display
+- [x] Modify `level_base.gd` to pass time to level complete screen:
+  - [x] Stop HUD timer when level completes
+  - [x] Get final time from HUD
+  - [x] Pass time to level_complete screen via `set_completion_time()`
+- [x] Add time display to `level_complete.gd`:
+  - [x] Add `_completion_time: float` state variable
+  - [x] Add `time_label` node reference
+  - [x] Add `set_completion_time()` method
+  - [x] Add `_format_time()` helper for MM:SS.ms format
+  - [x] Display time in stats section
+- [x] Add `TimeLabel` node to `level_complete.tscn`:
+  - [x] Positioned below crystal indicators
+  - [x] Shows "Time: MM:SS.ms" format
+
+---
+
 ### Technical Architecture: Procedural Generation
 
 #### Platform Generator Flow
@@ -1531,5 +1570,5 @@ Level (Node2D)
 
 ---
 
-*Last Updated: January 8, 2026*
+*Last Updated: January 8, 2026 - Phase 18 (Speedrun Timer)*
 *Engine: Godot 4.5.1*

@@ -19,11 +19,13 @@ var _shards_collected: int = 0
 var _total_shards: int = 0
 var _crystals_collected: int = 0
 var _total_crystals: int = 3
+var _completion_time: float = 0.0
 
 # Node references
 @onready var header_label: Label = $PanelContainer/VBoxContainer/HeaderLabel
 @onready var shards_label: Label = $PanelContainer/VBoxContainer/StatsContainer/ShardsLabel
 @onready var crystals_label: Label = $PanelContainer/VBoxContainer/StatsContainer/CrystalsLabel
+@onready var time_label: Label = $PanelContainer/VBoxContainer/StatsContainer/TimeLabel
 @onready var crystal_indicators: HBoxContainer = $PanelContainer/VBoxContainer/StatsContainer/CrystalIndicators
 @onready var next_level_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/NextLevelButton
 @onready var replay_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/ReplayButton
@@ -116,6 +118,10 @@ func _update_display() -> void:
 	# Crystals
 	if crystals_label:
 		crystals_label.text = "Crystals: %d / %d" % [_crystals_collected, _total_crystals]
+	
+	# Time
+	if time_label:
+		time_label.text = "Time: %s" % _format_time(_completion_time)
 	
 	# Update crystal indicators
 	_update_crystal_indicators()
@@ -241,3 +247,18 @@ func set_completion_data(level_name: String, next_level: String,
 	
 	# Update button visibility
 	next_level_button.visible = not _next_level_path.is_empty()
+
+
+## Set the completion time for display.
+func set_completion_time(time_seconds: float) -> void:
+	_completion_time = time_seconds
+	if time_label:
+		time_label.text = "Time: %s" % _format_time(_completion_time)
+
+
+## Format time in seconds to MM:SS.ms format for speedrun display.
+func _format_time(time_seconds: float) -> String:
+	var minutes: int = int(time_seconds) / 60
+	var seconds: int = int(time_seconds) % 60
+	var milliseconds: int = int((time_seconds - int(time_seconds)) * 100)
+	return "%02d:%02d.%02d" % [minutes, seconds, milliseconds]
