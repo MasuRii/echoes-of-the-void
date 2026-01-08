@@ -1259,12 +1259,16 @@ Instead of manually painting tiles, we will:
 - [x] Fixed all enemy HitboxComponent collision_mask to 1 (ShadowCrawler, MirrorGuard, PulseOrb)
 
 #### 12.4 Hazard Fixes
-- [ ] Verify spike.gd instant kill
-- [ ] Verify void_pit.gd detection
-- [ ] Fix laser_beam.gd toggle timing:
-  - [ ] Verify Timer connections
-  - [ ] Add visual warning before activation
-  - [ ] Test on/off cycle
+- [x] Verify spike.gd instant kill
+  - [x] Fixed damage assignment logic (simplified direct property access)
+  - [x] Added placeholder visual with red warning color
+- [x] Verify void_pit.gd detection
+  - [x] Confirmed body_entered signal works with player group check
+  - [x] Verified damage dealing via HealthComponent with fallback
+- [x] Fix laser_beam.gd toggle timing:
+  - [x] Verify Timer connections (uses _process with _state_timer - works correctly)
+  - [x] Add visual warning before activation (flicker effect in WARNING state)
+  - [x] Test on/off cycle (state machine: OFF → WARNING → ON → OFF)
 
 ---
 
@@ -1376,7 +1380,7 @@ Instead of manually painting tiles, we will:
 | ISS-004 | Game flow untested | OPEN | 🟠 HIGH | 10 |
 | ISS-005 | Checkpoint system untested | OPEN | 🟠 HIGH | 10 |
 | ISS-006 | Save/load system untested | OPEN | 🟠 HIGH | 10 |
-| ISS-007 | Enemy behavior untested | OPEN | 🟡 MEDIUM | 12 |
+| ISS-007 | Enemy/hazard behavior untested | ✅ FIXED | - | 12 |
 | ISS-008 | Platform mechanics untested | OPEN | 🟡 MEDIUM | 13 |
 | ISS-009 | Audio system untested | OPEN | 🟢 LOW | 14 |
 
