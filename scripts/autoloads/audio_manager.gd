@@ -2,6 +2,15 @@ extends Node
 ## Centralized audio control for Echoes of the Void.
 ## Register as autoload "AudioManager" in Project Settings > Autoload.
 ## NOTE: Should be registered AFTER SaveManager autoload.
+##
+## Features:
+## - Preloaded SFX caching for performance
+## - Procedural audio fallback when .wav files are missing
+## - Music crossfade support
+## - Volume control with save/load persistence
+
+# Preload the AudioFallback class for procedural sound generation
+const AudioFallbackClass := preload("res://scripts/systems/audio_fallback.gd")
 
 # Audio bus names
 const BUS_MASTER: StringName = &"Master"
@@ -10,6 +19,12 @@ const BUS_SFX: StringName = &"SFX"
 
 # Preloaded SFX resources (add paths as sounds are created)
 var _sfx_cache: Dictionary = {}
+
+# Audio fallback system for procedural sound generation
+var _audio_fallback: RefCounted = null
+
+# Track which sounds are using fallback (for logging purposes)
+var _fallback_sounds: Dictionary = {}
 
 # Current music player reference
 var _music_player: AudioStreamPlayer = null
@@ -23,6 +38,9 @@ func _ready() -> void:
 	# Run even when game is paused so audio can respond to pause/unpause
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
+	# Initialize the audio fallback system for procedural sounds
+	_audio_fallback = AudioFallbackClass.new()
+	
 	# Create the music player node
 	_music_player = AudioStreamPlayer.new()
 	_music_player.name = "MusicPlayer"
@@ -35,7 +53,7 @@ func _ready() -> void:
 	# Apply saved volume settings
 	_apply_saved_settings()
 	
-	# Preload common SFX
+	# Preload common SFX (with fallback for missing files)
 	_preload_sfx()
 
 
@@ -90,10 +108,12 @@ func _preload_sfx() -> void:
 # ============================================================
 
 func play_sfx(sound_name: String, volume_db: float = 0.0) -> void:
-	"""Play a sound effect by name."""
+	"""Play a sound effect by name. Uses procedural fallback if file missing."""
 	var stream: AudioStream = _get_sfx_stream(sound_name)
 	if stream == null:
-		push_warning("AudioManager: SFX not found: %s" % sound_name)
+		# Only warn if fallback also failed (no definition exists)
+		if OS.is_debug_build():
+			push_warning("AudioManager: No SFX or fallback found for: %s" % sound_name)
 		return
 	
 	# Create a one-shot player for this sound
@@ -109,10 +129,12 @@ func play_sfx(sound_name: String, volume_db: float = 0.0) -> void:
 
 
 func play_sfx_2d(sound_name: String, position: Vector2, volume_db: float = 0.0) -> AudioStreamPlayer2D:
-	"""Play a positional sound effect. Returns the player for further control."""
+	"""Play a positional sound effect. Uses procedural fallback if file missing."""
 	var stream: AudioStream = _get_sfx_stream(sound_name)
 	if stream == null:
-		push_warning("AudioManager: SFX not found: %s" % sound_name)
+		# Only warn if fallback also failed
+		if OS.is_debug_build():
+			push_warning("AudioManager: No SFX or fallback found for: %s" % sound_name)
 		return null
 	
 	# Create a one-shot 2D player for this sound
@@ -131,7 +153,8 @@ func play_sfx_2d(sound_name: String, position: Vector2, volume_db: float = 0.0) 
 
 
 func _get_sfx_stream(sound_name: String) -> AudioStream:
-	"""Get an SFX stream from cache or load it."""
+	"""Get an SFX stream from cache, load from file, or generate fallback."""
+	# Check cache first
 	if _sfx_cache.has(sound_name):
 		return _sfx_cache[sound_name]
 	
@@ -148,7 +171,29 @@ func _get_sfx_stream(sound_name: String) -> AudioStream:
 			_sfx_cache[sound_name] = stream
 			return stream
 	
-	return null
+	# File not found - use procedural fallback
+	return _get_fallback_sound(sound_name)
+
+
+func _get_fallback_sound(sound_name: String) -> AudioStream:
+	"""Get or generate a procedural fallback sound when file is missing."""
+	if _audio_fallback == null:
+		return null
+	
+	# Log first time we use fallback for this sound
+	if not _fallback_sounds.has(sound_name):
+		_fallback_sounds[sound_name] = true
+		if OS.is_debug_build():
+			push_warning("AudioManager: Using procedural fallback for missing sound '%s'" % sound_name)
+	
+	# Get or generate the fallback sound
+	var stream: AudioStream = _audio_fallback.get_sound(sound_name)
+	
+	# Cache it for future use
+	if stream != null:
+		_sfx_cache[sound_name] = stream
+	
+	return stream
 
 
 # ============================================================
@@ -322,3 +367,32 @@ func set_bus_mute(bus_name: StringName, muted: bool) -> void:
 		return
 	
 	AudioServer.set_bus_mute(bus_idx, muted)
+
+
+# ============================================================
+# Fallback System Utilities
+# ============================================================
+
+func has_fallback_sound(sound_name: String) -> bool:
+	"""Check if a procedural fallback exists for the given sound name."""
+	if _audio_fallback == null:
+		return false
+	return _audio_fallback.has_sound(sound_name)
+
+
+func is_using_fallback(sound_name: String) -> bool:
+	"""Check if a sound is currently using a procedural fallback."""
+	return _fallback_sounds.has(sound_name)
+
+
+func get_fallback_sounds_in_use() -> Array:
+	"""Get list of all sounds currently using fallback (for debugging)."""
+	return _fallback_sounds.keys()
+
+
+func clear_audio_cache() -> void:
+	"""Clear the SFX cache and fallback cache (useful for hot-reloading)."""
+	_sfx_cache.clear()
+	_fallback_sounds.clear()
+	if _audio_fallback != null:
+		_audio_fallback.clear_cache()

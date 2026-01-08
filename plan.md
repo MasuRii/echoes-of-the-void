@@ -1313,14 +1313,14 @@ Instead of manually painting tiles, we will:
 > **Approach:** Fallback sounds and verification
 
 #### 14.1 Audio Fallback System
-- [ ] Create `scripts/systems/audio_fallback.gd`:
-  - [ ] Generate simple beep/tone sounds programmatically
-  - [ ] Use as fallback when .wav files missing
-  - [ ] AudioStreamGenerator for procedural audio
-- [ ] Integrate with AudioManager:
-  - [ ] Check if sound file exists
-  - [ ] Use fallback if missing
-  - [ ] Log warning for missing audio
+- [x] Create `scripts/systems/audio_fallback.gd`:
+  - [x] Generate simple beep/tone sounds programmatically
+  - [x] Use as fallback when .wav files missing
+  - [x] AudioStreamWAV for procedural audio generation
+- [x] Integrate with AudioManager:
+  - [x] Check if sound file exists
+  - [x] Use fallback if missing
+  - [x] Log warning for missing audio
 
 #### 14.2 Sound Effect Connections
 - [ ] Verify player.gd calls AudioManager.play_sfx()
