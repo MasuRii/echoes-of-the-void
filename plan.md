@@ -1355,12 +1355,12 @@ Instead of manually painting tiles, we will:
   - [x] Test save/load cycle
 
 #### 15.2 Debug Visualization Tools
-- [ ] Create `scripts/debug/level_visualizer.gd`:
-  - [ ] Draw platform bounds
-  - [ ] Show collectible positions
-  - [ ] Show enemy patrol paths
-  - [ ] Show checkpoint coverage
-  - [ ] Toggle with F3
+- [x] Create `scripts/debug/level_visualizer.gd`:
+  - [x] Draw platform bounds
+  - [x] Show collectible positions
+  - [x] Show enemy patrol paths
+  - [x] Show checkpoint coverage
+  - [x] Toggle with F3
 
 #### 15.3 Performance Profiling
 - [ ] Add frame time logging
