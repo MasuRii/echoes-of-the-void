@@ -52,7 +52,7 @@ func physics_update(_delta: float) -> void:
 		# Only wall slide if pressing toward the wall and falling
 		if (wall_dir == -1 and input_dir < 0) or (wall_dir == 1 and input_dir > 0):
 			if actor.velocity.y > 0:
-				state_machine.transition_to("wall_slide")
+				state_machine.transition_to("wallslide")
 				return
 	
 	# Check for jump input

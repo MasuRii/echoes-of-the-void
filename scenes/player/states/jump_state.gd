@@ -20,7 +20,7 @@ func physics_update(_delta: float) -> void:
 		var wall_dir: int = actor.get_wall_direction()
 		# Only wall slide if pressing toward the wall
 		if (wall_dir == -1 and input_dir < 0) or (wall_dir == 1 and input_dir > 0):
-			state_machine.transition_to("wall_slide")
+			state_machine.transition_to("wallslide")
 			return
 	
 	# Transition to fall when no longer rising

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ccrumbling_platform1" path="res://scenes/platforms/crumbling_platform.tscn" id="8_crumbling_platform"]
 [ext_resource type="PackedScene" uid="uid://cmoving_platform1" path="res://scenes/platforms/moving_platform.tscn" id="9_moving_platform"]
 [ext_resource type="PackedScene" uid="uid://cphase_platform1" path="res://scenes/platforms/phase_platform.tscn" id="10_phase_platform"]
-[ext_resource type="PackedScene" uid="uid://dshadowcrawler01" path="res://scenes/enemies/shadow_crawler/shadow_crawler.tscn" id="11_shadow_crawler"]
+[ext_resource type="PackedScene" uid="uid://cx7j2qsmd4ypf" path="res://scenes/enemies/shadow_crawler/shadow_crawler.tscn" id="11_shadow_crawler"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(64, 96)

@@ -267,7 +267,7 @@ func _draw_platform_bounds() -> void:
 		if not child is StaticBody2D:
 			continue
 		
-		var visual: ColorRect = child.get_node_or_null("Visual")
+		var visual: Control = child.get_node_or_null("Visual")
 		if visual == null:
 			continue
 		

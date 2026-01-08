@@ -93,13 +93,13 @@ crystal_id = "level_02_crystal_1"
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="ShadowCrawler1" parent="Enemies" instance=ExtResource("6_shadow_crawler")]
-position = Vector2(512, 320)
+position = Vector2(544, 320)
 
 [node name="ShadowCrawler2" parent="Enemies" instance=ExtResource("6_shadow_crawler")]
-position = Vector2(1856, -128)
+position = Vector2(1904, -160)
 
 [node name="ShadowCrawler3" parent="Enemies" instance=ExtResource("6_shadow_crawler")]
-position = Vector2(2432, -256)
+position = Vector2(2480, -256)
 
 [node name="Platforms" type="Node2D" parent="."]
 

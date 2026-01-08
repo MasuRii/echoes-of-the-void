@@ -259,7 +259,7 @@ func _draw_platforms() -> void:
 func _draw_platform_node(platform: Node2D) -> void:
 	"""Draw a single platform node."""
 	# Try to find the visual bounds
-	var visual: ColorRect = platform.get_node_or_null("Visual")
+	var visual: Control = platform.get_node_or_null("Visual")
 	var collision: CollisionShape2D = platform.get_node_or_null("CollisionShape2D")
 	
 	var platform_pos := to_local(platform.global_position)

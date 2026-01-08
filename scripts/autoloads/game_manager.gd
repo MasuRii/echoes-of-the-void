@@ -213,6 +213,10 @@ func hitstop(duration: float = 0.05) -> void:
 	if duration <= 0.0:
 		return
 	
+	# Prevent nested hitstops from permanently freezing the game
+	if Engine.time_scale == 0.0:
+		return
+	
 	# Store original time scale (normally 1.0, but could be different)
 	var original_time_scale := Engine.time_scale
 	

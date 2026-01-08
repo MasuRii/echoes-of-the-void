@@ -60,6 +60,10 @@ var _shards_collected: int = 0
 var _crystals_collected: Array[String] = []
 var _level_completed: bool = false
 
+# Death loop detection
+var _last_respawn_time: int = 0
+var _rapid_death_count: int = 0
+
 # HUD reference
 var _hud: CanvasLayer = null
 
@@ -94,7 +98,27 @@ func _ready() -> void:
 	_count_collectibles()
 	_initialize_game_state()
 	
+	# Initialize respawn time tracker
+	_last_respawn_time = Time.get_ticks_msec()
+	
 	level_started.emit()
+
+
+func _physics_process(_delta: float) -> void:
+	"""Check for player falling out of bounds."""
+	if player == null:
+		return
+		
+	# Check if player has fallen below the level bounds
+	# Add a margin of 200 pixels below the camera limit
+	if player.global_position.y > camera_limit_bottom + 200.0:
+		# Only trigger death if not already dead to avoid spamming
+		# We check the state machine's current state name
+		var current_state = player.state_machine.current_state
+		if current_state and current_state.name.to_lower() != "death":
+			print("LevelBase: Player fell out of bounds at Y=%.0f" % player.global_position.y)
+			player.die()
+
 
 
 func _connect_events() -> void:
@@ -104,6 +128,7 @@ func _connect_events() -> void:
 		events.shard_collected.connect(_on_shard_collected)
 		events.crystal_collected.connect(_on_crystal_collected)
 		events.player_died.connect(_on_player_died)
+		events.player_respawned.connect(_on_player_respawned)
 
 
 func _setup_level() -> void:
@@ -270,8 +295,9 @@ func _validate_spawn_has_ground(spawn_pos: Vector2) -> bool:
 		if not child is StaticBody2D:
 			continue
 		
-		# Get the visual rect to determine platform bounds
-		var visual: ColorRect = child.get_node_or_null("Visual")
+		# Get the visual container to determine platform bounds
+		# Note: Visual is a Control node (not ColorRect) containing the visual elements
+		var visual: Control = child.get_node_or_null("Visual")
 		if visual == null:
 			continue
 		
@@ -446,9 +472,51 @@ func _on_crystal_collected(crystal_id: String) -> void:
 		_crystals_collected.append(crystal_id)
 
 
+func _on_player_respawned() -> void:
+	"""Handle player respawn event to track death loops."""
+	_last_respawn_time = Time.get_ticks_msec()
+
+
 func _on_player_died() -> void:
-	"""Handle player death. Reset dynamic platforms for fair respawn."""
+	"""Handle player death. Reset dynamic platforms and check for death loops."""
 	_reset_moving_platforms()
+	
+	# Check for death loop (rapid repeated deaths)
+	var current_time := Time.get_ticks_msec()
+	# If death happens within 3 seconds of the last respawn/start
+	if current_time - _last_respawn_time < 3000:
+		_rapid_death_count += 1
+	else:
+		_rapid_death_count = 1
+	
+	# If player dies 3 times quickly in succession, assume a death loop and reset
+	if _rapid_death_count >= 3:
+		print("LevelBase: Death loop detected (died %d times quickly). Resetting to start." % _rapid_death_count)
+		_reset_to_start_checkpoint()
+		_rapid_death_count = 0
+
+
+func _reset_to_start_checkpoint() -> void:
+	"""Reset the player's checkpoint to the level start position."""
+	if player == null or player_spawn == null:
+		return
+		
+	# Safety: Ensure time scale is reset in case of hitstop glitch during death loop
+	Engine.time_scale = 1.0
+		
+	# Reset player checkpoint to spawn
+	var start_pos: Vector2 = player_spawn.global_position
+	if player.has_method("set_last_checkpoint"):
+		player.set_last_checkpoint(start_pos)
+	elif "last_checkpoint" in player:
+		player.last_checkpoint = start_pos
+		
+	# Clear saved checkpoint in SaveManager so it doesn't persist
+	var save_manager := get_node_or_null("/root/SaveManager")
+	if save_manager:
+		save_manager.clear_checkpoint(scene_file_path)
+		
+	print("LevelBase: Reset checkpoint to level start at (%.0f, %.0f)" % [start_pos.x, start_pos.y])
 
 
 ## Resets all moving platforms to their initial positions.
@@ -523,7 +591,13 @@ func _complete_level() -> void:
 		var best_time: float = save_manager.get_best_time(scene_file_path)
 		level_complete.set_best_time(best_time)
 	
-	add_child(level_complete)
+	# Create a CanvasLayer to ensure the UI renders on top of everything (HUD, game world)
+	# and stays fixed to the screen regardless of camera position.
+	var ui_layer := CanvasLayer.new()
+	ui_layer.name = "LevelCompleteLayer"
+	ui_layer.layer = 100 # Ensure it's above HUD (usually layer 1)
+	add_child(ui_layer)
+	ui_layer.add_child(level_complete)
 
 
 func _save_level_progress(completion_time: float = 0.0) -> bool:

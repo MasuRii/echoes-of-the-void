@@ -11,6 +11,9 @@ extends EnemyBase
 @onready var ledge_detector: RayCast2D = $LedgeDetector
 @onready var wall_detector: RayCast2D = $WallDetector
 
+# Cooldown to prevent rapid turning (getting stuck)
+var _turn_cooldown: float = 0.0
+
 
 func _ready() -> void:
 	super._ready()
@@ -19,11 +22,19 @@ func _ready() -> void:
 	if sprite != null and sprite.flip_h:
 		facing_direction = -1
 	
-	# Ensure raycasts are enabled
+	# Ensure raycasts are enabled and have correct collision masks
 	if ledge_detector != null:
 		ledge_detector.enabled = true
+		# Make sure ledge detector can see platforms (layer 3)
+		ledge_detector.collision_mask = 0
+		ledge_detector.set_collision_mask_value(3, true)  # Layer 3 = platforms
+		# Enable hit_from_inside in case ray starts inside platform collision
+		ledge_detector.hit_from_inside = true
 	if wall_detector != null:
 		wall_detector.enabled = true
+		# Wall detector should also detect platforms
+		wall_detector.collision_mask = 0
+		wall_detector.set_collision_mask_value(3, true)  # Layer 3 = platforms
 	
 	# Initialize raycast directions based on starting facing direction
 	_update_raycast_directions()
@@ -36,6 +47,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
+	
+	# Update turn cooldown
+	if _turn_cooldown > 0.0:
+		_turn_cooldown -= delta
 	
 	# Apply gravity
 	if not is_on_floor():
@@ -57,10 +72,11 @@ func _physics_process(delta: float) -> void:
 
 ## Handles patrol movement - walking and turning at ledges/walls.
 func _patrol() -> void:
-	# Check if we should turn around
-	if _should_turn():
+	# Check if we should turn around (respecting cooldown)
+	if _turn_cooldown <= 0.0 and _should_turn():
 		flip_direction()
 		_update_raycast_directions()
+		_turn_cooldown = 0.2 # Brief delay to prevent jitter
 	
 	# Move in facing direction
 	velocity.x = facing_direction * move_speed
@@ -85,13 +101,19 @@ func _should_turn() -> bool:
 
 ## Updates raycast directions when the crawler turns.
 func _update_raycast_directions() -> void:
-	# Ledge detector should point down and slightly ahead
+	# Ledge detector starts at the crawler's origin (foot level) and points 
+	# forward and down to detect floor ahead.
+	# The target goes 16px ahead (past body edge) and 24px down (into where platform should be).
 	if ledge_detector != null:
-		ledge_detector.target_position = Vector2(facing_direction * 12.0, 20.0)
+		ledge_detector.position = Vector2.ZERO  # Start at origin (foot level)
+		ledge_detector.target_position = Vector2(facing_direction * 16.0, 24.0)
+		ledge_detector.force_raycast_update()
 	
-	# Wall detector should point forward
+	# Wall detector should point forward past the body edge
+	# Use 14.0 to detect walls slightly before the body collides
 	if wall_detector != null:
-		wall_detector.target_position = Vector2(facing_direction * 10.0, 0.0)
+		wall_detector.target_position = Vector2(facing_direction * 14.0, 0.0)
+		wall_detector.force_raycast_update()
 
 
 ## Override flip_direction to also update sprite.
