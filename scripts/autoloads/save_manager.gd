@@ -14,6 +14,7 @@ var _default_save_data: Dictionary = {
 	"save_version": CURRENT_SAVE_VERSION,
 	"collected_crystals": {},  # level_name: Array[String] of crystal_ids
 	"best_shards": {},         # level_name: int (best shard count)
+	"best_times": {},          # level_name: float (best completion time in seconds)
 	"unlocked_levels": ["res://scenes/levels/level_01_awakening.tscn"],
 	"active_checkpoints": {},  # level_path: {checkpoint_index: int, position: {x: float, y: float}}
 	"settings": {
@@ -153,6 +154,42 @@ func get_best_shards(level_name: String) -> int:
 		return 0
 	
 	return save_data["best_shards"].get(level_name, 0)
+
+
+# ============================================================
+# Best Time Tracking (Speedrun Feature)
+# ============================================================
+
+func save_best_time(level_name: String, completion_time: float) -> bool:
+	"""Save the best completion time for a level (only if better than existing).
+	Returns true if this was a new best time, false otherwise."""
+	if not save_data.has("best_times"):
+		save_data["best_times"] = {}
+	
+	var current_best: float = save_data["best_times"].get(level_name, INF)
+	if completion_time < current_best:
+		save_data["best_times"][level_name] = completion_time
+		save_game()
+		return true
+	return false
+
+
+func get_best_time(level_name: String) -> float:
+	"""Get the best completion time for a level.
+	Returns -1.0 if no time has been recorded."""
+	if not save_data.has("best_times"):
+		return -1.0
+	
+	var time: float = save_data["best_times"].get(level_name, -1.0)
+	# Handle INF from older saves
+	if time == INF:
+		return -1.0
+	return time
+
+
+func has_best_time(level_name: String) -> bool:
+	"""Check if a best time has been recorded for a level."""
+	return get_best_time(level_name) > 0.0
 
 
 # ============================================================

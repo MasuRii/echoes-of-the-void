@@ -9,6 +9,7 @@
 > **Phases 10-16:** ✅ Complete (verification, testing, debug tools, unified debug manager)
 > **Phase 17:** ✅ Complete (bug fixes - level completion save logic)
 > **Phase 18:** ✅ Complete (speedrun timer for HUD and level complete screen)
+> **Phase 19:** ✅ Complete (best time tracking and persistence for speedrunners)
 >
 > **⚡ All fixes are 100% code-based - NO manual Godot Editor work required**
 
@@ -1500,6 +1501,52 @@ Instead of manually painting tiles, we will:
 
 ---
 
+### Phase 19: Best Time Tracking for Speedrunners
+
+> **Priority:** 🟢 Enhancement - Quality of life for speedrunners
+> **Status:** ✅ COMPLETE
+> **Approach:** Save and display best completion times per level
+
+#### 19.1 SaveManager Best Time Tracking
+- [x] Add `best_times` to save data structure
+- [x] Add `save_best_time(level_name, time)` method:
+  - [x] Only save if better than existing best
+  - [x] Return true if new best, false otherwise
+- [x] Add `get_best_time(level_name)` method:
+  - [x] Return -1.0 if no time recorded
+  - [x] Handle INF from older saves gracefully
+- [x] Add `has_best_time(level_name)` helper method
+
+#### 19.2 Level Completion Time Saving
+- [x] Update `level_base.gd` `_save_level_progress()`:
+  - [x] Accept completion_time parameter
+  - [x] Call save_manager.save_best_time()
+  - [x] Track if new best time was achieved
+  - [x] Return new best status for UI feedback
+- [x] Update `_complete_level()`:
+  - [x] Pass is_new_best_time to level complete screen
+  - [x] Pass previous best time for comparison display
+
+#### 19.3 Level Complete Screen Best Time Display
+- [x] Add `_best_time` and `_is_new_best_time` state variables
+- [x] Add `BestTimeLabel` node to `level_complete.tscn`
+- [x] Add `set_is_new_best_time()` setter method
+- [x] Add `set_best_time()` setter method
+- [x] Update `_update_display()`:
+  - [x] Show "NEW BEST!" indicator when new record set
+  - [x] Green color for new best time
+  - [x] Show previous best time for comparison
+  - [x] Hide best time label if no previous best
+
+#### 19.4 Level Select Best Time Display
+- [x] Update `_create_level_panel()`:
+  - [x] Get best time from SaveManager
+  - [x] Display best time below shards (if available)
+  - [x] Teal color for time display
+- [x] Add `_format_time()` helper method
+
+---
+
 ### Technical Architecture: Procedural Generation
 
 #### Platform Generator Flow
@@ -1570,5 +1617,5 @@ Level (Node2D)
 
 ---
 
-*Last Updated: January 8, 2026 - Phase 18 (Speedrun Timer)*
+*Last Updated: January 8, 2026 - Phase 19 (Best Time Tracking)*
 *Engine: Godot 4.5.1*

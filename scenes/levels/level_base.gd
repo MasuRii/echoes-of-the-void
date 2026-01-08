@@ -499,8 +499,8 @@ func _complete_level() -> void:
 	if _hud and _hud.has_method("get_level_time"):
 		completion_time = _hud.get_level_time()
 	
-	# Save progress to SaveManager
-	_save_level_progress()
+	# Save progress to SaveManager (including completion time)
+	var is_new_best_time: bool = _save_level_progress(completion_time)
 	
 	# Play victory music
 	_play_victory_music()
@@ -513,21 +513,41 @@ func _complete_level() -> void:
 	if level_complete.has_method("set_completion_time"):
 		level_complete.set_completion_time(completion_time)
 	
+	# Pass whether this is a new best time
+	if level_complete.has_method("set_is_new_best_time"):
+		level_complete.set_is_new_best_time(is_new_best_time)
+	
+	# Pass previous best time for comparison
+	var save_manager := get_node_or_null("/root/SaveManager")
+	if save_manager and level_complete.has_method("set_best_time"):
+		var best_time: float = save_manager.get_best_time(scene_file_path)
+		level_complete.set_best_time(best_time)
+	
 	add_child(level_complete)
 
 
-func _save_level_progress() -> void:
-	"""Save level completion progress to SaveManager."""
+func _save_level_progress(completion_time: float = 0.0) -> bool:
+	"""Save level completion progress to SaveManager.
+	Returns true if a new best time was set."""
 	var save_manager := get_node_or_null("/root/SaveManager")
 	if save_manager == null:
 		push_warning("LevelBase: SaveManager not found, progress not saved")
-		return
+		return false
 	
 	var level_path: String = scene_file_path
+	var is_new_best_time: bool = false
 	
 	# Save best shards count (only if better than previous best)
 	save_manager.save_best_shards(level_path, _shards_collected)
 	print("LevelBase: Saved shards %d for %s" % [_shards_collected, level_path])
+	
+	# Save best completion time (only if better than previous best)
+	if completion_time > 0.0:
+		is_new_best_time = save_manager.save_best_time(level_path, completion_time)
+		if is_new_best_time:
+			print("LevelBase: NEW BEST TIME! %.2fs for %s" % [completion_time, level_path])
+		else:
+			print("LevelBase: Saved time %.2fs for %s (not a new best)" % [completion_time, level_path])
 	
 	# Unlock next level if it exists
 	if not next_level.is_empty():
@@ -536,6 +556,8 @@ func _save_level_progress() -> void:
 	
 	# Clear checkpoint for this level since it's now completed
 	save_manager.clear_checkpoint(level_path)
+	
+	return is_new_best_time
 
 
 ## Returns the current shard collection count.

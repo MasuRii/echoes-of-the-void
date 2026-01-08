@@ -20,12 +20,15 @@ var _total_shards: int = 0
 var _crystals_collected: int = 0
 var _total_crystals: int = 3
 var _completion_time: float = 0.0
+var _best_time: float = -1.0  # Previous best time (-1 means no previous best)
+var _is_new_best_time: bool = false
 
 # Node references
 @onready var header_label: Label = $PanelContainer/VBoxContainer/HeaderLabel
 @onready var shards_label: Label = $PanelContainer/VBoxContainer/StatsContainer/ShardsLabel
 @onready var crystals_label: Label = $PanelContainer/VBoxContainer/StatsContainer/CrystalsLabel
 @onready var time_label: Label = $PanelContainer/VBoxContainer/StatsContainer/TimeLabel
+@onready var best_time_label: Label = $PanelContainer/VBoxContainer/StatsContainer/BestTimeLabel
 @onready var crystal_indicators: HBoxContainer = $PanelContainer/VBoxContainer/StatsContainer/CrystalIndicators
 @onready var next_level_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/NextLevelButton
 @onready var replay_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/ReplayButton
@@ -119,9 +122,30 @@ func _update_display() -> void:
 	if crystals_label:
 		crystals_label.text = "Crystals: %d / %d" % [_crystals_collected, _total_crystals]
 	
-	# Time
+	# Time with new best indicator
 	if time_label:
-		time_label.text = "Time: %s" % _format_time(_completion_time)
+		if _is_new_best_time:
+			time_label.text = "Time: %s  NEW BEST!" % _format_time(_completion_time)
+			time_label.modulate = Color(0.0, 1.0, 0.5, 1.0)  # Green for new best
+		else:
+			time_label.text = "Time: %s" % _format_time(_completion_time)
+			time_label.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Normal white
+	
+	# Best time display (previous best or current best)
+	if best_time_label:
+		if _is_new_best_time and _best_time > 0.0:
+			# Show the old best that was just beaten
+			best_time_label.text = "Previous Best: %s" % _format_time(_best_time)
+			best_time_label.modulate = Color(0.7, 0.7, 0.7, 1.0)  # Dim gray
+			best_time_label.visible = true
+		elif _best_time > 0.0:
+			# Show the current best (wasn't beaten)
+			best_time_label.text = "Best: %s" % _format_time(_best_time)
+			best_time_label.modulate = Color(0.0, 1.0, 1.0, 1.0)  # Cyan
+			best_time_label.visible = true
+		else:
+			# No previous best time
+			best_time_label.visible = false
 	
 	# Update crystal indicators
 	_update_crystal_indicators()
@@ -262,3 +286,15 @@ func _format_time(time_seconds: float) -> String:
 	var seconds: int = int(time_seconds) % 60
 	var milliseconds: int = int((time_seconds - int(time_seconds)) * 100)
 	return "%02d:%02d.%02d" % [minutes, seconds, milliseconds]
+
+
+## Set whether this run achieved a new best time.
+func set_is_new_best_time(is_new_best: bool) -> void:
+	_is_new_best_time = is_new_best
+	_update_display()
+
+
+## Set the previous best time for comparison display.
+func set_best_time(best_time: float) -> void:
+	_best_time = best_time
+	_update_display()

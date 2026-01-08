@@ -132,6 +132,19 @@ func _create_level_panel(level_number: int, level_data: Dictionary) -> PanelCont
 		shards_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		stats_container.add_child(shards_label)
 		
+		# Show best time if available
+		var best_time: float = -1.0
+		if _save_manager:
+			best_time = _save_manager.get_best_time(level_data.path)
+		
+		if best_time > 0.0:
+			var time_label := Label.new()
+			time_label.text = "Best: %s" % _format_time(best_time)
+			time_label.add_theme_font_size_override("font_size", 14)
+			time_label.add_theme_color_override("font_color", Color(0.0, 0.9, 0.8, 1.0))  # Teal for time
+			time_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			stats_container.add_child(time_label)
+		
 		# Show crystal status with visual indicators
 		var crystals_hbox := HBoxContainer.new()
 		crystals_hbox.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -276,3 +289,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		_on_back_pressed()
 		get_viewport().set_input_as_handled()
+
+
+## Format time in seconds to MM:SS.ms format for speedrun display.
+func _format_time(time_seconds: float) -> String:
+	var minutes: int = int(time_seconds) / 60
+	var seconds: int = int(time_seconds) % 60
+	var milliseconds: int = int((time_seconds - int(time_seconds)) * 100)
+	return "%02d:%02d.%02d" % [minutes, seconds, milliseconds]
