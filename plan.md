@@ -1348,11 +1348,11 @@ Instead of manually painting tiles, we will:
   - [x] Verify no immediate death
   - [x] Verify collectibles count matches expected
   - [x] Verify exit exists and is configured
-- [ ] Create `scripts/tests/flow_test_runner.gd`:
-  - [ ] Test menu → level 1 → complete → level 2
-  - [ ] Test pause/unpause
-  - [ ] Test death/respawn
-  - [ ] Test save/load cycle
+- [x] Create `scripts/tests/flow_test_runner.gd`:
+  - [x] Test menu → level 1 → complete → level 2
+  - [x] Test pause/unpause
+  - [x] Test death/respawn
+  - [x] Test save/load cycle
 
 #### 15.2 Debug Visualization Tools
 - [ ] Create `scripts/debug/level_visualizer.gd`:
@@ -1377,9 +1377,9 @@ Instead of manually painting tiles, we will:
 | ISS-001 | All levels missing geometry | ✅ FIXED | - | 9 |
 | ISS-002 | Player falls through world | ✅ FIXED | - | 9 |
 | ISS-003 | Placeholder textures missing | ✅ FIXED | - | 11 |
-| ISS-004 | Game flow untested | OPEN | 🟠 HIGH | 10 |
-| ISS-005 | Checkpoint system untested | OPEN | 🟠 HIGH | 10 |
-| ISS-006 | Save/load system untested | OPEN | 🟠 HIGH | 10 |
+| ISS-004 | Game flow untested | ✅ FIXED | - | 15 |
+| ISS-005 | Checkpoint system untested | ✅ FIXED | - | 15 |
+| ISS-006 | Save/load system untested | ✅ FIXED | - | 15 |
 | ISS-007 | Enemy/hazard behavior untested | ✅ FIXED | - | 12 |
 | ISS-008 | Platform mechanics untested | ✅ FIXED | - | 13 |
 | ISS-009 | Audio system untested | ✅ FIXED | - | 14 |
